@@ -1,0 +1,2 @@
+# oyun
+Mitolojix oyun arayüzü
