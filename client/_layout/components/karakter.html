@@ -1,0 +1,9 @@
+<template name="karakter">
+  {{#if $eq user.karakter 'default'}}
+    <img src="/assets/_bilesen/avatar.svg" style="{{style}}">
+  {{else}}
+    {{#with FS.GetFile "M.FS.Karakter" (foreignField 'Karakterler' user.karakter 'gorsel')}}
+      <img src="{{url auth=false}}" style="{{../style}}">
+    {{/with}}
+  {{/if}}
+</template>

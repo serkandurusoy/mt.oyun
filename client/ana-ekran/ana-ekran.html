@@ -1,0 +1,24 @@
+<template name="anaEkran">
+  {{#unless Template.subscriptionsReady}}
+    {{> loading}}
+  {{else}}
+    <div class="container anaEkran">
+
+      {{> dugmeNav cikis=true testBitti=false anaEkran=false yardim=true ctx="anaEkran"}}
+
+      {{> karakter user=currentUser style="position: absolute; top: 117px; left: 412px; width: 200px; height: 200px"}}
+
+      <div style="position: absolute; top: 330px; left: 370px; width: 286px; font-weight: bold; font-size: 24px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{currentUser.name}} {{currentUser.lastName}}</div>
+
+      <div style="position: absolute; top: 374px; left: 370px; width: 286px; text-align: center; ">
+        {{> rutbe currentUser.puan}}
+      </div>
+
+      <a class="dugme boyTasi" style="top:470px; left: 9px" href="/boy-tasi"></a>
+      <a class="dugme muhurTasi {{#if $gt (getPublishedCount 'girilmemisHalaAcikSinav') 0}}girilmemisSinavVar{{/if}}" style="top:470px; left: 588px" href="/muhur-tasi"></a>
+      <a class="dugme ozTasi" style="top:566px; left: 9px" href="/oz-tasi"></a>
+      <a class="dugme yazitlar" style="top:565px; left: 614px" href="/yazitlar"></a>
+
+    </div>
+  {{/unless}}
+</template>

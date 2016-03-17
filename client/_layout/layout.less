@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic&subset=latin-ext");
+* {
+  font-family: 'Open Sans', sans-serif;
+  color: #57492B;
+}
+
+html, body {
+  width : 100%;
+  height : 100%;
+  min-width: 1024px;
+  min-height: 768px;
+  overflow : hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family : 'Open Sans', sans-serif;
+  position : absolute;
+  top : 0;
+  left : 0;
+  right : 0;
+  bottom : 0;
+  margin : 0;
+  padding: 0;
+  border: none;
+  background-color: #111111;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+a, [data-trigger], [data-soruIndex], button, .connectionBanner, .fullScreen, .yardimEkrani, .sinavYardim, .notFound {
+  cursor: pointer;
+  &:hover, &:active, &:focus {
+    color: #382c1c;
+  }
+}
+
+input[type="text"], input[type="password"] {
+  font-weight: bold;
+}
+
+.ara, .soruYanitla {
+  display: block;
+  position: absolute;
+  font-weight: bold;
+  text-align: center;
+  font-size: 24px;
+  padding-top: 4px;
+  width: 85px;
+  height: 46px;
+  background: transparent url('/assets/_bilesen/dugme-dikdortgen-sari.png') left top no-repeat;
+  &:hover, &:active, &:focus {
+    background: transparent url('/assets/_bilesen/dugme-dikdortgen-kirmizi.png') left top no-repeat;
+    color: #ffffff;
+  }
+}
+
+.buyukButon {
+  font-weight: bold;
+  text-align: center;
+  font-size: 24px;
+  padding-top: 4px;
+  width: 167px;
+  height: 46px;
+  background: transparent url('/assets/_bilesen/uyari-ekrani-dugme-zemini.png') left top no-repeat;
+  &:hover, &:active, &:focus {
+    color: #382c1c;
+  }
+}
+
+.sol {
+  display: block;
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: transparent url('/assets/_bilesen/dugme-yon/sola-sari.png') left top no-repeat;
+  &:hover, &:active, &:focus {
+    background: transparent url('/assets/_bilesen/dugme-yon/sola-kirmizi.png') left top no-repeat;
+  }
+}
+
+.sag {
+  display: block;
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: transparent url('/assets/_bilesen/dugme-yon/saga-sari.png') left top no-repeat;
+  &:hover, &:active, &:focus {
+    background: transparent url('/assets/_bilesen/dugme-yon/saga-kirmizi.png') left top no-repeat;
+  }
+}
+
+.yukari {
+  display: block;
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: transparent url('/assets/_bilesen/dugme-yon/yukari-sari.png') left top no-repeat;
+  &:hover, &:active, &:focus {
+    background: transparent url('/assets/_bilesen/dugme-yon/yukari-kirmizi.png') left top no-repeat;
+  }
+}
+
+.asagi {
+  display: block;
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: transparent url('/assets/_bilesen/dugme-yon/asagi-sari.png') left top no-repeat;
+  &:hover, &:active, &:focus {
+    background: transparent url('/assets/_bilesen/dugme-yon/asagi-kirmizi.png') left 4px no-repeat;
+  }
+}
+
+.container {
+  position: fixed;
+  height: 768px;
+  width: 1024px;
+  overflow: hidden;
+  //margin: auto;
+  //top: 0; left: 0; bottom: 0; right: 0;
+  top: 50%;
+  left: 50%;
+  margin: -384px 0 0 -512px;
+}
+
+.cover {
+  z-index: 1000000;
+  background-color: #111111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.superCover {
+  z-index: 1000001 !important;
+}
+
+.coverloading {
+  z-index: 1000002 !important;
+}
+
+.loading {
+  position: fixed;
+  height: 260px;
+  width: 260px;
+  overflow: hidden;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.notFound,.connectionBanner, .yetkiYok, .deviceNotOk, .fullScreen, .sinavaBasla, .sinavUyari, .sinavStatus {
+  position: fixed;
+  height: 270px;
+  width: 612px;
+  overflow: hidden;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: transparent url("/assets/_bilesen/uyari-ekrani.png") left top no-repeat;
+  padding: 80px 60px 0 60px;
+  text-align: center;
+}
+
+.sinavUyari, .sinavStatus {
+  padding: 40px !important;
+  text-align: justify !important;
+}
+
+
+.yardimEkrani, .sinavYardim {
+  position: fixed;
+  overflow: hidden;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 0;
+  padding: 40px;
+  text-align: justify;
+}
+
+.yardimEkrani {
+  height: 294px;
+  width: 636px;
+  background: transparent url("/assets/_bilesen/uyari-ekrani-636x294.png") left top no-repeat;
+}
+
+.sinavYardim {
+  padding: 20px;
+  height: 474px;
+  width: 636px;
+  background: transparent url("/assets/_bilesen/uyari-ekrani-636x474.png") left top no-repeat;
+}
+
+.toast {
+  z-index: 1000002 !important;
+  margin: 0 !important;
+  padding: 15px !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#toast-container > .toast-success, #toast-container > .toast-error {
+  background-image: none !important;
+  text-align: center;
+}
+
+.toast-message {
+  color: #ffffff !important;
+}
+
+.giris {
+  background: transparent url("/assets/giris/_main.jpg") no-repeat left top;
+}
+
+.girisResetForm {
+  background: transparent url("/assets/giris/_main.jpg") no-repeat left top;
+}
+
+.anaEkran {
+  background: transparent url("/assets/ana-ekran/_main.jpg") no-repeat left top;
+}
+
+.ozTasi {
+  background: transparent url("/assets/oz-tasi/_main.jpg") no-repeat left top;
+}
+
+.yazitlar {
+  background: transparent url("/assets/yazitlar/_main.jpg") no-repeat left top;
+}
+
+.boyTasi {
+  background: transparent url("/assets/boy-tasi/_main.jpg") no-repeat left top;
+}
+
+.muhurTasi {
+  background: transparent url("/assets/muhur-tasi/_main.jpg") no-repeat left top;
+}
+
+.muhurBilgi {
+  background: transparent url("/assets/muhur-bilgi/_main.jpg") no-repeat left top;
+}
+
+.sinavEkrani {
+  background: transparent url("/assets/sinav/_main.jpg") no-repeat left top;
+}
+
+.anaDugme {
+  position: absolute;
+  height: 46px;
+  font-weight: bold;
+  overflow: visible;
+  margin: 0 13px;
+  border: 0;
+  background: url("/assets/_bilesen/dugme-jenerik/pasif-orta.png") 12px 0 repeat ;
+  &:hover {
+    background-image: url("/assets/_bilesen/dugme-jenerik/aktif-orta.png");
+  }
+}
+
+.anaDugme::before, .anaDugme::after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  width: 13px;
+  height: 46px;
+}
+
+.anaDugme::before {
+  left: -12px;
+  background: url("/assets/_bilesen/dugme-jenerik/pasif-sol.png") 0 0 no-repeat;
+}
+
+.anaDugme:hover::before {
+  left: -12px;
+  background: url("/assets/_bilesen/dugme-jenerik/aktif-sol.png") 0 0 no-repeat;
+}
+
+.anaDugme::after {
+  right: -12px;
+  background:url("/assets/_bilesen/dugme-jenerik/pasif-sag.png") 100% 0 no-repeat;
+}
+
+.anaDugme:hover::after {
+  right: -12px;
+  background:url("/assets/_bilesen/dugme-jenerik/aktif-sag.png") 100% 0 no-repeat;
+}
+
+.yardimImg {
+  vertical-align: middle;
+  height: 20px;
+}

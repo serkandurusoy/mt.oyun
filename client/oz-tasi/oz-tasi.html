@@ -1,0 +1,40 @@
+<template name="ozTasi">
+  {{#unless Template.subscriptionsReady}}
+    {{> loading}}
+  {{else}}
+    <div class="container ozTasi">
+
+      {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="ozTasi"}}
+
+      {{> karakter user=currentUser style="position: absolute; top: 223px; left: 250px; width: 200px; height: 200px"}}
+
+      <a class="sol" style="top: 310px; left: 214px;"></a>
+      <a class="sag" style="top: 310px; left: 453px;"></a>
+
+      <div style="position: absolute; top: 470px; left: 207px; width: 286px; text-align: center; ">
+        {{> rutbe currentUser.puan}}
+      </div>
+
+      <div style="position: absolute; top: 238px; left: 490px; width: 340px; font-weight: bold; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{currentUser.name}} {{currentUser.lastName}}</div>
+
+      <hr style="position: absolute; top: 273px;left: 490px; width: 340px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+      <div style="position: absolute; top: 281px; left: 490px; width: 340px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{foreignField 'Kurumlar' currentUser.kurum 'isim'}}</div>
+
+      <hr style="position: absolute; top: 317px;left: 490px; width: 340px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+      <div style="position: absolute; top: 325px; left: 490px; width: 340px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{enumLabel currentUser.sinif}} - {{currentUser.sube}}</div>
+
+      <hr style="position: absolute; top: 361px;left: 490px; width: 340px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+      <div style="position: absolute; top: 369px; left: 490px; width: 340px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Ortalama puan: {{#with currentUser.puan}}{{this}}{{else}}0{{/with}}</div>
+
+      <hr style="position: absolute; top: 405px;left: 490px; width: 340px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+      {{#with FS.GetFile "M.FS.Muhur" sonMuhur}}
+        <img style="position: absolute; top: 425px; left: 570px;" alt="" src="{{url auth=false}}"/>
+      {{/with}}
+
+    </div>
+  {{/unless}}
+</template>

@@ -1,0 +1,35 @@
+<template name="accountsTemplate">
+  {{#if resetFlow}}
+    {{>resetForm}}
+  {{else}}
+    {{>loginForm}}
+  {{/if}}
+</template>
+
+<template name="resetForm">
+  <div class="container girisResetForm">
+    {{> dugmeNav cikis=false testBitti=false anaEkran=false yardim=true ctx="resetPassword"}}
+    <form name="resetForm" autocomplete="off">
+      <div style="position: absolute; top: 252px; left: 514px; width: 250px; font-size: 24px; font-weight: bold;">Şifre</div>
+      <div style="position: absolute; top: 358px; left: 514px; width: 250px; font-size: 24px; font-weight: bold;">Şifre Tekrar</div>
+      <input type="password" id="password" name="password" style="position: absolute; top: 296px; left: 516px; width: 274px; height: 42px;" maxlength="128"/>
+      <input type="password" id="confirm" name="confirm" style="position: absolute; top: 403px; left: 516px; width: 274px; height: 42px;" maxlength="128"/>
+      <a {{accountButtonsDisabled}} data-trigger="cancel" style="position: absolute; top: 482px; left: 650px; font-weight: bold">vazgeç</a>
+      <button {{accountButtonsDisabled}} class="anaDugme" type="submit" style="top: 470px; left: 720px;">tamam</button>
+    </form>
+  </div>
+</template>
+
+<template name="loginForm">
+  <div class="container giris">
+    {{> dugmeNav cikis=false testBitti=false anaEkran=false yardim=true ctx="login"}}
+    <form name="loginForm" autocomplete="off">
+      <div style="position: absolute; top: 252px; left: 514px; width: 250px; font-size: 24px; font-weight: bold;">Kullanıcı Adı</div>
+      <div style="position: absolute; top: 358px; left: 514px; width: 250px; font-size: 24px; font-weight: bold;">Şifre</div>
+      <input type="text" id="kullanici" name="kullanici" style="position: absolute; top: 296px; left: 516px; width: 274px; height: 42px;" maxlength="128"/>
+      <input type="password" id="password" name="password" style="position: absolute; top: 403px; left: 516px; width: 274px; height: 42px;" maxlength="128"/>
+      <a {{accountButtonsDisabled}} data-trigger="forgotPassword" style="position: absolute; top: 482px; left: 640px; font-weight: bold">unuttum</a>
+      <button {{accountButtonsDisabled}} class="anaDugme" type="submit" style="top: 470px; left: 720px;">tamam</button>
+    </form>
+  </div>
+</template>

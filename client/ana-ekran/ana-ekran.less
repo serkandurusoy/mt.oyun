@@ -1,0 +1,54 @@
+@keyframes animatedBackground {
+  from { background-image: url("/assets/ana-ekran/dugme-muhur-tasi.png") }
+  50% { background-image: url("/assets/ana-ekran/dugme-muhur-tasi-aktif.png") }
+  to { background-image: url("/assets/ana-ekran/dugme-muhur-tasi.png") }
+}
+
+.anaEkran {
+
+  .dugme {
+    display: block;
+    position: absolute;
+
+    &.boyTasi {
+      width: 430px;
+      height: 96px;
+      background: transparent url("/assets/ana-ekran/dugme-boy-tasi.png") left top no-repeat;
+      &:hover, &:active, &:focus {
+        background: transparent url("/assets/ana-ekran/dugme-boy-tasi-aktif.png") -1px top no-repeat;
+      }
+    }
+
+    &.muhurTasi {
+      width: 415px;
+      height: 95px;
+      background: transparent url("/assets/ana-ekran/dugme-muhur-tasi.png") left top no-repeat;
+      &:hover, &:active, &:focus {
+        background: transparent url("/assets/ana-ekran/dugme-muhur-tasi-aktif.png") left top no-repeat;
+      }
+      &.girilmemisSinavVar {
+        animation: animatedBackground 4s ease-in infinite;
+      }
+    }
+
+    &.ozTasi {
+      width: 402px;
+      height: 96px;
+      background: transparent url("/assets/ana-ekran/dugme-oz-tasi.png") left top no-repeat;
+      &:hover, &:active, &:focus {
+        background: transparent url("/assets/ana-ekran/dugme-oz-tasi-aktif.png") left top no-repeat;
+      }
+    }
+
+    &.yazitlar {
+      width: 389px;
+      height: 97px;
+      background: transparent url("/assets/ana-ekran/dugme-yazitlar.png") left top no-repeat;
+      &:hover, &:active, &:focus {
+        background: transparent url("/assets/ana-ekran/dugme-yazitlar-aktif.png") left top no-repeat;
+      }
+    }
+
+  }
+
+}

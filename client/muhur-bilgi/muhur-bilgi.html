@@ -1,0 +1,88 @@
+<template name="muhurBilgi">
+  {{#unless Template.subscriptionsReady}}
+    {{> loading}}
+  {{else}}
+    {{#unless sinav}}
+      {{> notFound}}
+    {{else}}
+      {{#with sinav}}
+        <div class="container muhurBilgi">
+
+          {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="muhurBilgi"}}
+
+          {{#with (foreignField 'Dersler' ders 'muhurGrubu')}}
+            {{#with FS.GetFile "M.FS.Muhur" gorsel}}
+              <img style="position: absolute; left: 204px; top: 200px" alt="" src="{{url auth=false}}"/>
+            {{/with}}
+          {{/with}}
+
+          {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' muhur 'gorsel')}}
+            <img style="position: absolute; left: 180px; top: 350px" alt="" src="{{url auth=false}}"/>
+          {{/with}}
+
+          <div style="position: absolute; left: 168px; top: 540px; width: 200px; text-align: center; font-weight: bold; font-size: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{foreignField 'Muhurler' muhur 'isim'}}</div>
+
+
+
+          <div style="position: absolute; top: 225px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{foreignField 'Dersler' ders 'isim'}}</div>
+
+          <hr style="position: absolute; top: 260px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+          <div style="position: absolute; top: 268px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{enumLabel tip}}</div>
+
+          <hr style="position: absolute; top: 304px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+          <div style="position: absolute; top: 312px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Soru: {{getLength sorular}}</div>
+
+          <hr style="position: absolute; top: 348px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+          <div style="position: absolute; top: 356px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Süre: {{sure}} dk</div>
+
+          <hr style="position: absolute; top: 392px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+          <div style="position: absolute; top: 400px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Kapanış: {{moFormat kapanisZamani 'DD MMMM YYYY HH:mm'}}</div>
+
+          <hr style="position: absolute; top: 436px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+          <div style="position: absolute; top: 444px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{#if $and ($in tip 'deneme' 'canli') (sinavYanitlariAcilmamis _id)}}Yanıt Açılma: {{moFormat yanitlarAcilmaZamani 'DD MMMM YYYY HH:mm'}}{{else}}Kazanılan Puan: {{#with sinavKagidi _id}}{{#if $and (bitirmeZamani) ($or (sinavYanitlariAcilmis ../_id) ($in tip 'alistirma' 'konuTarama')) }}{{#if puan}}{{puan}}{{else}}0{{/if}}{{/if}}{{else}}{{#if $or ($and ($in tip 'deneme' 'canli') (sinavYanitlariAcilmis _id)) ($and ($in tip 'konuTarama' 'alistirma') (sinavKapanmis _id))}}0{{/if}}{{/with}}{{/if}}</div>
+
+          <hr style="position: absolute; top: 480px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+
+          <div style="position: absolute; top: 510px; left: 390px; width: 430px; text-align: center">
+            <a data-trigger="geriDon" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">geri dön</a>
+            {{#if sinavDevamEdiyor}}
+              <a data-trigger="sinavaDevam" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">devam et</a>
+            {{else}}
+              {{#if sinavaBaslanabilir}}
+                <a data-trigger="sinavaBasla" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">başla</a>
+              {{/if}}
+              {{#if yanitGorulebilir}}
+                <a data-trigger="sinavYanitGoster" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">yanıtlar</a>
+              {{/if}}
+            {{/if}}
+          </div>
+
+          {{#if sinavAlinmamisAmaBaskaSinavDevamEdiyor}}
+            <div style="position: absolute; top: 565px; left: 360px; width: 490px; text-align: center; font-size: 12px; font-style: italic">Bu sınava başlayabilmek için önce {{sinavAlinmamisAmaBaskaSinavDevamEdiyor}} mühürünün sınavını tamamlamalısın.</div>
+          {{/if}}
+
+        </div>
+      {{/with}}
+    {{/unless}}
+  {{/unless}}
+</template>
+
+<template name="sinavaBasla">
+  <div class="cover">
+    <div class="sinavaBasla" style="padding-top: 40px">
+      <h1>Sınava Başla</h1>
+      <p>Aynı anda tek bir sınava girebilirsin. Sınav başladıktan sonra bitirmeden başka bir sınava geçemezsin. Bitirdiğin bir sınava ise tekrar giremezsin. {{#if $eq sinav.tip 'alistirma'}} Alıştırma testinde soru puanı, soruyu doğru yanıtlayana kadar verdiğin yanıt sayısına bölünür.{{/if}}
+      </p>
+      <p style="margin-top: 24px;">
+        <a class="baslamaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">vazgeç</a>
+        <a class="baslamayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınava başla</a>
+      </p>
+    </div>
+  </div>
+</template>

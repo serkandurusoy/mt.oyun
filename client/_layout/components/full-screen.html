@@ -1,0 +1,13 @@
+<template name="fullScreen">
+  <div class="cover">
+    <div class="fullScreen">
+      {{#if $eq deviceType 'desktop'}}
+        <h1>Tam Ekrana Geç</h1>
+        <p>Mitolojix oyununa erişebilmek için buraya tıklayarak tarayıcının tam ekranı kaplamasına izin ver.</p>
+      {{else}}
+        <h1>Ana Ekrandan Başlat</h1>
+        <p>Mitolojix oyununa erişebilmek için tarayıcının "ana ekrana ekle / add to home screen" menüsünü kullanarak Mitolojix ikonunu ana ekranına ekle ve oradan tekrar başlat.</p>
+      {{/if}}
+    </div>
+  </div>
+</template>

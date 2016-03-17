@@ -1,0 +1,34 @@
+<template name="layout">
+  {{#if deviceOK}}
+    {{#if yardimGoster}}
+      {{> yardimEkrani}}
+    {{else}}
+      {{#if currentUser}}
+        {{#unless isHotReloading}}
+          <main>
+            {{> connectionBanner}}
+            {{#if $and devamEdenSinavVar sinavGoster}}
+              {{> sinavEkrani}}
+            {{else}}
+              {{#if sinavYanitGoster}}
+                {{> sinavYanitlari}}
+              {{else}}
+                {{> Template.dynamic template=main}}
+              {{/if}}
+            {{/if}}
+          </main>
+        {{else}}
+          {{> loading}}
+        {{/unless}}
+      {{else}}
+        {{#if loggingIn}}
+          {{> loading}}
+        {{else}}
+          {{> accountsTemplate}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{else}}
+    {{> deviceNotOk}}
+  {{/if}}
+</template>

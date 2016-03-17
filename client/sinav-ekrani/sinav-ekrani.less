@@ -1,0 +1,186 @@
+[data-soruIndex], [data-soruIndex]:hover {
+  color: #666666;
+}
+
+.secili {
+  border: 2px solid #a38f45;
+  padding-top: 9px !important;
+}
+
+.isaretli, .isaretli:hover {
+  color: #9f0a0a !important;
+}
+
+.cevapVerildi {
+  background-image: url('/assets/_bilesen/cevapVerildi.png');
+  background-position: right 3px bottom 3px;
+  background-repeat: no-repeat;
+  &.secili {
+    background-position: right 1px bottom 1px;
+  }
+}
+
+.cevapDogru {
+  background-image: url('/assets/_bilesen/cevapDogru.png');
+  background-position: right 3px bottom 3px;
+  background-repeat: no-repeat;
+  &.secili {
+    background-position: right 1px bottom 1px;
+  }
+}
+
+.cevapYanlis {
+  background-image: url('/assets/_bilesen/cevapYanlis.png');
+  background-position: right 3px bottom 3px;
+  background-repeat: no-repeat;
+  &.secili {
+    background-position: right 1px bottom 1px;
+  }
+}
+
+.sinavEkrani {
+  label, label span {
+    cursor: pointer;
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    display:none;
+  }
+
+  input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
+    background-color: #208400;
+    border: 1px solid #144e00;
+    color: #0d3300 !important;
+
+    div {
+      color: #0d3300 !important;
+    }
+  }
+
+  input[type="radio"] + label,
+  input[type="checkbox"] + label,
+  input[type="radio"]:checked + label,
+  input[type="checkbox"]:checked + label {
+    transition:background-color 0.2s linear;
+  }
+}
+
+.boslukDoldurSecenek {
+  border-radius: 8px;
+  font-family: monospace;
+  font-weight: normal !important;
+  display: inline-block;
+  border: 1px solid #382c1c;
+  padding: 6px;
+  background-color: #a38f45;
+  line-height: 120%;
+
+  &:hover, &:active, &:focus {
+    color: #382c1c;
+    border-color: #000;
+  }
+
+}
+
+.boslukDoldurSecenekSpan {
+  border-radius: 8px;
+  font-family: monospace;
+  font-weight: normal !important;
+  display: inline-block;
+  border: 1px solid #382c1c;
+  padding: 6px;
+  background-color: #a38f45;
+  line-height: 120%;
+  cursor: text;
+
+  &:hover, &:active, &:focus {
+    color: #382c1c;
+    border-color: #000;
+  }
+
+}
+
+.sortable-chosen, .sortable-fallback {
+  transform: rotate(-3deg);
+  background-color: transparent;
+}
+
+.sirala, .eslestir {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #a38f45;
+  border: 1px solid #57492B;
+  margin: 8px;
+  overflow: hidden;
+  height: 88px;
+  &:hover, &:active, &:focus {
+    border-color: #000 !important;
+  }
+}
+
+.sirala {
+  font-size: 18px;
+  height: 112px;
+}
+
+.dyLabel {
+  display: block;
+  background-color: #a38f45;
+  border: 1px solid #57492B;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  height: 80px;
+  padding-top: 25px;
+
+  &:hover, &:active, &:focus {
+    border-color: #000 !important;
+  }
+
+}
+
+.secmeliContainer {
+  font-size: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 480px;
+  margin: 10px 40px 0 40px;
+
+  label {
+    display: block;
+    background-color: #a38f45;
+    border: 1px solid #57492B;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 250px;
+    height: 220px;
+
+    &:hover, &:active, &:focus {
+      border-color: #000 !important;
+    }
+
+  }
+
+  & > div {
+    overflow: hidden;
+    width: 250px;
+    height: 220px;
+    margin-bottom: 20px;
+  }
+
+}
+
+.cizgi {
+  cursor: pointer;
+}
+
+.seciliEslesme {
+  box-shadow: 0 0 16px 4px #9f0a0a;
+}

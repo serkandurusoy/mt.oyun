@@ -1,0 +1,35 @@
+###################################
+# core                            #
+###################################
+m:lib-core
+force-ssl
+standard-minifiers
+flemay:less-autoprefixer
+chrismbeckett:toastr
+appcache
+meteorhacks:kadira
+kadira:debug
+
+###################################
+# device-detection                #
+###################################
+arsnebula:darwin
+flowkey:bowser
+
+###################################
+# mitolojix-packages              #
+###################################
+m:lib-enums
+m:lib-collate
+m:lib-utils
+m:lib-collections
+m:lib-tckimlik
+m:lib-accounts
+m:lib-router-frontend
+m:lib-models
+
+###################################
+# consider for improvements       #
+###################################
+# browser-policy                  # TODO: https://dweldon.silvrback.com/browser-policy
+# meteorhacks:subs-manager        # TODO: maybe later for fine grained performance

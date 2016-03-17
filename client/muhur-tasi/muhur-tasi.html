@@ -1,0 +1,60 @@
+<template name="muhurTasi">
+  {{#unless Template.subscriptionsReady}}
+    {{> loading}}
+  {{else}}
+    <div class="container muhurTasi">
+
+      {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="muhurTasi"}}
+
+      <style>
+        .muhurTasi .muhurGrup {
+          cursor: pointer;
+          width: 128px;
+          height: 128px;
+          display: inline-block;
+        }
+
+          {{#each dersler}}
+          .muhurTasi .muhurGrup.{{muhurGrubu.isim}} {
+            background: transparent url({{#with FS.GetFile "M.FS.Muhur" muhurGrubu.butonPasif}}{{url auth=false}}{{/with}}) left top no-repeat;
+          }
+          .muhurTasi .muhurGrup.{{muhurGrubu.isim}}.aktif, .muhurTasi .muhurGrup.{{muhurGrubu.isim}}:hover, .muhurTasi .muhurGrup.{{muhurGrubu.isim}}:active, .muhurTasi .muhurGrup.{{muhurGrubu.isim}}:focus {
+            background: transparent url({{#with FS.GetFile "M.FS.Muhur" muhurGrubu.butonAktif}}{{url auth=false}}{{/with}}) left top no-repeat;
+          }
+          {{/each}}
+      </style>
+
+      <div class="muhurGruplariWrapper" style="position: absolute; width: 768px; left: 125px; top: 120px; white-space: nowrap; overflow: hidden; text-align: center;">{{#each dersler}}<div class="muhurGrup {{muhurGrubu.isim}} {{#if $eq _id instance.aktifDers.get}}aktif{{/if}}{{#if icindeGirilebilirSinavVar _id}} bekleyenGirilebilirSinav{{/if}} "></div>{{/each}}</div>
+      {{#if dersKaydirGerekli}}
+        <a class="sol grupSol" style="top: 170px; left: 85px;"></a>
+        <a class="sag grupSag" style="top: 170px; left: 900px;"></a>
+      {{/if}}
+
+
+      <div class="muhurlerWrapper" style="position: absolute; left: 94px; top: 280px; width: 800px; height: 480px; overflow: hidden;">
+        {{#each sinavlar}}
+          <div data-trigger="muhurDetay" style="float: left; width: 200px; height: 220px; margin-bottom: 20px; display: inline-block;">
+            {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' muhur 'gorsel')}}
+              <img style="margin-left: 12px" alt="" src="{{url auth=false}}" class="{{#unless sinavKagidi ../_id}}{{#if sinavYayinda ../_id}}bekleyenGirilebilirSinav{{/if}}{{/unless}}"/>
+            {{/with}}
+            {{#with sinavKagidi _id}}
+              {{#if $and (bitirmeZamani) ($or (sinavYanitlariAcilmis ../_id) ($in tip 'alistirma' 'konuTarama')) }}
+                <div style="margin-left: 12px; width: 176px; height: 29px; padding: 12px; background-origin: border-box; background: transparent url('/assets/muhur-tasi/puan-bar-zemini.png') center no-repeat"><div style="width: {{#if puan}}{{barOranli puan}}px{{else}}0{{/if}}; height: 5px; background-color: deeppink"></div></div>
+              {{/if}}
+            {{else}}
+              {{#if $or ($and ($in tip 'deneme' 'canli') (sinavYanitlariAcilmis _id)) ($and ($in tip 'konuTarama' 'alistirma') (sinavKapanmis _id))}}
+                <div style="margin-left: 12px; width: 176px; height: 29px; padding: 12px; background-origin: border-box; background: transparent url('/assets/muhur-tasi/puan-bar-zemini.png') center no-repeat"><div style="width: 0; height: 5px; background-color: deeppink"></div></div>
+              {{/if}}
+            {{/with}}
+          </div>
+        {{/each}}
+      </div>
+      {{#if muhurKaydirGerekli}}
+        <a class="yukari" style="top: 275px; left: 905px;"></a>
+        <a class="asagi" style="top: 685px; left: 905px;"></a>
+      {{/if}}
+
+
+    </div>
+  {{/unless}}
+</template>

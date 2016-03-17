@@ -1,0 +1,83 @@
+<template name="yazitlar">
+  {{#unless Template.subscriptionsReady}}
+    {{> loading}}
+  {{else}}
+    <div class="container yazitlar">
+
+      {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="yazitlar"}}
+
+      <style>
+        .yazitlar .muhurGrup {
+          cursor: pointer;
+          width: 128px;
+          height: 128px;
+          display: inline-block;
+        }
+
+        {{#each dersler}}
+        .yazitlar .muhurGrup.{{muhurGrubu.isim}} {
+          background: transparent url({{#with FS.GetFile "M.FS.Muhur" muhurGrubu.butonPasif}}{{url auth=false}}{{/with}}) left top no-repeat;
+        }
+        .yazitlar .muhurGrup.{{muhurGrubu.isim}}.aktif, .yazitlar .muhurGrup.{{muhurGrubu.isim}}:hover, .yazitlar .muhurGrup.{{muhurGrubu.isim}}:active, .yazitlar .muhurGrup.{{muhurGrubu.isim}}:focus {
+          background: transparent url({{#with FS.GetFile "M.FS.Muhur" muhurGrubu.butonAktif}}{{url auth=false}}{{/with}}) left top no-repeat;
+        }
+        {{/each}}
+      </style>
+
+      <div class="muhurGruplariWrapper" style="position: absolute; width: 768px; left: 160px; top: 110px; white-space: nowrap; overflow: hidden; text-align: center;">{{#each dersler}}<div class="muhurGrup {{muhurGrubu.isim}} {{#if $eq _id instance.aktifDers.get}}aktif{{/if}}"></div>{{/each}}</div>
+      {{#if dersKaydirGerekli}}
+        <a class="sol" style="top: 160px; left: 120px;"></a>
+        <a class="sag" style="top: 160px; left: 935px;"></a>
+      {{/if}}
+
+      <div class="mufredatWrapper" style="position: absolute; left: 160px; top: 270px; width: 768px; height: 450px; overflow: hidden; background-color: rgba(87,73,43,0.1); border-radius: 16px; padding: 16px;">
+        {{#with mufredat}}
+          <div style="margin-bottom: 40px;">
+            <p style="font-weight: bold; font-size: 24px; margin-bottom: 10px">{{foreignField 'Dersler' ders 'isim'}}</p>
+            {{#each konular}}
+              <p style="padding-left: 20px; font-size: 18px; margin-bottom: 10px">
+                {{konu}}<br>
+                {{#each icerik}}
+                  {{#with FS.GetFile "M.FS.DersIcerik" this}}
+                    <a data-trigger="openDersIcerikModal" data-url="{{url}}" style="display: inline-block; padding: 4px 8px; max-width: 680px; border-radius: 4px; margin-left: 24px; background-color: #57492B; color: #ffffff; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">PDF: <span style="font-weight: normal; color: #ffffff">{{name}}</span></a><br>
+                  {{/with}}
+                {{/each}}
+              </p>
+            {{/each}}
+          </div>
+        {{else}}
+          <p style="font-weight: bold; font-size: 24px; margin-bottom: 10px">{{foreignField 'Dersler' instance.aktifDers.get 'isim'}}</p>
+          Bu ders için henüz müfredat tanımlanmadı.
+        {{/with}}
+      </div>
+      {{#if mufredatKaydirGerekli}}
+        <a class="yukari" style="top: 275px; left: 886px;"></a>
+        <a class="asagi" style="top: 680px; left: 886px;"></a>
+      {{/if}}
+
+    </div>
+  {{/unless}}
+</template>
+
+<template name="dersIcerikModal">
+  <div class="cover">
+    <div id="dersIcerikModal" class="dersIcerikModal">
+      <a title="Kapat" data-trigger="closeDersIcerikModal" style="font-size: 28px; position: absolute; top: 20px; right: 20px; color: #ffffff; display: block; padding: 4px 12px; border-radius: 4px; background-color: #57492B;">&#x2716;</a>
+
+      <div id="pdfcontainer"><canvas id="pdfcanvas"></canvas></div>
+
+      <a style="position: absolute; left: 20px; bottom: 20px; font-size: 20px; font-weight: bold; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 740px; color: #ffffff; display: block; padding: 4px 8px; border-radius: 4px; background-color: #57492B;" href="{{url}}&download=true" target="_blank">&#x21b4; {{fileName}}</a>
+
+      <span style="position: absolute; right: 20px; bottom: 20px; font-size: 20px; font-weight: bold; display: block; text-align: right; width: 270px">
+        <a title="Önceki sayfa" id="prev" style="color: #ffffff; font-size: 20px; display: inline-block; padding: 4px 8px; border-radius: 4px; margin-right: 10px; background-color: #57492B;">&#x21b6;</a>
+        <span class="pdfPager" style="color: #ffffff; display: inline-block; padding: 4px 8px; border-radius: 4px; margin-right: 10px; background-color: #57492B;">
+          <span style="color: #ffffff; font-size: 20px;" id="page_num"></span>
+          /
+          <span style="color: #ffffff; font-size: 20px;" id="page_count"></span>
+        </span>
+        <a title="Sonraki sayfa" id="next" style="color: #ffffff; font-size: 20px; display: inline-block; padding: 4px 8px; border-radius: 4px; background-color: #57492B;">&#x21b7;</a>
+      </span>
+
+    </div>
+  </div>
+</template>

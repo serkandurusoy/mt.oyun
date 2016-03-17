@@ -1,0 +1,40 @@
+<template name="rutbe">
+  {{#if $or ($not this) ($and ($gte this 0) ($lt this 53))}}
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+  {{/if}}
+  {{#if $and ($gte this 53) ($lt this 59)}}
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+  {{/if}}
+  {{#if $and ($gte this 59) ($lt this 65)}}
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+  {{/if}}
+  {{#if $and ($gte this 65) ($lt this 71)}}
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+  {{/if}}
+  {{#if $and ($gte this 71) ($lt this 77)}}
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+  {{/if}}
+  {{#if $and ($gte this 77) ($lt this 83)}}
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+  {{/if}}
+  {{#if $and ($gte this 83) ($lt this 89)}}
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+  {{/if}}
+  {{#if $and ($gte this 89) ($lt this 95)}}
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+    <img src="/assets/ana-ekran/rutbe-yildiz.png">
+  {{/if}}
+  {{#if $and ($gte this 95) ($lte this 100)}}
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+    <img src="/assets/ana-ekran/rutbe-ay.png">
+  {{/if}}
+</template>

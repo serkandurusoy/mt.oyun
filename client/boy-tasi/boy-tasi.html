@@ -1,0 +1,44 @@
+<template name="boyTasi">
+  {{#unless Template.subscriptionsReady}}
+    {{> loading}}
+  {{else}}
+    <div class="container boyTasi">
+
+      {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="boyTasi"}}
+
+      <div style="position: absolute; top: 717px; left: 55px; width: 180px; height: 25px; font-weight: bold;">{{filtre}}</div>
+      <a class="asagi filtrele" style="top: 714px; left: 250px;"></a>
+
+      <form name="filtreForm" autocomplete="off">
+        <input type="text" id="ara" name="ara" style="position: absolute; top: 717px; left: 314px; width: 210px; height: 25px;" maxlength="128"/>
+      </form>
+      <span class="temizle" style="top: 711px; left: 544px;"></span>
+
+      <a class="yukari yukariya" style="top: 694px; left: 646px;"></a>
+      <a class="asagi asagiya" style="top: 734px; left: 646px;"></a>
+
+      <div class="boyTasiWrapper" style="position: absolute; top: 13px; left: 0; width: 670px; height: 648px; overflow: hidden;">
+        {{#each sinifArkadaslari}}
+          <div id="{{this._id}}" style="position: relative; width: 670px; height: 216px; {{#if sakla this._id}}display: none; visibility: hidden{{/if}}">
+            {{> boySirasi user=this sira=(plusOne @index) filtre=(instance.filtre.get)}}
+          </div>
+        {{/each}}
+      </div>
+
+    </div>
+  {{/unless}}
+</template>
+
+<template name="boySirasi">
+
+  {{> karakter user=user style="position: absolute; top: 0; left: 90px; width: 200px; height: 200px"}}
+
+  <div style="position: absolute; top: 92px; left: 12px; width: 56px; font-weight: bold; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{sira}}</div>
+
+  <div style="position: absolute; top: 40px; left: 320px; width: 350px; font-weight: bold; font-size: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{user.name}} {{user.lastName}} {{#if $eq filtre 'sinif'}} ({{user.sube}}){{/if}}</div>
+
+  <div style="position: absolute; top: 90px; left: 320px; width: 230px; font-weight: bold; font-size: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{> rutbe user.puan}}</div>
+
+  <div style="position: absolute; top: 102px; left: 550px; width: 55px; font-weight: bold; font-size: 30px; text-align: right">{{#with user.puan}}{{this}}{{else}}0{{/with}}</div>
+
+</template>
