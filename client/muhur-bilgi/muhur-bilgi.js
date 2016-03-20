@@ -210,8 +210,7 @@ Template.muhurBilgi.helpers({
 
 Template.muhurBilgi.events({
   'click [data-trigger="geriDon"]': function(e,t) {
-    var dersId = M.C.Sinavlar.findOne({_id: FlowRouter.getParam('_id')}).ders;
-    Session.set('detayindanDonulenDersId', dersId);
+    Session.set('detayindanDonulenSinavId', FlowRouter.getParam('_id'));
     FlowRouter.go('muhurTasi');
   },
   'click [data-trigger="sinavaBasla"]': function(e,t) {

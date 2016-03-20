@@ -33,7 +33,7 @@
 
       <div class="muhurlerWrapper" style="position: absolute; left: 94px; top: 280px; width: 800px; height: 480px; overflow: hidden;">
         {{#each sinavlar}}
-          <div data-trigger="muhurDetay" style="float: left; width: 200px; height: 220px; margin-bottom: 20px; display: inline-block;">
+          <div data-trigger="muhurDetay" id="{{_id}}" style="float: left; width: 200px; height: 220px; margin-bottom: 20px; display: inline-block;">
             {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' muhur 'gorsel')}}
               <img style="margin-left: 12px" alt="" src="{{url auth=false}}" class="{{#unless sinavKagidi ../_id}}{{#if sinavYayinda ../_id}}bekleyenGirilebilirSinav{{/if}}{{/unless}}"/>
             {{/with}}

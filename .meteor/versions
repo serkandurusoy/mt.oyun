@@ -67,7 +67,6 @@ es5-shim@4.1.14
 fastclick@1.0.7
 flemay:less-autoprefixer@1.2.0
 flowkey:bowser@1.0.2
-force-ssl@1.0.6
 geojson-utils@1.0.4
 gfk:underscore-deep@1.0.0
 hot-code-push@1.0.0
@@ -93,7 +92,7 @@ m:lib-collections@0.0.1
 m:lib-core@0.0.1
 m:lib-enums@0.0.1
 m:lib-models@0.0.1
-m:lib-router-frontend@0.0.1
+m:lib-router-oyun@0.0.1
 m:lib-tckimlik@0.0.1
 m:lib-utils@0.0.1
 manuel:reactivearray@1.0.5

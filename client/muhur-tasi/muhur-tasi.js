@@ -1,5 +1,32 @@
 Template.muhurTasi.onCreated(function() {
   var template = this;
+  var scrollToSinav = function(sinavId) {
+    if (!!sinavId) {
+      Meteor.defer(function() {
+        var $muhur = $('#'+sinavId);
+        if (!!$muhur.length) {
+          $('.muhurlerWrapper').animate({
+            scrollTop: parseInt($muhur.position().top)
+          }, 500, function() {
+            var shakeImg = function() {
+              var $muhurImg = $('#'+sinavId+' > img');
+              var interval = 100;
+              var distance = 10;
+              var times = 4;
+              $muhurImg.css('position','relative');
+              for(var iter=0;iter<(times+1);iter++){
+                $muhurImg.animate({
+                  left:((iter%2==0 ? distance : distance*-1))
+                },interval);
+              }
+              $muhurImg.animate({ left: 0},interval);
+            };
+            Meteor.setTimeout(shakeImg, 500)
+          });
+        }
+      });
+    }
+  };
 
   template.aktifDers = new ReactiveVar();
 
@@ -10,13 +37,16 @@ Template.muhurTasi.onCreated(function() {
       Tracker.afterFlush(function() {
         var user = Meteor.user();
         var devamEdenSinavId = Session.get('devamEdenSinavVar');
-        var detayindanDonulenDersId = Session.get('detayindanDonulenDersId');
-        if (detayindanDonulenDersId) {
-          template.aktifDers.set(detayindanDonulenDersId);
-          M.L.clearSessionVariable('detayindanDonulenDersId');
+        var detayindanDonulenSinavId = Session.get('detayindanDonulenSinavId');
+        if (detayindanDonulenSinavId) {
+          var detayindanDonulenSinavinDersiId = M.C.Sinavlar.findOne({_id: detayindanDonulenSinavId}).ders;
+          template.aktifDers.set(detayindanDonulenSinavinDersiId);
+          scrollToSinav(detayindanDonulenSinavId);
+          M.L.clearSessionVariable('detayindanDonulenSinavId');
         } else {
           if (devamEdenSinavId) {
             template.aktifDers.set(M.C.Sinavlar.findOne({_id: devamEdenSinavId}).ders);
+            scrollToSinav(devamEdenSinavId);
           } else {
             var girilenSinavlar = M.C.SinavKagitlari.find({
               ogrenci: user._id,
@@ -55,10 +85,12 @@ Template.muhurTasi.onCreated(function() {
             }, {sort: {acilisZamani: -1}});
             if (sonSinav) {
               template.aktifDers.set(sonSinav.ders);
+              scrollToSinav(sonSinav._id);
             } else {
               var sonGirilenSinavinKagidi = M.C.SinavKagitlari.findOne({ogrenciSinavaGirdi: true}, {sort: {bitirmeZamani: -1}});
               if (sonGirilenSinavinKagidi) {
                 template.aktifDers.set(M.C.Sinavlar.findOne({_id: sonGirilenSinavinKagidi.sinav}).ders);
+                scrollToSinav(sonGirilenSinavinKagidi.sinav);
               } else {
                 var ilkDers = M.C.Dersler.findOne({}, {sort: {createdAt: 1}});
                 template.aktifDers.set(ilkDers._id);

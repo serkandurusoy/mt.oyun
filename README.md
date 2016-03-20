@@ -1,4 +1,4 @@
-# Mitolojix Frontend Application
+# Mitolojix Oyun
 
 First, you should check out the repositories:
 

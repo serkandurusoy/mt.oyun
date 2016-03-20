@@ -2,7 +2,7 @@
 # core                            #
 ###################################
 m:lib-core
-force-ssl
+# force-ssl                       # we are letting nginx handle this
 standard-minifiers
 flemay:less-autoprefixer
 chrismbeckett:toastr
@@ -25,7 +25,7 @@ m:lib-utils
 m:lib-collections
 m:lib-tckimlik
 m:lib-accounts
-m:lib-router-frontend
+m:lib-router-oyun
 m:lib-models
 
 ###################################
