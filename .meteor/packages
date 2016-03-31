@@ -3,7 +3,6 @@
 ###################################
 m:lib-core
 # force-ssl                       # we are letting nginx handle this
-standard-minifiers
 flemay:less-autoprefixer
 chrismbeckett:toastr
 appcache
@@ -33,3 +32,5 @@ m:lib-models
 ###################################
 # browser-policy                  # TODO: https://dweldon.silvrback.com/browser-policy
 # meteorhacks:subs-manager        # TODO: maybe later for fine grained performance
+standard-minifier-css
+standard-minifier-js
