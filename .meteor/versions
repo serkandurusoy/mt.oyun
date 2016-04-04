@@ -46,7 +46,6 @@ cfs:ui@0.1.3
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.1.3
-chrismbeckett:toastr@2.1.2_1
 coffeescript@1.0.16
 dburles:collection-helpers@1.0.4
 dburles:mongo-collection-instances@0.3.5
@@ -94,6 +93,7 @@ m:lib-enums@0.0.1
 m:lib-models@0.0.1
 m:lib-router-oyun@0.0.1
 m:lib-tckimlik@0.0.1
+m:lib-toastr@0.0.1
 m:lib-utils@0.0.1
 manuel:reactivearray@1.0.5
 matb33:collection-hooks@0.8.1

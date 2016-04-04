@@ -1,6 +1,6 @@
 BlazeLayout.setRoot('body');
 
-Reload.delay = M.E.ToastDismiss;
+Reload.delay = 4000;
 Reload.beforeHook = function() {
   if (Meteor.userId()) {
     toastr.error('Birkaç saniye içinde Mitolojix uygulamasının güncel sürümüne yükseltileceksiniz');

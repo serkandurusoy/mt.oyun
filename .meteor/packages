@@ -2,12 +2,6 @@
 # core                            #
 ###################################
 m:lib-core
-# force-ssl                       # we are letting nginx handle this
-flemay:less-autoprefixer
-chrismbeckett:toastr
-appcache
-meteorhacks:kadira
-kadira:debug
 
 ###################################
 # device-detection                #
@@ -26,11 +20,10 @@ m:lib-tckimlik
 m:lib-accounts
 m:lib-router-oyun
 m:lib-models
+m:lib-toastr
 
 ###################################
 # consider for improvements       #
 ###################################
 # browser-policy                  # TODO: https://dweldon.silvrback.com/browser-policy
 # meteorhacks:subs-manager        # TODO: maybe later for fine grained performance
-standard-minifier-css
-standard-minifier-js
