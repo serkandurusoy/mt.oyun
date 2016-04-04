@@ -76,12 +76,12 @@ Template.loginForm.helpers({
 Template.loginForm.events({
   'click [data-trigger="forgotPassword"]' : function(e,t) {
     e.preventDefault();
-    var kullanici = M.L.Trim(t.$('[name="kullanici"]').val());
+    var kullanici = M.L.LatinizeLower(M.L.Trim(t.$('[name="kullanici"]').val()));
     check(kullanici, String);
     M.L.clearSessionVariable('resetToken');
 
     if (kullanici.length < 1) {
-      toastr.error('Kullanıcı adı girilmelisin');
+      toastr.error('E-posta adresi girilmelisin');
     } else {
       if (!M.L.TestEmail(kullanici)) {
         toastr.success('Posta kutunu kontrol et');
@@ -100,7 +100,7 @@ Template.loginForm.events({
   },
   'submit form': function(e,t) {
     e.preventDefault();
-    var kullanici = M.L.Trim(t.$('[name="kullanici"]').val());
+    var kullanici = M.L.LatinizeLower(M.L.Trim(t.$('[name="kullanici"]').val()));
     var password = M.L.Trim(t.$('[name="password"]').val());
     check(kullanici, String);
     check(password, String);
@@ -108,7 +108,7 @@ Template.loginForm.events({
     M.L.clearSessionVariable('resetToken');
 
     if (!M.L.TestEmail(kullanici)) {
-      toastr.error('Kullanıcı adı veya şifre hatalı');
+      toastr.error('E-posta adresi veya şifre hatalı');
     } else {
       Session.set('accountButtonsDisabled', 'disabled');
       Meteor.loginWithPassword(
@@ -118,7 +118,7 @@ Template.loginForm.events({
           M.L.clearSessionVariable('accountButtonsDisabled');
           if (err) {
             if (err.error && err.error === 403) {
-              toastr.error('Kullanıcı adı veya şifre hatalı');
+              toastr.error('E-posta adresi veya şifre hatalı');
             } else {
               toastr.error(M.E.BilinmeyenHataMessage);
             }
