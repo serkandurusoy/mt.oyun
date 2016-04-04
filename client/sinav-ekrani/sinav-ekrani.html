@@ -64,7 +64,8 @@
           </div>
         {{else}}
           <div class="container sinavEkrani">
-            <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat"></a><a class="dugmeNav testBitti kapat"></a><a class="dugmeNav yardim"></a></div>
+            <div style="text-align: left; position: absolute; height: 56px; width: 280px; top: 4px; left: 4px;"><a class="dugmeNav testBitti kapat sinaviBitir"></a></div>
+            <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a><a class="dugmeNav yardim"></a></div>
             <div style="position: absolute; top: 55px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 22px;">SORU PUANI</div>
             <div style="position: absolute; top: 103px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 32px;">{{soruPuani}}</div>
             <div style="position: absolute; top: 55px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: 22px;">{{#if $eq sinav.tip 'canli'}}SÜRE{{else}}KALAN SÜRE{{/if}}</div>

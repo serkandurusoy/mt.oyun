@@ -8,7 +8,7 @@
       {{#with sinav}}
         <div class="container muhurBilgi">
 
-          {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="muhurBilgi"}}
+          {{> dugmeNav cikis=false testBitti=false anaEkran=false yardim=true ctx="muhurBilgi"}}
 
           {{#with (foreignField 'Dersler' ders 'muhurGrubu')}}
             {{#with FS.GetFile "M.FS.Muhur" gorsel}}

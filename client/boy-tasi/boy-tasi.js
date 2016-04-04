@@ -7,8 +7,13 @@ Template.boyTasi.onCreated(function() {
     if (userId) {
       template.subscribe('sinifArkadaslarim', function() {
         Tracker.afterFlush(function() {
+          var scrollPos = 0;
+          var $userCard = $('#'+userId);
+          if (!!$userCard.length) {
+            scrollPos = parseInt($userCard.position().top) - 216;
+          }
           template.$('.boyTasiWrapper').animate({
-            scrollTop: parseInt($('#'+userId).position().top) - 216
+            scrollTop: scrollPos
           }, 0);
         })
       });
@@ -32,7 +37,7 @@ Template.boyTasi.helpers({
   },
   sinifArkadaslari: function() {
     var user = Meteor.user();
-    var sinifArkadaslariCursor =  user && M.C.Users.find({sinif: user.sinif}, {sort: {puan: -1, dogumTarihi: -1, nameCollate: 1, lastNameCollate: 1, cinsiyet: -1}});
+    var sinifArkadaslariCursor =  user && M.C.Users.find({sinif: user.sinif, puan: {$gte: 70}}, {sort: {puan: -1, dogumTarihi: -1, nameCollate: 1, lastNameCollate: 1, cinsiyet: -1}});
     return sinifArkadaslariCursor && sinifArkadaslariCursor.count() && sinifArkadaslariCursor;
   },
   sakla: function(userId) {
@@ -92,7 +97,7 @@ Template.boyTasi.events({
       $container.animate({
         scrollTop: 0
       }, 0);
-      if (parseInt($userCard.position().top) > 216) {
+      if (!!$userCard.length && parseInt($userCard.position().top) > 216) {
         $container.animate({
           scrollTop: parseInt($userCard.position().top) - 216
         }, 0);
@@ -110,7 +115,7 @@ Template.boyTasi.events({
       $container.animate({
         scrollTop: 0
       }, 0);
-      if (parseInt($userCard.position().top) > 216) {
+      if (!!$userCard.length && parseInt($userCard.position().top) > 216) {
         $container.animate({
           scrollTop: parseInt($userCard.position().top) - 216
         }, 0);
@@ -127,7 +132,7 @@ Template.boyTasi.events({
       $container.animate({
         scrollTop: 0
       }, 0);
-      if (parseInt($userCard.position().top) > 216) {
+      if (!!$userCard.length && parseInt($userCard.position().top) > 216) {
         $container.animate({
           scrollTop: parseInt($userCard.position().top) - 216
         }, 0);
