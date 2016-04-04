@@ -19,7 +19,7 @@ Template.yazitlar.onRendered(function() {
     var aktifDers = template.aktifDers.get();
     if (aktifDers) {
       Tracker.afterFlush(function(){
-        template.mufredatKaydirGerekli.set($('.mufredatWrapper > div').height() > $('.mufredatWrapper').innerHeight());
+        template.mufredatKaydirGerekli.set(template.$('.mufredatWrapper > div').height() > template.$('.mufredatWrapper').innerHeight());
       })
     }
   })
