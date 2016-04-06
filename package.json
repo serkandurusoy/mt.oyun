@@ -5,7 +5,9 @@
   "main": "main.js",
   "scripts": {
     "run": "MONGO_URL=mongodb://localhost:27017/mitolojix MONGO_OPLOG_URL=mongodb://localhost:27017/local meteor run --settings .config/settings.json --port 4000",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "meteor build ../builds/oyun/",
+    "update": "meteor update"
   },
   "repository": {
     "type": "git",

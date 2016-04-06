@@ -7,6 +7,7 @@
       {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="ozTasi"}}
 
       {{> karakter user=currentUser style="position: absolute; top: 223px; left: 250px; width: 200px; height: 200px"}}
+      {{#if $eq currentUser.karakter 'default'}}<div style="position: absolute; top: 398px; left: 250px; width: 200px; text-align: center; font-weight: bold; font-size: 90%">Bir Karakter Resmi Seç</div>{{/if}}
 
       <a class="sol" style="top: 310px; left: 214px;"></a>
       <a class="sag" style="top: 310px; left: 453px;"></a>
@@ -34,7 +35,7 @@
       <div style="position: absolute; top: 395px; left: 490px; width: 340px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Bir üst rütbe puanı: {{birUstRutbePuani}}</div>
 
       {{#with FS.GetFile "M.FS.Muhur" sonMuhur}}
-        <img style="position: absolute; top: 425px; left: 570px;" alt="" src="{{url auth=false}}"/>
+        <img style="position: absolute; top: 430px; left: 570px;" alt="" src="{{url auth=false}}"/>
       {{/with}}
 
     </div>
