@@ -328,6 +328,7 @@ Template.sinavEkrani.events({
   'click .dugmeNav.anaEkran': function(e,t) {
     e.preventDefault();
     Session.set('sinavGoster',false);
+    toastr.error('Dikkat! Sınav süresi işlemeye devam ediyor, istersen sınava tekrar dönebilirsin');
   },
   'click .sinavYardim': function(e,t) {
     var ix = t.seciliSoruIndex.get();
@@ -369,6 +370,7 @@ Template.sinavEkrani.events({
     }
     t.sinavUyari.set(false);
     Session.set('sinavGoster',false);
+    toastr.success('Tebrikler! Sınavı başarıyla bitirdin. Sonuçları mühür bilgi ekranından görebilirsin');
   },
   'click .sol': function(e,t) {
     t.$('.soruCubugu').animate({
