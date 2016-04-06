@@ -18,50 +18,7 @@
         </div>
       {{else}}
         {{#if sinavYardim}}
-          <div class="cover">
-            <div class="sinavYardim">
-              <p>
-                Bu ekranda mühürü kazanmak için çözmen gereken soruyu, soru puanını ve sınavı tamamlamak için kalan süreyi görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
-              </p>
-              <p>
-                Yanıtını verdiğinde <img src="/assets/_bilesen/yardim-sinav-yanitla-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Yanıtladığın soruların numaraları <img src="/assets/_bilesen/cevapVerildi.png" title="" alt="" class="yardimImg"> biçiminde işaretlenir. İstediğin soruya geri dönüp yanıtını değiştirebilirsin. Bir soruyu tekrar geri dönmek üzere işaretlemek istersen soru kutucuğuna çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. İşareti kaldırmak için tekrar çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
-              </p>
-              <p>
-                Sınavı tamamladığında <img src="/assets/_bilesen/dugme-nav/testbitti.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Sınavı bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Sınavına <img src="/assets/_bilesen/dugme-nav/anasayfa.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama sınav süren geri saymaya devam edecektir.
-              </p>
-              {{#if $eq sinav.tip 'alistirma'}}
-                <p>
-                  Bu bir Alıştırma Testi; dolayısıyla, soruyu yanlış çözdüğünde <img src="/assets/_bilesen/cevapYanlis.png" title="" alt="" class="yardimImg"> doğru çözdüğünde ise <img src="/assets/_bilesen/cevapDogru.png" title="" alt="" class="yardimImg"> şeklinde işaretlenir. <strong>Dikkat!</strong> Yanlış yanıtladığın bir soruyu tekrar çözebilirsin ama alıştırma testinde her yanlış yanıtında sorudan kazanabileceğin puan azalacaktır.
-                </p>
-              {{/if}}
-              <p>
-                {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-                  Bu soruda yanıtını Doğru ya da Yanlış kutucuğunu seçerek verebilirsin.
-                {{/if}}
-
-                {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-                  Bu soruda yalnızca bir seçenek doğrudur. Doğru yanıtı bulup {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Yanıtını değiştirmek istersen başka bir seçeneğe {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
-                {{/if}}
-
-                {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-                  Bu soruda birden fazla seçenek doğrudur. Doğru seçenekleri bulup {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Daha önce seçtiğin bir seçenekten vazgeçersen tekrar üzerine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
-                {{/if}}
-
-                {{#if $eq seciliSoru.tip 'siralama'}}
-                  Bu soruda verilen kutucukları taşıyarak doğru sıraya koy.
-                {{/if}}
-
-                {{#if $eq seciliSoru.tip 'eslestirme'}}
-                  Bu soruda soldaki kutucuklarla sağdakileri yönergeye uyacak şekilde üzerlerine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} eşle. Eşlenen seçenekler arasına bir çizgi çizilecektir. Seçimini değiştirmek istersen eşlenen kutucuklardan herhangi birisine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Çizgi kaybolur ve yeniden bir eşleme yapabilirsin.
-                {{/if}}
-
-                {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-                  Bu soruda verilen boşluklara {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
-                {{/if}}
-              </p>
-              <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
-            </div>
-          </div>
+          {{> sinavEkraniYardim tip=seciliSoru.tip sinavTip=sinav.tip}}
         {{else}}
           <div class="container sinavEkrani">
             <div style="text-align: left; position: absolute; height: 56px; width: 280px; top: 4px; left: 4px;"><a class="dugmeNav testBitti kapat sinaviBitir"></a></div>
@@ -75,129 +32,42 @@
               <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
             {{/with}}
 
-            <div style="position: absolute; top: 190px; left: 30px; width: 320px; height: 70px; overflow: hidden; word-wrap: break-word;">
-              {{seciliSoru.yonerge}}
-            </div>
-            {{#if $or seciliSoru.metin seciliSoru.gorsel}}
-              <div class="aciklamAlani" style="position: absolute; top: 300px; left: 30px; width: 320px; height: 370px; overflow: hidden;">
-                <div style="margin-bottom: 20px; word-wrap: break-word;">{{#each splitOnNewlines seciliSoru.metin}}<p>{{this}}</p>{{/each}}</div>
-                <div style="text-align: center">
-                  {{#with FS.GetFile "M.FS.SoruGorsel" seciliSoru.gorsel}}
-                    <img style="max-width: 90%; border-radius: 16px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                  {{/with}}
-                </div>
-              </div>
-            {{else}}
-              <div style="position: absolute; top: 300px; left: 30px; width: 320px; height: 370px; padding-top: 50px; overflow: hidden; text-align: center;">
-                <img src="/assets/_bilesen/logo/altyazi-240.png" alt="">
-              </div>
-            {{/if}}
+            {{>soruyonerge seciliSoru=seciliSoru topYonerge=190 topMetin=300 left=30}}
 
             <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
               {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-                <div style="font-size: 120%; position: absolute; top: 120px; height: 80px; left: 180px; width: 280px;">
-                  <input type="radio" value="true" checked={{$eq seciliSoru.yanit.cevap true}} id="true" name="dogruYanlis" />
-                  <label for="true" class="dyLabel">Doğru</label>
-                </div>
-
-                <div style="font-size: 120%; position: absolute; top: 240px; height: 80px; left: 180px; width: 280px;">
-                  <input type="radio" value="false" checked={{$eq seciliSoru.yanit.cevap false}} id="false" name="dogruYanlis" />
-                  <label for="false" class="dyLabel">Yanlış</label>
-                </div>
+                {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.cevap true) yanlischecked=($eq seciliSoru.yanit.cevap false)}}
               {{/if}}
 
               {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-                <div class="secmeliContainer">
-                {{#each seciliSoru.yanit.secenekler}}
-                  <div>
-                    <input type="radio" checked={{dogru}} value="{{@index}}" id="{{@index}}" name="coktanTekSecmeli" />
-                    <label for="{{@index}}">
-                      <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center">
-                        {{#with secenekMetin}}<div style="padding: 4px;">{{this}}</div>{{/with}}
-                        {{#with FS.GetFile "M.FS.SoruGorsel" secenekGorsel}}
-                          <img style="max-width: 100%; max-height: 220px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                        {{/with}}
-                      </div>
-                    </label>
-                  </div>
-                {{/each}}
-                </div>
+                {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
               {{/if}}
 
               {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-                <div class="secmeliContainer">
-                  {{#each seciliSoru.yanit.secenekler}}
-                    <div>
-                      <input type="checkbox" checked={{dogru}} value="{{@index}}" id="{{@index}}"/>
-                      <label for="{{@index}}">
-                        <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                          {{#with secenekMetin}}<div style="padding: 4px;">{{this}}</div>{{/with}}
-                          {{#with FS.GetFile "M.FS.SoruGorsel" secenekGorsel}}
-                            <img style="max-width: 100%; max-height: 220px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                          {{/with}}
-                        </div>
-                      </label>
-                    </div>
-                  {{/each}}
-                </div>
+                {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
               {{/if}}
 
               {{#if $eq seciliSoru.tip 'siralama'}}
-                <div id="siralama-{{seciliSoru.soruId}}-{{seciliSoru.yanitlandi}}" style="padding: 0 120px 60px 120px; text-align: center;">
-                  {{#each seciliSoru.yanit.secenekler}}
-                    <div class="sirala" id="{{@index}}" data-id="{{toHashCode this}}" style="cursor: move;">
-                      {{metin}}{{#if metin}}<br>{{/if}}
-                      {{#with FS.GetFile "M.FS.SoruGorsel" gorsel}}
-                        <img style="max-width: 100%; max-height: 112px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                      {{/with}}
-                    </div>
-                  {{/each}}
-                </div>
+                {{>sorusiralama secenekler=(seciliSoru.yanit.secenekler) id=(join "siralama" seciliSoru.soruId seciliSoru.yanitlandi)}}
               {{/if}}
 
               {{#if $eq seciliSoru.tip 'eslestirme'}}
-                <div id="eslestirme" style="padding: 0 60px 60px 60px; text-align: center;">
-                  <div style="width: 45%; float: left;">
-                    {{#each seciliSoru.yanit.sol}}
-                      <div class="eslestir{{#if eslemeIcinSecili 0 @index}} seciliEslesme{{/if}}" id="sol-{{@index}}">
-                        {{metin}}{{#if metin}}<br>{{/if}}
-                        {{#with FS.GetFile "M.FS.SoruGorsel" gorsel}}
-                          <img style="max-width: 100%; max-height: 88px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                        {{/with}}
-                      </div>
-                    {{/each}}
-                  </div>
-                  <div style="width: 45%; float: right;">
-                    {{#each seciliSoru.yanit.sag}}
-                      <div class="eslestir{{#if eslemeIcinSecili 1 @index}} seciliEslesme{{/if}}" id="sag-{{@index}}">
-                        {{metin}}{{#if metin}}<br>{{/if}}
-                        {{#with FS.GetFile "M.FS.SoruGorsel" gorsel}}
-                          <img style="max-width: 100%; max-height: 88px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                        {{/with}}
-                      </div>
-                    {{/each}}
-                  </div>
-                </div>
+                {{>sorueslestirme solsecenekler=(seciliSoru.yanit.sol) sagsecenekler=(seciliSoru.yanit.sag) eslemeIcinSeciliKutu=eslemeIcinSeciliKutu sinav=true}}
               {{/if}}
 
               {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-                <div style="padding: 20px 40px 60px 40px; font-size: 120%; line-height: 240%; word-wrap: break-word;">
-                  {{{seciliSoru.yanit.bosluklar}}}
-                </div>
+                {{>soruboslukDoldurma cevap=(seciliSoru.yanit.bosluklar) sinav=true}}
               {{/if}}
 
             </div>
+
             {{#unless $eq (cevapDogruYanlis seciliSoruIndex) ' cevapDogru'}}
               <a data-trigger="soruYanitla" class="soruYanitla" style="padding-top: 10px; font-size: 16px; left: 900px; bottom: 95px;">yanıtla</a>
             {{/unless}}
-            {{#if soruSayisiCubugaSigmiyor}}
-              <a class="sol" style="top: 713px; left: 29px;"></a>
-            {{/if}}
-            <div class="soruCubugu" style="position: absolute; top: 704px; left: 64px; width: 896px; height: 50px; white-space: nowrap; overflow: hidden;">{{#each sinavKagidi.yanitlar}}<div data-soruIndex="{{@index}}" class="{{#if $eq @index seciliSoruIndex}}secili{{/if}}{{#if cevapVerildi @index}} cevapVerildi{{/if}}{{cevapDogruYanlis @index}}" style="margin: 0 8px 0 7px; width: 49px; height: 49px; padding-top: 11px; display: inline-block; font-weight: bold; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{plusOne @index}}</div>{{/each}}</div>
-            {{#if soruSayisiCubugaSigmiyor}}
-              <a class="sag" style="top: 713px; left: 958px;"></a>
-            {{/if}}
+
+            {{>sorucubugu soruSayisiCubugaSigmiyor=soruSayisiCubugaSigmiyor sorular=sinavKagidi.yanitlar seciliSoruIndex=seciliSoruIndex sinav=true}}
+
           </div>
 
           {{#if $and ($eq sinav.tip 'canli') ($neq sinav.canliStatus 'running')}}
@@ -226,4 +96,51 @@
       {{/if}}
     {{/unless}}
   {{/unless}}
+</template>
+
+<template name="sinavEkraniYardim">
+  <div class="cover">
+    <div class="sinavYardim">
+      <p>
+        Bu ekranda mühürü kazanmak için çözmen gereken soruyu, soru puanını ve sınavı tamamlamak için kalan süreyi görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
+      </p>
+      <p>
+        Yanıtını verdiğinde <img src="/assets/_bilesen/yardim-sinav-yanitla-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Yanıtladığın soruların numaraları <img src="/assets/_bilesen/cevapVerildi.png" title="" alt="" class="yardimImg"> biçiminde işaretlenir. İstediğin soruya geri dönüp yanıtını değiştirebilirsin. Bir soruyu tekrar geri dönmek üzere işaretlemek istersen soru kutucuğuna çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. İşareti kaldırmak için tekrar çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
+      </p>
+      <p>
+        Sınavı tamamladığında <img src="/assets/_bilesen/dugme-nav/testbitti.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Sınavı bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Sınavına <img src="/assets/_bilesen/dugme-nav/anasayfa.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama sınav süren geri saymaya devam edecektir.
+      </p>
+      {{#if $eq sinavTip 'alistirma'}}
+        <p>
+          Bu bir Alıştırma Testi; dolayısıyla, soruyu yanlış çözdüğünde <img src="/assets/_bilesen/cevapYanlis.png" title="" alt="" class="yardimImg"> doğru çözdüğünde ise <img src="/assets/_bilesen/cevapDogru.png" title="" alt="" class="yardimImg"> şeklinde işaretlenir. <strong>Dikkat!</strong> Yanlış yanıtladığın bir soruyu tekrar çözebilirsin ama alıştırma testinde her yanlış yanıtında sorudan kazanabileceğin puan azalacaktır.
+        </p>
+      {{/if}}
+      <p>
+        {{#if $eq tip 'dogruYanlis'}}
+          Bu soruda yanıtını Doğru ya da Yanlış kutucuğunu seçerek verebilirsin.
+        {{/if}}
+
+        {{#if $eq tip 'coktanTekSecmeli'}}
+          Bu soruda yalnızca bir seçenek doğrudur. Doğru yanıtı bulup {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Yanıtını değiştirmek istersen başka bir seçeneğe {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
+        {{/if}}
+
+        {{#if $eq tip 'coktanCokSecmeli'}}
+          Bu soruda birden fazla seçenek doğrudur. Doğru seçenekleri bulup {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Daha önce seçtiğin bir seçenekten vazgeçersen tekrar üzerine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
+        {{/if}}
+
+        {{#if $eq tip 'siralama'}}
+          Bu soruda verilen kutucukları taşıyarak doğru sıraya koy.
+        {{/if}}
+
+        {{#if $eq tip 'eslestirme'}}
+          Bu soruda soldaki kutucuklarla sağdakileri yönergeye uyacak şekilde üzerlerine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} eşle. Eşlenen seçenekler arasına bir çizgi çizilecektir. Seçimini değiştirmek istersen eşlenen kutucuklardan herhangi birisine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Çizgi kaybolur ve yeniden bir eşleme yapabilirsin.
+        {{/if}}
+
+        {{#if $eq tip 'boslukDoldurma'}}
+          Bu soruda verilen boşluklara {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
+        {{/if}}
+      </p>
+      <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
+    </div>
+  </div>
 </template>

@@ -276,48 +276,9 @@ Template.sinavEkrani.helpers({
     });
     return sinavKagidi && sinavKagidi.yanitlar[Template.instance().seciliSoruIndex.get()];
   },
-  cevapVerildi: function(ix) {
-    var aktifEgitimYili = M.C.AktifEgitimYili.findOne();
-    var user = Meteor.user();
-    var sinavKagidi = M.C.SinavKagitlari.findOne({
-      ogrenci: Meteor.userId(),
-      kurum: user && user.kurum,
-      sinif: user && user.sinif,
-      egitimYili: aktifEgitimYili && aktifEgitimYili.egitimYili,
-      baslamaZamani: {$lte: Template.instance().renderDate.get()},
-      bitirmeZamani: {$exists: false},
-      'yanitlar.yanitlandi': {$gte: 0},
-      ogrenciSinavaGirdi: true
-    });
-    return sinavKagidi && sinavKagidi.yanitlar[ix].yanitlandi;
-  },
-  cevapDogruYanlis: function(ix) {
-    var aktifEgitimYili = M.C.AktifEgitimYili.findOne();
-    var user = Meteor.user();
-    var sinavKagidi = M.C.SinavKagitlari.findOne({
-      ogrenci: Meteor.userId(),
-      kurum: user && user.kurum,
-      sinif: user && user.sinif,
-      egitimYili: aktifEgitimYili && aktifEgitimYili.egitimYili,
-      baslamaZamani: {$lte: Template.instance().renderDate.get()},
-      bitirmeZamani: {$exists: false},
-      'yanitlar.yanitlandi': {$gte: 0},
-      ogrenciSinavaGirdi: true
-    });
-    if (sinavKagidi && sinavKagidi.yanitlar[ix].yanitlandi > 0) {
-      if (sinavKagidi.yanitlar[ix].dogru === true) {
-        return ' cevapDogru';
-      } else if (sinavKagidi.yanitlar[ix].dogru === false) {
-        return ' cevapYanlis';
-      } else {
-        return undefined;
-      }
-    }
-    return undefined;
-  },
-  eslemeIcinSecili: function(pos,ix) {
+  eslemeIcinSeciliKutu: function(pos,ix) {
     var eslestirme = Template.instance().eslestirme.get('eslestirme'+Template.instance().seciliSoruIndex.get());
-    return eslestirme && eslestirme[pos] === ix;
+    return eslestirme/* && eslestirme[pos] === ix*/;
   }
 });
 
@@ -371,16 +332,6 @@ Template.sinavEkrani.events({
     t.sinavUyari.set(false);
     Session.set('sinavGoster',false);
     toastr.success('Tebrikler! Sınavı başarıyla bitirdin. Sonuçları mühür bilgi ekranından görebilirsin');
-  },
-  'click .sol': function(e,t) {
-    t.$('.soruCubugu').animate({
-      scrollLeft: '-=64'
-    }, 0);
-  },
-  'click .sag': function(e,t) {
-    t.$('.soruCubugu').animate({
-      scrollLeft: '+=64'
-    }, 0);
   },
   'click [data-soruIndex]': function(e,t) {
     var ix = e.currentTarget.getAttribute('data-soruIndex');

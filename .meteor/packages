@@ -20,6 +20,7 @@ m:lib-tckimlik
 m:lib-accounts
 m:lib-router-oyun
 m:lib-models
+m:lib-sinav-soru-component
 m:lib-toastr
 
 ###################################

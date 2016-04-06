@@ -7,39 +7,7 @@
     {{else}}
 
       {{#if sinavYardim}}
-        <div class="cover">
-          <div class="yardimEkrani">
-            <p>
-              Bu ekranda soruyu, doğru yanıtı, sorudan kazandığın puanı ve sınavın verilen süresini görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
-            </p>
-            <p>
-              {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-                Bu soruda yanıt Doğru ya da Yanlış kutucuğu seçilerek veriliyor.
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-                Bu soruda yalnızca bir seçenek doğrudur.
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-                Bu soruda birden fazla seçenek doğrudur.
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'siralama'}}
-                Bu soruda verilen kutucuklar doğru sırada görünür.
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'eslestirme'}}
-                Bu soruda soldaki kutucuklarla sağdakiler yönergeye uyacak şekilde eşlenir. Eşlenen seçenekler arasına bir çizgi çizilidir.
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-                Bu soruda verilen boşluklara {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
-              {{/if}}
-            </p>
-            <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
-          </div>
-        </div>
+        {{>sinavYanitlariYardim tip=seciliSoru.tip}}
       {{else}}
         <div class="container sinavEkrani sinavYanitlari">
           <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a><a class="dugmeNav yardim"></a></div>
@@ -52,130 +20,78 @@
             <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
           {{/with}}
 
-          <div style="position: absolute; top: 190px; left: 30px; width: 320px; height: 70px; overflow: hidden; word-wrap: break-word;">
-            {{seciliSoru.soru.yonerge}}
-          </div>
-          {{#if $or seciliSoru.soru.metin seciliSoru.soru.gorsel}}
-            <div class="aciklamAlani" style="position: absolute; top: 300px; left: 30px; width: 320px; height: 370px; overflow: hidden;">
-              <div style="margin-bottom: 20px; word-wrap: break-word;">{{#each splitOnNewlines seciliSoru.soru.metin}}<p>{{this}}</p>{{/each}}</div>
-              <div style="text-align: center">
-                {{#with FS.GetFile "M.FS.SoruGorsel" seciliSoru.soru.gorsel}}
-                  <img style="max-width: 90%; border-radius: 16px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                {{/with}}
-              </div>
-            </div>
-          {{else}}
-            <div style="position: absolute; top: 300px; left: 30px; width: 320px; height: 370px; padding-top: 50px; overflow: hidden; text-align: center;">
-              <img src="/assets/_bilesen/logo/altyazi-240.png" alt="">
-            </div>
-          {{/if}}
+          {{>soruyonerge seciliSoru=seciliSoru.soru topYonerge=190 topMetin=300 left=30}}
 
           <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
             {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-              <div style="font-size: 120%; position: absolute; top: 120px; height: 80px; left: 180px; width: 280px;">
-                <input disabled type="radio" value="true" checked={{$eq seciliSoru.yanit.dogruYanlis.cevap true}} id="true" name="dogruYanlis" />
-                <label for="true" class="dyLabel">Doğru</label>
-              </div>
-
-              <div style="font-size: 120%; position: absolute; top: 240px; height: 80px; left: 180px; width: 280px;">
-                <input disabled type="radio" value="false" checked={{$eq seciliSoru.yanit.dogruYanlis.cevap false}} id="false" name="dogruYanlis" />
-                <label for="false" class="dyLabel">Yanlış</label>
-              </div>
+              {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.dogruYanlis.cevap true) yanlischecked=($eq seciliSoru.yanit.dogruYanlis.cevap false) disabled=true}}
             {{/if}}
 
             {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-              <div class="secmeliContainer">
-                {{#each seciliSoru.yanit.coktanTekSecmeli}}
-                  <div>
-                    <input disabled type="radio" checked={{dogru}} value="{{@index}}" id="{{@index}}" name="coktanTekSecmeli" />
-                    <label for="{{@index}}">
-                      <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center">
-                        {{#with secenekMetin}}<div style="padding: 4px;">{{this}}</div>{{/with}}
-                        {{#with FS.GetFile "M.FS.SoruGorsel" secenekGorsel}}
-                          <img style="max-width: 100%; max-height: 220px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                        {{/with}}
-                      </div>
-                    </label>
-                  </div>
-                {{/each}}
-              </div>
+              {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.coktanTekSecmeli) disabled=true}}
             {{/if}}
 
             {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-              <div class="secmeliContainer">
-                {{#each seciliSoru.yanit.coktanCokSecmeli}}
-                  <div>
-                    <input disabled type="checkbox" checked={{dogru}} value="{{@index}}" id="{{@index}}"/>
-                    <label for="{{@index}}">
-                      <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        {{#with secenekMetin}}<div style="padding: 4px;">{{this}}</div>{{/with}}
-                        {{#with FS.GetFile "M.FS.SoruGorsel" secenekGorsel}}
-                          <img style="max-width: 100%; max-height: 220px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                        {{/with}}
-                      </div>
-                    </label>
-                  </div>
-                {{/each}}
-              </div>
+              {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.coktanCokSecmeli) disabled=true}}
             {{/if}}
 
             {{#if $eq seciliSoru.tip 'siralama'}}
-              <div id="siralama" style="padding: 0 120px 60px 120px; text-align: center;">
-                {{#each seciliSoru.yanit.siralama}}
-                  <div class="sirala" id="{{@index}}" style="cursor: default;">
-                    {{metin}}{{#if metin}}<br>{{/if}}
-                    {{#with FS.GetFile "M.FS.SoruGorsel" gorsel}}
-                      <img style="max-width: 100%; max-height: 112px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                    {{/with}}
-                  </div>
-                {{/each}}
-              </div>
+              {{>sorusiralama secenekler=(seciliSoru.yanit.siralama) id="siralama"}}
             {{/if}}
 
             {{#if $eq seciliSoru.tip 'eslestirme'}}
-              <div id="eslestirme" style="padding: 0 60px 60px 60px; text-align: center;">
-                <div style="width: 45%; float: left;">
-                  {{#each seciliSoru.yanit.eslestirme}}
-                    <div class="eslestir" id="sol-{{@index}}">
-                      {{solMetin}}{{#if solMetin}}<br>{{/if}}
-                      {{#with FS.GetFile "M.FS.SoruGorsel" solGorsel}}
-                        <img style="max-width: 100%; max-height: 88px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                      {{/with}}
-                    </div>
-                  {{/each}}
-                </div>
-                <div style="width: 45%; float: right;">
-                  {{#each seciliSoru.yanit.eslestirme}}
-                    <div class="eslestir" id="sag-{{@index}}">
-                      {{sagMetin}}{{#if sagMetin}}<br>{{/if}}
-                      {{#with FS.GetFile "M.FS.SoruGorsel" sagGorsel}}
-                        <img style="max-width: 100%; max-height: 88px; border-radius: 8px; border: 1px solid #57492B" alt="" src="{{url}}"/>
-                      {{/with}}
-                    </div>
-                  {{/each}}
-                </div>
-              </div>
+              {{>sorueslestirme solsecenekler=(seciliSoru.yanit.eslestirme) sagsecenekler=(seciliSoru.yanit.eslestirme)}}
             {{/if}}
 
             {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-              <div style="padding: 20px 40px 60px 40px; font-size: 120%; line-height: 240%; word-wrap: break-word;">
-                {{{formatliBoslukDoldurma seciliSoru.yanit.boslukDoldurma.cevap}}}
-              </div>
+              {{>soruboslukDoldurma cevap=(seciliSoru.yanit.boslukDoldurma.cevap)}}
             {{/if}}
 
           </div>
-          {{#if soruSayisiCubugaSigmiyor}}
-            <a class="sol" style="top: 713px; left: 29px;"></a>
-          {{/if}}
-          <div class="soruCubugu" style="position: absolute; top: 704px; left: 64px; width: 896px; height: 50px; white-space: nowrap; overflow: hidden;">{{#each sinav.sorular}}<div data-soruIndex="{{@index}}" class="{{#if $eq @index seciliSoruIndex}}secili{{/if}}" style="margin: 0 8px 0 7px; width: 49px; height: 49px; padding-top: 11px; display: inline-block; font-weight: bold; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{plusOne @index}}</div>{{/each}}</div>
-          {{#if soruSayisiCubugaSigmiyor}}
-            <a class="sag" style="top: 713px; left: 958px;"></a>
-          {{/if}}
+
+          {{>sorucubugu soruSayisiCubugaSigmiyor=soruSayisiCubugaSigmiyor sorular=sinav.sorular seciliSoruIndex=seciliSoruIndex}}
+
         </div>
       {{/if}}
 
 
     {{/unless}}
   {{/unless}}
+</template>
+
+<template name="sinavYanitlariYardim">
+  <div class="cover">
+    <div class="yardimEkrani">
+      <p>
+        Bu ekranda soruyu, doğru yanıtı, sorudan kazandığın puanı ve sınavın verilen süresini görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
+      </p>
+      <p>
+        {{#if $eq tip 'dogruYanlis'}}
+          Bu soruda yanıt Doğru ya da Yanlış kutucuğu seçilerek veriliyor.
+        {{/if}}
+
+        {{#if $eq tip 'coktanTekSecmeli'}}
+          Bu soruda yalnızca bir seçenek doğrudur.
+        {{/if}}
+
+        {{#if $eq tip 'coktanCokSecmeli'}}
+          Bu soruda birden fazla seçenek doğrudur.
+        {{/if}}
+
+        {{#if $eq tip 'siralama'}}
+          Bu soruda verilen kutucuklar doğru sırada görünür.
+        {{/if}}
+
+        {{#if $eq tip 'eslestirme'}}
+          Bu soruda soldaki kutucuklarla sağdakiler yönergeye uyacak şekilde eşlenir. Eşlenen seçenekler arasına bir çizgi çizilidir.
+        {{/if}}
+
+        {{#if $eq tip 'boslukDoldurma'}}
+          Bu soruda verilen boşluklara {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
+        {{/if}}
+      </p>
+      <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
+    </div>
+  </div>
 </template>

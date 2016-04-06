@@ -33,10 +33,6 @@ Template.sinavYanitlari.onCreated(function() {
 });
 
 Template.sinavYanitlari.helpers({
-  formatliBoslukDoldurma: function(cevap) {
-    var bosluklar = '<p>' + splitOnNewlines(cevap.replace(/\[(.+?)\]/g, "<span class=\"boslukDoldurSecenekSpan\">$1</span>")).join('</p><p>') + '</p>';
-    return bosluklar;
-  },
   formatliSinavSuresi: function(t) {
     return M.L.FormatSinavSuresi(t*60*1000);
   },
@@ -102,23 +98,13 @@ Template.sinavYanitlari.events({
     e.preventDefault();
     Session.set('sinavYanitGoster',false);
   },
-  'click .sinavYardim': function(e,t) {
+  'click .yardimEkrani': function(e,t) {
     var ix = t.seciliSoruIndex.get();
     t.sinavYardim.set(false);
     Meteor.defer(function() {
       t.$('[data-soruIndex="'+ix.toString()+'"]').click();
       t.$('[data-soruIndex="'+ix.toString()+'"]').addClass('secili');
     });
-  },
-  'click .sol': function(e,t) {
-    t.$('.soruCubugu').animate({
-      scrollLeft: '-=64'
-    }, 0);
-  },
-  'click .sag': function(e,t) {
-    t.$('.soruCubugu').animate({
-      scrollLeft: '+=64'
-    }, 0);
   },
   'click [data-soruIndex]': function(e,t) {
     var ix = e.currentTarget.getAttribute('data-soruIndex');

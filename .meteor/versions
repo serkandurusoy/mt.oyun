@@ -34,7 +34,7 @@ cfs:ejson-file@0.1.4
 cfs:file@0.1.17
 cfs:graphicsmagick@0.0.18
 cfs:gridfs@0.0.33
-cfs:http-methods@0.0.30
+cfs:http-methods@0.0.31
 cfs:http-publish@0.0.13
 cfs:power-queue@0.9.11
 cfs:reactive-list@0.0.9
@@ -92,6 +92,7 @@ m:lib-core@0.0.1
 m:lib-enums@0.0.1
 m:lib-models@0.0.1
 m:lib-router-oyun@0.0.1
+m:lib-sinav-soru-component@0.0.1
 m:lib-tckimlik@0.0.1
 m:lib-toastr@0.0.1
 m:lib-utils@0.0.1
