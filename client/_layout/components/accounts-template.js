@@ -81,10 +81,10 @@ Template.loginForm.events({
     M.L.clearSessionVariable('resetToken');
 
     if (kullanici.length < 1) {
-      toastr.error('E-posta adresi girilmelisin');
+      toastr.error('E-posta adresi girmelisin');
     } else {
       if (!M.L.TestEmail(kullanici)) {
-        toastr.success('Posta kutunu kontrol et');
+        toastr.error('E-posta adresi girmelisin');
       } else {
         Session.set('accountButtonsDisabled', 'disabled');
         Accounts.forgotPassword(
@@ -108,7 +108,7 @@ Template.loginForm.events({
     M.L.clearSessionVariable('resetToken');
 
     if (!M.L.TestEmail(kullanici)) {
-      toastr.error('E-posta adresi veya şifre hatalı');
+      toastr.error('E-posta adresi girmelisin');
     } else {
       Session.set('accountButtonsDisabled', 'disabled');
       Meteor.loginWithPassword(
@@ -117,6 +117,16 @@ Template.loginForm.events({
         function (err) {
           M.L.clearSessionVariable('accountButtonsDisabled');
           if (err) {
+            Tracker.afterFlush(function() {
+              Meteor.defer(function() {
+                var $kullanici = $('[name="kullanici"]');
+                var $password = $('[name="password"]');
+                if (!!$kullanici.length && !!$password.length ) {
+                  $kullanici.val(kullanici);
+                  $password.val(password);
+                }
+              })
+            });
             if (err.error && err.error === 403) {
               toastr.error('E-posta adresi veya şifre hatalı');
             } else {
