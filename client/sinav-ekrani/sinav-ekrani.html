@@ -1,100 +1,97 @@
 <template name="sinavEkrani">
-  {{#unless Template.subscriptionsReady}}
+  {{#unless $and (Template.subscriptionsReady) ($and sinavKagidi sinav)}}
     {{> loading}}
   {{else}}
-    {{#unless $and sinavKagidi sinav}}
-      {{> loading}}
-    {{else}}
-      {{#if sinavUyari}}
-        <div class="cover">
-          <div class="sinavUyari" style="padding-top: 40px; text-align: center">
-            <h1>Sınavı Bitir</h1>
-            <p>Sınavı bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak sınav kapanacaktır. Bitirdiğin sınava tekrar giremezsin.</p>
-            <p style="margin-top: 24px; text-align: center !important;">
-              <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">sınava dön</a>
-              <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
-            </p>
-          </div>
-        </div>
-      {{else}}
-        {{#if sinavYardim}}
-          {{> sinavEkraniYardim tip=seciliSoru.tip sinavTip=sinav.tip}}
-        {{else}}
-          <div class="container sinavEkrani">
-            <div style="text-align: left; position: absolute; height: 56px; width: 280px; top: 4px; left: 4px;"><a class="dugmeNav testBitti kapat sinaviBitir"></a></div>
-            <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a><a class="dugmeNav yardim"></a></div>
-            <div style="position: absolute; top: 55px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 22px;">SORU PUANI</div>
-            <div style="position: absolute; top: 103px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 32px;">{{soruPuani}}</div>
-            <div style="position: absolute; top: 55px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: 22px;">{{#if $eq sinav.tip 'canli'}}SÜRE{{else}}KALAN SÜRE{{/if}}</div>
-            <div style="position: absolute; top: {{#if $eq sinav.tip 'canli'}}112{{else}}103{{/if}}px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: {{#if $eq sinav.tip 'canli'}}20{{else}}32{{/if}}px; word-spacing: -2px">{{kalanSure}}</div>
 
-            {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' sinav.muhur 'gorsel')}}
-              <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
-            {{/with}}
+    <div class="container sinavEkrani">
+        <div style="text-align: left; position: absolute; height: 56px; width: 280px; top: 4px; left: 4px;"><a class="dugmeNav testBitti kapat sinaviBitir"></a></div>
+        <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a><a class="dugmeNav yardim"></a></div>
+        <div style="position: absolute; top: 55px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 22px;">SORU PUANI</div>
+        <div style="position: absolute; top: 103px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 32px;">{{soruPuani}}</div>
+        <div style="position: absolute; top: 55px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: 22px;">{{#if $eq sinav.tip 'canli'}}SÜRE{{else}}KALAN SÜRE{{/if}}</div>
+        <div style="position: absolute; top: {{#if $eq sinav.tip 'canli'}}112{{else}}103{{/if}}px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: {{#if $eq sinav.tip 'canli'}}20{{else}}32{{/if}}px; word-spacing: -2px">{{kalanSure}}</div>
 
-            {{>soruyonerge seciliSoru=seciliSoru topYonerge=190 topMetin=300 left=30}}
+        {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' sinav.muhur 'gorsel')}}
+          <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
+        {{/with}}
 
-            <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
+        {{>soruyonerge seciliSoru=seciliSoru topYonerge=190 topMetin=300 left=30}}
 
-              {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-                {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.cevap true) yanlischecked=($eq seciliSoru.yanit.cevap false)}}
-              {{/if}}
+        <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
-              {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-                {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-                {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'siralama'}}
-                {{>sorusiralama secenekler=(seciliSoru.yanit.secenekler) id=(join "siralama" seciliSoru.soruId seciliSoru.yanitlandi)}}
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'eslestirme'}}
-                {{>sorueslestirme solsecenekler=(seciliSoru.yanit.sol) sagsecenekler=(seciliSoru.yanit.sag) eslemeIcinSeciliKutu=eslemeIcinSeciliKutu sinav=true}}
-              {{/if}}
-
-              {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-                {{>soruboslukDoldurma cevap=(seciliSoru.yanit.bosluklar) sinav=true}}
-              {{/if}}
-
-            </div>
-
-            {{#unless $eq (cevapDogruYanlis seciliSoruIndex) ' cevapDogru'}}
-              <a data-trigger="soruYanitla" class="soruYanitla" style="padding-top: 10px; font-size: 16px; left: 900px; bottom: 95px;">yanıtla</a>
-            {{/unless}}
-
-            {{>sorucubugu sorular=sinavKagidi.yanitlar seciliSoruIndex=seciliSoruIndex sinav=true}}
-
-          </div>
-
-          {{#if $and ($eq sinav.tip 'canli') ($neq sinav.canliStatus 'running')}}
-            <div class="cover superCover">
-              <div class="sinavStatus" style="padding-top: 40px; text-align: center">
-                {{#if $eq sinav.canliStatus 'pending'}}
-                  <h1>Sınav Başlamayı Bekliyor</h1>
-                  <p>Bu bir canlı sınav ve öğretmen tarafından herkes için aynı anda başlatılmak üzere bekletiliyor. Ekranını kapatma ve öğretmenin talimatlarını bekle. Sınav başlayınca bu uyarı kendiliğinden kapanacak ve soruları yanıtlamaya başlayabileceksin.</p>
-                {{/if}}
-                {{#if $eq sinav.canliStatus 'paused'}}
-                  <h1>Sınav Durduruldu</h1>
-                  <p>Öğretmen sınavı herkes için beklemeye aldı. Ekranını kapatma ve öğretmeninin talimatlarını bekle. Öğretmen sınavı herkes için aynı anda tekrar başlattığında bu uyarı kendiliğinden kapanacak ve sınava kaldığın yerden devam edebileceksin.</p>
-                {{/if}}
-                {{#if $eq sinav.canliStatus 'completed'}}
-                  <h1>Sınav Bitti</h1>
-                  <p>Sınav öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen sınavı bitir düğmesine {{#if $eq deviceType 'desktop'}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
-                  <p style="margin-top: 24px; text-align: center !important;">
-                    <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
-                  </p>
-              {{/if}}
-              </div>
-            </div>
+          {{#if $eq seciliSoru.tip 'dogruYanlis'}}
+            {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.cevap true) yanlischecked=($eq seciliSoru.yanit.cevap false)}}
           {{/if}}
 
-        {{/if}}
+          {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
+            {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
+          {{/if}}
+
+          {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
+            {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
+          {{/if}}
+
+          {{#if $eq seciliSoru.tip 'siralama'}}
+            {{>sorusiralama secenekler=(seciliSoru.yanit.secenekler) id=(join "siralama" seciliSoru.soruId seciliSoru.yanitlandi)}}
+          {{/if}}
+
+          {{#if $eq seciliSoru.tip 'eslestirme'}}
+            {{>sorueslestirme solsecenekler=(seciliSoru.yanit.sol) sagsecenekler=(seciliSoru.yanit.sag) eslemeIcinSeciliKutu=eslemeIcinSeciliKutu sinav=true}}
+          {{/if}}
+
+          {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
+            {{>soruboslukDoldurma cevap=(seciliSoru.yanit.bosluklar) sinav=true}}
+          {{/if}}
+
+        </div>
+
+        {{#unless $eq (cevapDogruYanlis seciliSoruIndex) ' cevapDogru'}}
+          <a data-trigger="soruYanitla" class="soruYanitla" style="padding-top: 10px; font-size: 16px; left: 900px; bottom: 95px;">yanıtla</a>
+        {{/unless}}
+
+        {{>sorucubugu sorular=sinavKagidi.yanitlar seciliSoruIndex=seciliSoruIndex sinav=true}}
+
+    </div>
+
+    {{#if sinavUyari}}
+      <div class="cover">
+        <div class="sinavUyari" style="padding-top: 40px; text-align: center">
+          <h1>Sınavı Bitir</h1>
+          <p>Sınavı bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak sınav kapanacaktır. Bitirdiğin sınava tekrar giremezsin.</p>
+          <p style="margin-top: 24px; text-align: center !important;">
+            <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">sınava dön</a>
+            <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
+          </p>
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if sinavYardim}}
+      {{> sinavEkraniYardim tip=seciliSoru.tip sinavTip=sinav.tip}}
+    {{/if}}
+
+    {{#if $and ($eq sinav.tip 'canli') ($neq sinav.canliStatus 'running')}}
+        <div class="cover superCover">
+          <div class="sinavStatus" style="padding-top: 40px; text-align: center">
+            {{#if $eq sinav.canliStatus 'pending'}}
+              <h1>Sınav Başlamayı Bekliyor</h1>
+              <p>Bu bir canlı sınav ve öğretmen tarafından herkes için aynı anda başlatılmak üzere bekletiliyor. Ekranını kapatma ve öğretmenin talimatlarını bekle. Sınav başlayınca bu uyarı kendiliğinden kapanacak ve soruları yanıtlamaya başlayabileceksin.</p>
+            {{/if}}
+            {{#if $eq sinav.canliStatus 'paused'}}
+              <h1>Sınav Durduruldu</h1>
+              <p>Öğretmen sınavı herkes için beklemeye aldı. Ekranını kapatma ve öğretmeninin talimatlarını bekle. Öğretmen sınavı herkes için aynı anda tekrar başlattığında bu uyarı kendiliğinden kapanacak ve sınava kaldığın yerden devam edebileceksin.</p>
+            {{/if}}
+            {{#if $eq sinav.canliStatus 'completed'}}
+              <h1>Sınav Bitti</h1>
+              <p>Sınav öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen sınavı bitir düğmesine {{#if $eq deviceType 'desktop'}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
+              <p style="margin-top: 24px; text-align: center !important;">
+                <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
+              </p>
+          {{/if}}
+          </div>
+        </div>
       {{/if}}
-    {{/unless}}
+
   {{/unless}}
 </template>
 
