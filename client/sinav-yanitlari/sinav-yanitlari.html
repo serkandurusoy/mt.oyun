@@ -16,7 +16,9 @@
         <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
       {{/with}}
 
-      {{>soruyonerge seciliSoru=seciliSoru.soru topYonerge=190 topMetin=300 left=30}}
+      {{#if renderComponent}}
+        {{>soruyonerge seciliSoru=seciliSoru.soru topYonerge=190 topMetin=300 left=30}}
+      {{/if}}
 
       <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 

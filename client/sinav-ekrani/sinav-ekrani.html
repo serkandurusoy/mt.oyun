@@ -21,7 +21,9 @@
 
         <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
-          {{>Template.dynamic template=soruKomponent.template data=soruKomponent.data}}
+          {{#if renderComponent}}
+            {{>Template.dynamic template=soruKomponent.template data=soruKomponent.data}}
+          {{/if}}
 
         </div>
 

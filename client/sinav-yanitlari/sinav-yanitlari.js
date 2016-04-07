@@ -2,6 +2,7 @@ Template.sinavYanitlari.onCreated(function() {
   var template = this;
 
   template.sinavYardim = new ReactiveVar(false);
+  template.renderComponent = new ReactiveVar(true);
   template.seciliSoruIndex = new ReactiveVar(0);
   template.sinav = new ReactiveVar(null);
 
@@ -31,6 +32,9 @@ Template.sinavYanitlari.helpers({
   },
   sinav: function() {
     return Template.instance().sinav.get();
+  },
+  renderComponent: function() {
+    return Template.instance().renderComponent.get();
   },
   seciliSoruIndex: function() {
     return Template.instance().seciliSoruIndex.get();

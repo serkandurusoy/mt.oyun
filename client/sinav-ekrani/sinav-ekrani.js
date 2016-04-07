@@ -6,6 +6,7 @@ Template.sinavEkrani.onCreated(function() {
   template.renderDate = new ReactiveVar(new Date());
   template.sinavUyari = new ReactiveVar(false);
   template.sinavYardim = new ReactiveVar(false);
+  template.renderComponent = new ReactiveVar(true);
   template.seciliSoruIndex = new ReactiveVar(0);
   template.kalanSure = new ReactiveVar('');
   template.sinavKagidi = new ReactiveVar(null);
@@ -125,6 +126,9 @@ Template.sinavEkrani.helpers({
   kalanSure: function() {
     return Template.instance().kalanSure.get();
   },
+  renderComponent: function() {
+    return Template.instance().renderComponent.get();
+  },
   seciliSoruIndex: function() {
     return Template.instance().seciliSoruIndex.get();
   },
@@ -151,6 +155,9 @@ Template.sinavEkrani.helpers({
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
     var sinavKagidi = Template.instance().sinavKagidi.get();
     return sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex];
+  },
+  renderComponent: function() {
+    return Template.instance().renderComponent.get();
   },
   soruKomponent: function() {
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
@@ -360,7 +367,10 @@ Template.sinavEkrani.events({
           } else {
             var newIx = ix === ixLast ? 0 : ix+1;
             if (newIx > 0) {
+              t.renderComponent.set(false);
+              Tracker.flush();
               t.seciliSoruIndex.set(newIx);
+              t.renderComponent.set(true);
               toastr.success('Soruya verdiğin yanıt kaydedildi.');
               if (ix+1 >= 14 && $('[data-soruIndex="'+newIx.toString()+'"]').position().left === 896) {
                 t.$('.soruCubugu').animate({
