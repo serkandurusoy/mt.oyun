@@ -1,6 +1,8 @@
 <template name="sinavEkrani">
   {{#unless $and (Template.subscriptionsReady) ($and sinavKagidi sinav)}}
+
     {{> loading}}
+
   {{else}}
 
     <div class="container sinavEkrani">
@@ -24,19 +26,19 @@
           {{/if}}
 
           {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-            {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
+            {{>sorucoktanTekSecmeli sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
           {{/if}}
 
           {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-            {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.secenekler)}}
+            {{>sorucoktanCokSecmeli sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
           {{/if}}
 
           {{#if $eq seciliSoru.tip 'siralama'}}
-            {{>sorusiralama secenekler=(seciliSoru.yanit.secenekler) id=(join "siralama" seciliSoru.soruId seciliSoru.yanitlandi)}}
+            {{>sorusiralama sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
           {{/if}}
 
           {{#if $eq seciliSoru.tip 'eslestirme'}}
-            {{>sorueslestirme solsecenekler=(seciliSoru.yanit.sol) sagsecenekler=(seciliSoru.yanit.sag) eslemeIcinSeciliKutu=eslemeIcinSeciliKutu sinav=true}}
+            {{>sorueslestirme sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
           {{/if}}
 
           {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
@@ -49,7 +51,7 @@
           <a data-trigger="soruYanitla" class="soruYanitla" style="padding-top: 10px; font-size: 16px; left: 900px; bottom: 95px;">yanıtla</a>
         {{/unless}}
 
-        {{>sorucubugu sorular=sinavKagidi.yanitlar seciliSoruIndex=seciliSoruIndex sinav=true sinavKagidiId=sinavKagidi._id}}
+        {{>sorucubugu sorular=sinavKagidi.yanitlar sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
 
     </div>
 

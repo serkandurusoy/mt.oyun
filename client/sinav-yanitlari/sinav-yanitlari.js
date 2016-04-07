@@ -80,9 +80,5 @@ Template.sinavYanitlari.events({
   },
   'click .yardimEkrani': function(e,t) {
     t.sinavYardim.set(false);
-  },
-  'click [data-soruIndex]': function(e,t) {
-    var ix = e.currentTarget.getAttribute('data-soruIndex');
-    t.seciliSoruIndex.set(ix);
   }
 });

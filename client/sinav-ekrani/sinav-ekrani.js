@@ -7,9 +7,7 @@ Template.sinavEkrani.onCreated(function() {
   template.sinavUyari = new ReactiveVar(false);
   template.sinavYardim = new ReactiveVar(false);
   template.seciliSoruIndex = new ReactiveVar(0);
-  template.isaretliSorular = new ReactiveArray([]);
   template.kalanSure = new ReactiveVar('');
-  template.eslestirme = new ReactiveDict();
   template.sinavKagidi = new ReactiveVar(null);
   template.sinav = new ReactiveVar(null);
 
@@ -74,42 +72,6 @@ Template.sinavEkrani.onCreated(function() {
               }
             }
           }
-
-          Tracker.afterFlush(function() {
-            var seciliSoruIndex = template.seciliSoruIndex.get() ? template.seciliSoruIndex.get() : 0;
-            var yanitSayisi = sinavKagidi.yanitlar[seciliSoruIndex].yanitlandi;
-            if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'siralama' && yanitSayisi >= 0) {
-              var el = document.getElementById('siralama-'+sinavKagidi.yanitlar[seciliSoruIndex].soruId+'-'+yanitSayisi);
-              if (el) {
-                if (typeof siralamaSortable !== 'undefined') {
-                  siralamaSortable.destroy()
-                }
-                siralamaSortable = new Sortable(el, {
-                  forceFallback: true,
-                  onEnd: function() {
-                    $('#cozumAlani').animate({
-                      scrollTop: '-=500'
-                    }, 0)
-                  }
-                });
-                siralamaSortable.sort(_.map(sinavKagidi.yanitlar[seciliSoruIndex].yanit.secenekler, function(secenek) {return JSON.stringify(secenek).toString().toHashCode();}));
-              }
-            }
-            if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'eslestirme') {
-              var eslestirLength = sinavKagidi.yanitlar[seciliSoruIndex].yanit.sol.length;
-              for(var sol=0;sol<eslestirLength;sol++) {
-                for(var sag=0;sag<eslestirLength;sag++) {
-                  M.L.CizgiSil(sol,sag,'eslestirme');
-                }
-              }
-              _.each(sinavKagidi.yanitlar[seciliSoruIndex].yanit.eslestirme, function(eslesme) {
-                template.eslestirme.set('eslestirme'+seciliSoruIndex,[null,null]);
-                if (sinavKagidi.yanitlar[seciliSoruIndex].yanitlandi > 0) {
-                  M.L.CizgiCiz(eslesme[0],eslesme[1],'eslestirme');
-                }
-              })
-            }
-          });
 
         } else {
           Session.set('sinavGoster',false);
@@ -189,11 +151,6 @@ Template.sinavEkrani.helpers({
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
     var sinavKagidi = Template.instance().sinavKagidi.get();
     return sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex];
-  },
-  eslemeIcinSeciliKutu: function(pos,ix) {
-    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
-    var eslestirme = Template.instance().eslestirme.get('eslestirme'+seciliSoruIndex);
-    return eslestirme;
   }
 });
 
@@ -225,95 +182,6 @@ Template.sinavEkrani.events({
     t.sinavUyari.set(false);
     Session.set('sinavGoster',false);
     toastr.success('Tebrikler! Sınavı başarıyla bitirdin. Sonuçları mühür bilgi ekranından görebilirsin');
-  },
-  'click [data-soruIndex]': function(e,t) {
-    var ix = e.currentTarget.getAttribute('data-soruIndex');
-    t.seciliSoruIndex.set(ix);
-    Tracker.afterFlush(function() {
-      var seciliSoruIndex = t.seciliSoruIndex.get();
-      var sinavKagidi = t.sinavKagidi.get();
-      var yanitSayisi = sinavKagidi.yanitlar[seciliSoruIndex].yanitlandi;
-
-      if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'siralama' && yanitSayisi >= 0) {
-        var el = document.getElementById('siralama-'+sinavKagidi.yanitlar[seciliSoruIndex].soruId+'-'+yanitSayisi);
-        if (el) {
-          if (typeof siralamaSortable !== 'undefined') {
-            siralamaSortable.destroy()
-          }
-          siralamaSortable = new Sortable(el, {
-            forceFallback: true,
-            onEnd: function() {
-              $('#cozumAlani').animate({
-                scrollTop: '-=500'
-              }, 0)
-            }
-          });
-          siralamaSortable.sort(_.map(sinavKagidi.yanitlar[seciliSoruIndex].yanit.secenekler, function(secenek) {return JSON.stringify(secenek).toString().toHashCode();}));
-        }
-      }
-      if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'eslestirme') {
-        var eslestirLength = sinavKagidi.yanitlar[seciliSoruIndex].yanit.sol.length;
-        for(var sol=0;sol<eslestirLength;sol++) {
-          for(var sag=0;sag<eslestirLength;sag++) {
-            M.L.CizgiSil(sol,sag,'eslestirme');
-          }
-        }
-        _.each(sinavKagidi.yanitlar[seciliSoruIndex].yanit.eslestirme, function(eslesme) {
-          t.eslestirme.set('eslestirme'+ seciliSoruIndex,[null,null]);
-          if (sinavKagidi.yanitlar[seciliSoruIndex].yanitlandi > 0) {
-            M.L.CizgiCiz(eslesme[0],eslesme[1],'eslestirme');
-          }
-        })
-      }
-    })
-  },
-  'dblclick [data-soruIndex]': function(e,t) {
-    var ix = e.currentTarget.getAttribute('data-soruIndex');
-    var isaretliSorular = t.isaretliSorular.array();
-    if (_.contains(isaretliSorular, ix)) {
-      t.isaretliSorular.remove(ix);
-    } else {
-      t.isaretliSorular.push(ix);
-    }
-    t.$(e.currentTarget).toggleClass('isaretli');
-  },
-  'keydown .boslukDoldurSecenek, blur .boslukDoldurSecenek': function(e,t) {
-    var len = t.$(e.currentTarget).val().length;
-    if (len >= 7) {
-      t.$(e.currentTarget).attr('size', len + 1);
-    }
-  },
-  'click .eslestir': function(e,t) {
-    //TODO: This is limited to 10 options
-    var seciliSoruIndex = t.seciliSoruIndex.get();
-    var sinavKagidi = t.sinavKagidi.get();
-    var len = sinavKagidi ? sinavKagidi.yanitlar[seciliSoruIndex].yanit.eslestirme.length : 0;
-    var id = e.currentTarget.getAttribute('id');
-    var ix = parseInt(id.substr(4,1));
-    if (id.substr(0,3) === 'sol') {
-      for(var i=0;i<len;i++) {
-        M.L.CizgiSil(ix,i,'eslestirme');
-      }
-      t.eslestirme.set('eslestirme'+ seciliSoruIndex,[ix,t.eslestirme.get('eslestirme'+ seciliSoruIndex)[1]]);
-    } else {
-      for(var i=0;i<len;i++) {
-        M.L.CizgiSil(i,ix,'eslestirme');
-      }
-      t.eslestirme.set('eslestirme'+ seciliSoruIndex,[t.eslestirme.get('eslestirme'+ seciliSoruIndex)[0],ix]);
-    }
-    if (_.isNumber(t.eslestirme.get('eslestirme'+ seciliSoruIndex)[0]) && _.isNumber(t.eslestirme.get('eslestirme'+ seciliSoruIndex)[1])) {
-      M.L.CizgiCiz(t.eslestirme.get('eslestirme'+ seciliSoruIndex)[0],t.eslestirme.get('eslestirme'+ seciliSoruIndex)[1],'eslestirme');
-      t.eslestirme.set('eslestirme'+ seciliSoruIndex,[null,null]);
-    }
-  },
-  'click .cizgi': function(e,t) {
-    //TODO: This is limited to 10 options
-    var seciliSoruIndex = t.seciliSoruIndex.get();
-    var id = e.currentTarget.getAttribute('id');
-    var sol = id.substr(4,1);
-    var sag = id.substr(10,1);
-    t.eslestirme.set('eslestirme'+ seciliSoruIndex,[null,null]);
-    M.L.CizgiSil(sol,sag,'eslestirme');
   },
   'click .soruYanitla': function(e,t) {
     var eslestirmeEksik = false, dogruYanlisSecilmemis = false, coktanTekSecilmemis = false, coktanCokSecilmemis = false, boslukDoldurulmamis = false ;
@@ -445,14 +313,12 @@ Template.sinavEkrani.events({
             ogrenciSinavaGirdi: true
           });
           if (sinavKagidiGuncel && sinavKagidiGuncel.tip === 'alistirma' && sinavKagidiGuncel.yanitlar[ix].dogru === false) {
-            // TODO: This is a hack. We should use the reactivevar setter but when we do, sortable does not initialize, so we should solve that one first
-            t.$('[data-soruIndex="'+ix.toString()+'"]').click();
+            //t.seciliSoruIndex.set(ix);//t.$('[data-soruIndex="'+ix.toString()+'"]').click();
             toastr.error('Soruya verdiğin yanıt yanlış, düzeltip tekrar yanıtlayabilirsin.');
           } else {
             var newIx = ix === ixLast ? 0 : ix+1;
             if (newIx > 0) {
-              // TODO: This is a hack. We should use the reactivevar setter but when we do, sortable does not initialize, so we should solve that one first
-              t.$('[data-soruIndex="'+newIx.toString()+'"]').click();
+              t.seciliSoruIndex.set(newIx);//t.$('[data-soruIndex="'+newIx.toString()+'"]').click();
               toastr.success('Soruya verdiğin yanıt kaydedildi.');
               if (ix+1 >= 14 && $('[data-soruIndex="'+newIx.toString()+'"]').position().left === 896) {
                 t.$('.soruCubugu').animate({
@@ -460,7 +326,7 @@ Template.sinavEkrani.events({
                 }, 0);
               }
             } else {
-              t.$('[data-soruIndex="'+ix.toString()+'"]').click();
+              //t.seciliSoruIndex.set(ix);//t.$('[data-soruIndex="'+ix.toString()+'"]').click();
               toastr.success('Soruya verdiğin yanıt kaydedildi ve bu sınavın son sorusuydu.');
             }
           }
