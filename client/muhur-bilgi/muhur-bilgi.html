@@ -63,8 +63,12 @@
             {{/if}}
           </div>
 
+          {{#if baskaSinavDevamEdiyor}}
+            <div style="position: absolute; top: 565px; left: 420px; width: 370px; text-align: center; font-size: 12px; font-style: italic">Bu sınavın yanıtlarını görebilmek için önce {{baskaSinavDevamEdiyor}} mühürünün devam eden sınavını tamamlamalısın.</div>
+          {{/if}}
+
           {{#if sinavAlinmamisAmaBaskaSinavDevamEdiyor}}
-            <div style="position: absolute; top: 565px; left: 360px; width: 490px; text-align: center; font-size: 12px; font-style: italic">Bu sınava başlayabilmek için önce {{sinavAlinmamisAmaBaskaSinavDevamEdiyor}} mühürünün sınavını tamamlamalısın.</div>
+            <div style="position: absolute; top: 565px; left: 420px; width: 370px; text-align: center; font-size: 12px; font-style: italic">Bu sınava başlayabilmek için önce {{sinavAlinmamisAmaBaskaSinavDevamEdiyor}} mühürünün devam eden sınavını tamamlamalısın.</div>
           {{/if}}
 
         </div>

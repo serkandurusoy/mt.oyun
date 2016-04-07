@@ -95,11 +95,6 @@ Template.sinavEkrani.onCreated(function() {
                 siralamaSortable.sort(_.map(sinavKagidi.yanitlar[seciliSoruIndex].yanit.secenekler, function(secenek) {return JSON.stringify(secenek).toString().toHashCode();}));
               }
             }
-            if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'boslukDoldurma') {
-              _.map(sinavKagidi.yanitlar[seciliSoruIndex].yanit.cevaplar, function(cevap,cIx) {
-                $('input[type="text"]#'+cIx).val(cevap);
-              })
-            }
             if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'eslestirme') {
               var eslestirLength = sinavKagidi.yanitlar[seciliSoruIndex].yanit.sol.length;
               for(var sol=0;sol<eslestirLength;sol++) {
@@ -255,11 +250,6 @@ Template.sinavEkrani.events({
           });
           siralamaSortable.sort(_.map(sinavKagidi.yanitlar[seciliSoruIndex].yanit.secenekler, function(secenek) {return JSON.stringify(secenek).toString().toHashCode();}));
         }
-      }
-      if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'boslukDoldurma') {
-        _.map(sinavKagidi.yanitlar[seciliSoruIndex].yanit.cevaplar, function(cevap,cIx) {
-          t.$('input[type="text"]#'+cIx).val(cevap);
-        })
       }
       if (sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex].tip === 'eslestirme') {
         var eslestirLength = sinavKagidi.yanitlar[seciliSoruIndex].yanit.sol.length;

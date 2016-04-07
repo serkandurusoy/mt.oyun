@@ -21,7 +21,7 @@
       <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
         {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-          {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.dogruYanlis.cevap true) yanlischecked=($eq seciliSoru.yanit.dogruYanlis.cevap false) disabled=true}}
+          {{>sorudogruYanlis dogruchecked=($eq seciliSoru.yanit.dogruYanlis.cevap true) yanlischecked=($eq seciliSoru.yanit.dogruYanlis.cevap false) disabled=true}}
         {{/if}}
 
         {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}

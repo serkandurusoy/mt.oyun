@@ -20,7 +20,7 @@
         <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
           {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-            {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.cevap true) yanlischecked=($eq seciliSoru.yanit.cevap false)}}
+            {{>sorudogruYanlis sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
           {{/if}}
 
           {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
@@ -40,16 +40,16 @@
           {{/if}}
 
           {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-            {{>soruboslukDoldurma cevap=(seciliSoru.yanit.bosluklar) sinav=true}}
+            {{>soruboslukDoldurma sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
           {{/if}}
 
         </div>
 
-        {{#unless $eq (cevapDogruYanlis seciliSoruIndex) ' cevapDogru'}}
+        {{#unless $eq (cevapDogruYanlis sinavKagidi._id seciliSoruIndex) ' cevapDogru'}}
           <a data-trigger="soruYanitla" class="soruYanitla" style="padding-top: 10px; font-size: 16px; left: 900px; bottom: 95px;">yanıtla</a>
         {{/unless}}
 
-        {{>sorucubugu sorular=sinavKagidi.yanitlar seciliSoruIndex=seciliSoruIndex sinav=true}}
+        {{>sorucubugu sorular=sinavKagidi.yanitlar seciliSoruIndex=seciliSoruIndex sinav=true sinavKagidiId=sinavKagidi._id}}
 
     </div>
 

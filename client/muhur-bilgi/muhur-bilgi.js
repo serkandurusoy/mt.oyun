@@ -140,6 +140,11 @@ Template.muhurBilgi.helpers({
     var sinavId = FlowRouter.getParam('_id');
     return devamEdenSinavVar === sinavId;
   },
+  baskaSinavDevamEdiyor: function() {
+    var devamEdenSinavVar = Session.get('devamEdenSinavVar');
+    var sinavId = FlowRouter.getParam('_id');
+    return devamEdenSinavVar && devamEdenSinavVar !== sinavId && M.C.Muhurler.findOne({_id: M.C.Sinavlar.findOne({_id: devamEdenSinavVar}).muhur}).isim;
+  },
   sinavAlinmamisAmaBaskaSinavDevamEdiyor: function() {
     var devamEdenSinavVar = Session.get('devamEdenSinavVar');
     var sinavId = FlowRouter.getParam('_id');
