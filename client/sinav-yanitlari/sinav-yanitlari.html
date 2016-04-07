@@ -20,29 +20,7 @@
 
       <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
-        {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-          {{>sorudogruYanlis dogruchecked=($eq seciliSoru.yanit.dogruYanlis.cevap true) yanlischecked=($eq seciliSoru.yanit.dogruYanlis.cevap false) disabled=true}}
-        {{/if}}
-
-        {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-          {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.coktanTekSecmeli) disabled=true}}
-        {{/if}}
-
-        {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-          {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.coktanCokSecmeli) disabled=true}}
-        {{/if}}
-
-        {{#if $eq seciliSoru.tip 'siralama'}}
-          {{>sorusiralama secenekler=(seciliSoru.yanit.siralama)}}
-        {{/if}}
-
-        {{#if $eq seciliSoru.tip 'eslestirme'}}
-          {{>sorueslestirme solsecenekler=(seciliSoru.yanit.eslestirme) sagsecenekler=(seciliSoru.yanit.eslestirme)}}
-        {{/if}}
-
-        {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-          {{>soruboslukDoldurma cevap=(seciliSoru.yanit.boslukDoldurma.cevap)}}
-        {{/if}}
+        {{>Template.dynamic template=soruKomponent.template data=soruKomponent.data}}
 
       </div>
 

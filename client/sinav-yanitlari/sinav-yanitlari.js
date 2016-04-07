@@ -67,6 +67,12 @@ Template.sinavYanitlari.helpers({
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
     var sinav = Template.instance().sinav.get();
     return sinav && M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
+  },
+  soruKomponent: function() {
+    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    var sinav = Template.instance().sinav.get();
+    var seciliSoru = sinav && M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
+    return M.L.komponentSec(seciliSoru);
   }
 });
 
