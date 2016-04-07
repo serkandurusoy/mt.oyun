@@ -21,29 +21,7 @@
 
         <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
-          {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-            {{>sorudogruYanlis sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
-          {{/if}}
-
-          {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-            {{>sorucoktanTekSecmeli sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
-          {{/if}}
-
-          {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-            {{>sorucoktanCokSecmeli sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
-          {{/if}}
-
-          {{#if $eq seciliSoru.tip 'siralama'}}
-            {{>sorusiralama sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
-          {{/if}}
-
-          {{#if $eq seciliSoru.tip 'eslestirme'}}
-            {{>sorueslestirme sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
-          {{/if}}
-
-          {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-            {{>soruboslukDoldurma sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
-          {{/if}}
+          {{>Template.dynamic template=soruKomponent.template data=soruKomponent.data}}
 
         </div>
 

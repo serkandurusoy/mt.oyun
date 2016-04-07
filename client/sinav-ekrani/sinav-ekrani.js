@@ -151,6 +151,49 @@ Template.sinavEkrani.helpers({
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
     var sinavKagidi = Template.instance().sinavKagidi.get();
     return sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex];
+  },
+  soruKomponent: function() {
+    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    var sinavKagidi = Template.instance().sinavKagidi.get();
+    var seciliSoru = sinavKagidi && sinavKagidi.yanitlar[seciliSoruIndex];
+
+    if (seciliSoru) {
+      var template=null;
+      var data={
+        sinav: true,
+        sinavKagidiId: sinavKagidi._id,
+        seciliSoruIndex: seciliSoruIndex
+      };
+
+      switch (seciliSoru.tip) {
+        case 'dogruYanlis':
+          template = 'sorudogruYanlis';
+          break;
+        case 'coktanTekSecmeli':
+          template = 'sorucoktanTekSecmeli';
+          break;
+        case 'coktanCokSecmeli':
+          template = 'sorucoktanCokSecmeli';
+          break;
+        case 'siralama':
+          template = 'sorusiralama';
+          break;
+        case 'eslestirme':
+          template = 'sorueslestirme';
+          break;
+        case 'boslukDoldurma':
+          template = 'soruboslukDoldurma';
+          break;
+        default:
+          template = null;
+          break;
+      }
+
+      return {
+        template: template,
+        data: data
+      }
+    }
   }
 });
 
@@ -313,12 +356,11 @@ Template.sinavEkrani.events({
             ogrenciSinavaGirdi: true
           });
           if (sinavKagidiGuncel && sinavKagidiGuncel.tip === 'alistirma' && sinavKagidiGuncel.yanitlar[ix].dogru === false) {
-            //t.seciliSoruIndex.set(ix);//t.$('[data-soruIndex="'+ix.toString()+'"]').click();
             toastr.error('Soruya verdiğin yanıt yanlış, düzeltip tekrar yanıtlayabilirsin.');
           } else {
             var newIx = ix === ixLast ? 0 : ix+1;
             if (newIx > 0) {
-              t.seciliSoruIndex.set(newIx);//t.$('[data-soruIndex="'+newIx.toString()+'"]').click();
+              t.seciliSoruIndex.set(newIx);
               toastr.success('Soruya verdiğin yanıt kaydedildi.');
               if (ix+1 >= 14 && $('[data-soruIndex="'+newIx.toString()+'"]').position().left === 896) {
                 t.$('.soruCubugu').animate({
@@ -326,7 +368,6 @@ Template.sinavEkrani.events({
                 }, 0);
               }
             } else {
-              //t.seciliSoruIndex.set(ix);//t.$('[data-soruIndex="'+ix.toString()+'"]').click();
               toastr.success('Soruya verdiğin yanıt kaydedildi ve bu sınavın son sorusuydu.');
             }
           }
