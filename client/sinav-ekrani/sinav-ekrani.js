@@ -246,21 +246,6 @@ Template.sinavEkrani.helpers({
     }
 
   },
-  soruSayisiCubugaSigmiyor: function() {
-    var aktifEgitimYili = M.C.AktifEgitimYili.findOne();
-    var user = Meteor.user();
-    var sinavKagidi = M.C.SinavKagitlari.findOne({
-      ogrenci: Meteor.userId(),
-      kurum: user && user.kurum,
-      sinif: user && user.sinif,
-      egitimYili: aktifEgitimYili && aktifEgitimYili.egitimYili,
-      baslamaZamani: {$lte: Template.instance().renderDate.get()},
-      bitirmeZamani: {$exists: false},
-      'yanitlar.yanitlandi': {$gte: 0},
-      ogrenciSinavaGirdi: true
-    });
-    return sinavKagidi && sinavKagidi.yanitlar.length > 14;
-  },
   seciliSoru: function() {
     var aktifEgitimYili = M.C.AktifEgitimYili.findOne();
     var user = Meteor.user();
@@ -278,7 +263,7 @@ Template.sinavEkrani.helpers({
   },
   eslemeIcinSeciliKutu: function(pos,ix) {
     var eslestirme = Template.instance().eslestirme.get('eslestirme'+Template.instance().seciliSoruIndex.get());
-    return eslestirme/* && eslestirme[pos] === ix*/;
+    return eslestirme;
   }
 });
 
@@ -292,25 +277,14 @@ Template.sinavEkrani.events({
     toastr.error('Dikkat! Sınav süresi işlemeye devam ediyor, istersen sınava tekrar dönebilirsin');
   },
   'click .sinavYardim': function(e,t) {
-    var ix = t.seciliSoruIndex.get();
     t.sinavYardim.set(false);
-    Meteor.defer(function() {
-      t.$('[data-soruIndex="'+ix.toString()+'"]').click();
-      t.$('[data-soruIndex="'+ix.toString()+'"]').addClass('secili');
-    });
   },
   'click .dugmeNav.kapat': function(e,t) {
     e.preventDefault();
     t.sinavUyari.set(true);
   },
   'click .kapatmaktanVazgec': function(e,t) {
-    var ix = t.seciliSoruIndex.get();
     t.sinavUyari.set(false);
-    Meteor.defer(function() {
-      // TODO: This is a hack. We should use the reactivevar setter but when we do, questions don't initialize
-      t.$('[data-soruIndex="'+ix.toString()+'"]').click();
-      t.$('[data-soruIndex="'+ix.toString()+'"]').addClass('secili');
-    });
   },
   'click .kapatmayiOnayla': function(e,t) {
     e.preventDefault();
@@ -336,8 +310,6 @@ Template.sinavEkrani.events({
   'click [data-soruIndex]': function(e,t) {
     var ix = e.currentTarget.getAttribute('data-soruIndex');
     t.seciliSoruIndex.set(ix);
-    t.$('[data-soruIndex]').removeClass('secili');
-    t.$(e.currentTarget).addClass('secili');
     Tracker.afterFlush(function() {
       var seciliSoruIndex = t.seciliSoruIndex.get();
       var aktifEgitimYili = M.C.AktifEgitimYili.findOne();

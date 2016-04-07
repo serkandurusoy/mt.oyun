@@ -3,30 +3,20 @@ Template.sinavYanitlari.onCreated(function() {
 
   template.sinavYardim = new ReactiveVar(false);
   template.seciliSoruIndex = new ReactiveVar(0);
-  template.eslestirme = new ReactiveDict();
+  template.sinav = new ReactiveVar({});
 
   template.autorun(function() {
     template.subscribe('fssorugorsel');
     template.subscribe('sinavYanitlari', Session.get('sinavYanitGoster'), moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate(), function() {
-      var sinav = M.C.Sinavlar.findOne({_id: Session.get('sinavYanitGoster')});
-      Tracker.afterFlush(function() {
-        var seciliSoruIndex = template.seciliSoruIndex.get() ? template.seciliSoruIndex.get() : 0;
-        var seciliSoru = M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
-        if (seciliSoru && seciliSoru.tip === 'eslestirme') {
-          var eslestirLength = seciliSoru.yanit.eslestirme.length;
-          for(var sol=0;sol<eslestirLength;sol++) {
-            for(var sag=0;sag<eslestirLength;sag++) {
-              M.L.CizgiSil(sol,sag,'eslestirme');
-            }
-          }
-          _.each(seciliSoru.yanit.eslestirme, function(eslesme, ix) {
-            template.eslestirme.set('eslestirme'+seciliSoruIndex,[null,null]);
-            M.L.CizgiCiz(ix,ix,'eslestirme');
-          })
-        }
-      });
-
-
+      template.sinav.set(M.C.Sinavlar.findOne({
+        _id: Session.get('sinavYanitGoster'),
+        aktif: true,
+        iptal: false,
+        kilitli: true,
+        muhur: {$exists: true},
+        egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
+        acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
+      }));
     });
   });
 
@@ -40,29 +30,22 @@ Template.sinavYanitlari.helpers({
     return Template.instance().sinavYardim.get();
   },
   sinav: function() {
-    return M.C.Sinavlar.findOne({
-      _id: Session.get('sinavYanitGoster'),
-      aktif: true,
-      iptal: false,
-      kilitli: true,
-      muhur: {$exists: true},
-      egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
-      acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
-    });
+    return Template.instance().sinav.get();
   },
   seciliSoruIndex: function() {
     return Template.instance().seciliSoruIndex.get();
   },
   alinanPuan: function() {
-    var alinanPuan,soruPuani,verilenYanit,seciliSoruIndex;
-    var sinav = M.C.Sinavlar.findOne({_id: Session.get('sinavYanitGoster')});
-    var sinavKagidi = M.C.SinavKagitlari.findOne({sinav: sinav._id, ogrenciSinavaGirdi: true});
+    var alinanPuan;
 
-    seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
 
-    soruPuani = sinav && sinav.sorular[seciliSoruIndex].puan;
+    var sinav = Template.instance().sinav.get();
+    var sinavKagidi = sinav && M.C.SinavKagitlari.findOne({sinav: sinav._id, ogrenciSinavaGirdi: true});
 
-    verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
+    var soruPuani = sinav && sinav.sorular[seciliSoruIndex].puan;
+
+    var verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
 
     if (verilenYanit) {
       if (verilenYanit.dogru === false) {
@@ -78,15 +61,12 @@ Template.sinavYanitlari.helpers({
       alinanPuan = 0;
     }
 
-    return sinav && (alinanPuan.toString() + "/" + soruPuani.toString()) ;
-  },
-  soruSayisiCubugaSigmiyor: function() {
-    var sinav = M.C.Sinavlar.findOne({_id: Session.get('sinavYanitGoster')});
-    return sinav && sinav.sorular.length > 14;
+    return alinanPuan.toString() + "/" + soruPuani.toString() ;
   },
   seciliSoru: function() {
-    var sinav = M.C.Sinavlar.findOne({_id: Session.get('sinavYanitGoster')});
-    return sinav && M.C.Sorular.findOne({_id: sinav.sorular[Template.instance().seciliSoruIndex.get()].soruId});
+    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    var sinav = Template.instance().sinav.get();
+    return sinav && M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
   }
 });
 
@@ -99,33 +79,10 @@ Template.sinavYanitlari.events({
     Session.set('sinavYanitGoster',false);
   },
   'click .yardimEkrani': function(e,t) {
-    var ix = t.seciliSoruIndex.get();
     t.sinavYardim.set(false);
-    Meteor.defer(function() {
-      t.$('[data-soruIndex="'+ix.toString()+'"]').click();
-      t.$('[data-soruIndex="'+ix.toString()+'"]').addClass('secili');
-    });
   },
   'click [data-soruIndex]': function(e,t) {
     var ix = e.currentTarget.getAttribute('data-soruIndex');
     t.seciliSoruIndex.set(ix);
-    t.$('[data-soruIndex]').removeClass('secili');
-    t.$(e.currentTarget).addClass('secili');
-    var sinav = M.C.Sinavlar.findOne({_id: Session.get('sinavYanitGoster')});
-    var seciliSoru = sinav && M.C.Sorular.findOne({_id: sinav.sorular[ix].soruId});
-    Tracker.afterFlush(function() {
-      if (seciliSoru && seciliSoru.tip === 'eslestirme') {
-        var eslestirLength = seciliSoru.yanit.eslestirme.length;
-        for(var sol=0;sol<eslestirLength;sol++) {
-          for(var sag=0;sag<eslestirLength;sag++) {
-            M.L.CizgiSil(sol,sag,'eslestirme');
-          }
-        }
-        _.each(seciliSoru.yanit.eslestirme, function(eslesme, ix) {
-          t.eslestirme.set('eslestirme'+ t.seciliSoruIndex.get(),[null,null]);
-          M.L.CizgiCiz(ix,ix,'eslestirme');
-        })
-      }
-    })
   }
 });

@@ -1,62 +1,59 @@
 <template name="sinavYanitlari">
-  {{#unless Template.subscriptionsReady}}
+  {{#unless $and Template.subscriptionsReady sinav}}
+
     {{> loading}}
+
   {{else}}
-    {{#unless sinav}}
-      {{> loading}}
-    {{else}}
 
-      {{#if sinavYardim}}
-        {{>sinavYanitlariYardim tip=seciliSoru.tip}}
-      {{else}}
-        <div class="container sinavEkrani sinavYanitlari">
-          <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a><a class="dugmeNav yardim"></a></div>
-          <div style="position: absolute; top: 55px; left: 135px; width: 162px; text-align: center; font-weight: bold; font-size: 22px;">ALINAN PUAN</div>
-          <div style="position: absolute; top: 103px; left: 135px; width: 162px; text-align: center; font-weight: bold; font-size: 32px;">{{alinanPuan}}</div>
-          <div style="position: absolute; top: 55px; left: 727px; width: 166px; text-align: center; font-weight: bold; font-size: 22px;">SINAV SÜRESİ</div>
-          <div style="position: absolute; top: 103px; left: 727px; width: 166px; text-align: center; font-weight: bold; font-size: 32px; word-spacing: -2px">{{formatliSinavSuresi sinav.sure}}</div>
+    <div class="container sinavEkrani sinavYanitlari">
+      <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a><a class="dugmeNav yardim"></a></div>
+      <div style="position: absolute; top: 55px; left: 135px; width: 162px; text-align: center; font-weight: bold; font-size: 22px;">ALINAN PUAN</div>
+      <div style="position: absolute; top: 103px; left: 135px; width: 162px; text-align: center; font-weight: bold; font-size: 32px;">{{alinanPuan}}</div>
+      <div style="position: absolute; top: 55px; left: 727px; width: 166px; text-align: center; font-weight: bold; font-size: 22px;">SINAV SÜRESİ</div>
+      <div style="position: absolute; top: 103px; left: 727px; width: 166px; text-align: center; font-weight: bold; font-size: 32px; word-spacing: -2px">{{formatliSinavSuresi sinav.sure}}</div>
 
-          {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' sinav.muhur 'gorsel')}}
-            <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
-          {{/with}}
+      {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' sinav.muhur 'gorsel')}}
+        <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
+      {{/with}}
 
-          {{>soruyonerge seciliSoru=seciliSoru.soru topYonerge=190 topMetin=300 left=30}}
+      {{>soruyonerge seciliSoru=seciliSoru.soru topYonerge=190 topMetin=300 left=30}}
 
-          <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
+      <div id="cozumAlani" class="cozumAlani" style="position: absolute; top: 190px; left: 386px; width: 610px; height: 490px; overflow: hidden; word-wrap: break-word;">
 
-            {{#if $eq seciliSoru.tip 'dogruYanlis'}}
-              {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.dogruYanlis.cevap true) yanlischecked=($eq seciliSoru.yanit.dogruYanlis.cevap false) disabled=true}}
-            {{/if}}
+        {{#if $eq seciliSoru.tip 'dogruYanlis'}}
+          {{>sorudogruYanlis doguchecked=($eq seciliSoru.yanit.dogruYanlis.cevap true) yanlischecked=($eq seciliSoru.yanit.dogruYanlis.cevap false) disabled=true}}
+        {{/if}}
 
-            {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
-              {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.coktanTekSecmeli) disabled=true}}
-            {{/if}}
+        {{#if $eq seciliSoru.tip 'coktanTekSecmeli'}}
+          {{>sorucoktanTekSecmeli secenekler=(seciliSoru.yanit.coktanTekSecmeli) disabled=true}}
+        {{/if}}
 
-            {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
-              {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.coktanCokSecmeli) disabled=true}}
-            {{/if}}
+        {{#if $eq seciliSoru.tip 'coktanCokSecmeli'}}
+          {{>sorucoktanCokSecmeli secenekler=(seciliSoru.yanit.coktanCokSecmeli) disabled=true}}
+        {{/if}}
 
-            {{#if $eq seciliSoru.tip 'siralama'}}
-              {{>sorusiralama secenekler=(seciliSoru.yanit.siralama) id="siralama"}}
-            {{/if}}
+        {{#if $eq seciliSoru.tip 'siralama'}}
+          {{>sorusiralama secenekler=(seciliSoru.yanit.siralama) id="siralama"}}
+        {{/if}}
 
-            {{#if $eq seciliSoru.tip 'eslestirme'}}
-              {{>sorueslestirme solsecenekler=(seciliSoru.yanit.eslestirme) sagsecenekler=(seciliSoru.yanit.eslestirme)}}
-            {{/if}}
+        {{#if $eq seciliSoru.tip 'eslestirme'}}
+          {{>sorueslestirme solsecenekler=(seciliSoru.yanit.eslestirme) sagsecenekler=(seciliSoru.yanit.eslestirme)}}
+        {{/if}}
 
-            {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
-              {{>soruboslukDoldurma cevap=(seciliSoru.yanit.boslukDoldurma.cevap)}}
-            {{/if}}
+        {{#if $eq seciliSoru.tip 'boslukDoldurma'}}
+          {{>soruboslukDoldurma cevap=(seciliSoru.yanit.boslukDoldurma.cevap)}}
+        {{/if}}
 
-          </div>
+      </div>
 
-          {{>sorucubugu soruSayisiCubugaSigmiyor=soruSayisiCubugaSigmiyor sorular=sinav.sorular seciliSoruIndex=seciliSoruIndex}}
+      {{>sorucubugu sorular=sinav.sorular seciliSoruIndex=seciliSoruIndex}}
 
-        </div>
-      {{/if}}
+    </div>
 
+    {{#if sinavYardim}}
+      {{>sinavYanitlariYardim tip=seciliSoru.tip}}
+    {{/if}}
 
-    {{/unless}}
   {{/unless}}
 </template>
 
