@@ -3,7 +3,7 @@ Template.sinavYanitlari.onCreated(function() {
 
   template.sinavYardim = new ReactiveVar(false);
   template.seciliSoruIndex = new ReactiveVar(0);
-  template.sinav = new ReactiveVar({});
+  template.sinav = new ReactiveVar(null);
 
   template.autorun(function() {
     template.subscribe('fssorugorsel');
