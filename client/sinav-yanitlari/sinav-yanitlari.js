@@ -5,6 +5,8 @@ Template.sinavYanitlari.onCreated(function() {
   template.renderComponent = new ReactiveVar(true);
   template.seciliSoruIndex = new ReactiveVar(0);
   template.sinav = new ReactiveVar(null);
+  template.sinavKagidiId = new ReactiveVar(null);
+  template.ogrenciYanitiGoster = new ReactiveVar(false);
 
   template.autorun(function() {
     template.subscribe('fssorugorsel');
@@ -17,6 +19,12 @@ Template.sinavYanitlari.onCreated(function() {
         muhur: {$exists: true},
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
+      }));
+      template.sinavKagidiId.set(M.C.SinavKagitlari.findOne({
+        sinav: Session.get('sinavYanitGoster'),
+        ogrenci: Meteor.userId(),
+        ogrenciSinavaGirdi: true,
+        egitimYili: M.C.AktifEgitimYili.findOne().egitimYili
       }));
     });
   });
@@ -32,6 +40,19 @@ Template.sinavYanitlari.helpers({
   },
   sinav: function() {
     return Template.instance().sinav.get();
+  },
+  sinavKagidiId: function() {
+    return Template.instance().sinavKagidiId.get();
+  },
+  ogrenciYanitiGorulebilir: function() {
+    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    var sinav = Template.instance().sinav.get();
+    var sinavKagidi = sinav && M.C.SinavKagitlari.findOne({sinav: sinav._id, ogrenciSinavaGirdi: true});
+    var verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
+    return verilenYanit && verilenYanit.yanitlandi > 0 && verilenYanit.dogru === false;
+  },
+  ogrenciYanitiGoster: function() {
+    return Template.instance().ogrenciYanitiGoster.get();
   },
   renderComponent: function() {
     return Template.instance().renderComponent.get();
@@ -76,12 +97,19 @@ Template.sinavYanitlari.helpers({
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
     var sinav = Template.instance().sinav.get();
     var seciliSoru = sinav && M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
-    return M.L.komponentSec(seciliSoru);
+
+    var ogrenciYanitiGoster = Template.instance().ogrenciYanitiGoster.get();
+    if (ogrenciYanitiGoster) {
+      return M.L.komponentSec(seciliSoru,true)
+    } else {
+      return M.L.komponentSec(seciliSoru,false);
+    }
   }
 });
 
 Template.sinavYanitlari.events({
   'click .dugmeNav.yardim': function(e,t) {
+    e.preventDefault();
     t.sinavYardim.set(true);
   },
   'click .dugmeNav.anaEkran': function(e,t) {
@@ -89,6 +117,11 @@ Template.sinavYanitlari.events({
     Session.set('sinavYanitGoster',false);
   },
   'click .yardimEkrani': function(e,t) {
+    e.preventDefault();
     t.sinavYardim.set(false);
+  },
+  'click .yanitToggle': function(e,t) {
+    e.preventDefault();
+    t.ogrenciYanitiGoster.set(!t.ogrenciYanitiGoster.get());
   }
 });
