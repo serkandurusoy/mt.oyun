@@ -5,7 +5,7 @@ Template.sinavYanitlari.onCreated(function() {
   template.renderComponent = new ReactiveVar(true);
   template.seciliSoruIndex = new ReactiveVar(0);
   template.sinav = new ReactiveVar(null);
-  template.sinavKagidiId = new ReactiveVar(null);
+  template.sinavKagidi = new ReactiveVar(null);
   template.ogrenciYanitiGoster = new ReactiveVar(false);
 
   template.autorun(function() {
@@ -20,7 +20,7 @@ Template.sinavYanitlari.onCreated(function() {
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
       }));
-      template.sinavKagidiId.set(M.C.SinavKagitlari.findOne({
+      template.sinavKagidi.set(M.C.SinavKagitlari.findOne({
         sinav: Session.get('sinavYanitGoster'),
         ogrenci: Meteor.userId(),
         ogrenciSinavaGirdi: true,
@@ -41,13 +41,13 @@ Template.sinavYanitlari.helpers({
   sinav: function() {
     return Template.instance().sinav.get();
   },
-  sinavKagidiId: function() {
-    return Template.instance().sinavKagidiId.get();
+  sinavKagidi: function() {
+    return Template.instance().sinavKagidi.get();
   },
   ogrenciYanitiGorulebilir: function() {
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
     var sinav = Template.instance().sinav.get();
-    var sinavKagidi = sinav && M.C.SinavKagitlari.findOne({sinav: sinav._id, ogrenciSinavaGirdi: true});
+    var sinavKagidi = Template.instance().sinavKagidi.get();
     var verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
     return verilenYanit && verilenYanit.yanitlandi > 0 && verilenYanit.dogru === false;
   },
@@ -66,7 +66,7 @@ Template.sinavYanitlari.helpers({
     var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
 
     var sinav = Template.instance().sinav.get();
-    var sinavKagidi = sinav && M.C.SinavKagitlari.findOne({sinav: sinav._id, ogrenciSinavaGirdi: true});
+    var sinavKagidi = sinav && Template.instance().sinavKagidi.get();
 
     var soruPuani = sinav && sinav.sorular[seciliSoruIndex].puan;
 
