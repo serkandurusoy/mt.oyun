@@ -28,7 +28,7 @@
         </div>
 
         {{#unless $eq (cevapDogruYanlis sinavKagidi._id seciliSoruIndex) ' cevapDogru'}}
-          <a data-trigger="soruYanitla" class="soruYanitla" style="padding-top: 10px; font-size: 16px; left: 900px; bottom: 95px;">yanıtla</a>
+          <a data-trigger="soruYanitla" class="soruYanitla" style="padding-top: 10px; font-size: 16px; left: 900px; bottom: 95px;">kaydet</a>
         {{/unless}}
 
         {{>sorucubugu sorular=sinavKagidi.yanitlar sinav=true sinavKagidiId=sinavKagidi._id seciliSoruIndex=seciliSoruIndex}}
