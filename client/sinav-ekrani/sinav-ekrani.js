@@ -363,6 +363,10 @@ Template.sinavEkrani.events({
             ogrenciSinavaGirdi: true
           });
           if (sinavKagidiGuncel && sinavKagidiGuncel.tip === 'alistirma' && sinavKagidiGuncel.yanitlar[ix].dogru === false) {
+            t.renderComponent.set(false);
+            Tracker.flush();
+            t.seciliSoruIndex.set(ix);
+            t.renderComponent.set(true);
             toastr.error('Soruya verdiğin yanıt yanlış, düzeltip tekrar yanıtlayabilirsin.');
           } else {
             var newIx = ix === ixLast ? 0 : ix+1;
@@ -378,6 +382,10 @@ Template.sinavEkrani.events({
                 }, 0);
               }
             } else {
+              t.renderComponent.set(false);
+              Tracker.flush();
+              t.seciliSoruIndex.set(ix);
+              t.renderComponent.set(true);
               toastr.success('Soruya verdiğin yanıt kaydedildi ve bu sınavın son sorusuydu.');
             }
           }
