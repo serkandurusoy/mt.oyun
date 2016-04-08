@@ -120,8 +120,11 @@ Template.sinavYanitlari.events({
     e.preventDefault();
     t.sinavYardim.set(false);
   },
-  'click .yanitToggle': function(e,t) {
+  'click [data-trigger="yanitToggle"]': function(e,t) {
     e.preventDefault();
+    t.renderComponent.set(false);
+    Tracker.flush();
     t.ogrenciYanitiGoster.set(!t.ogrenciYanitiGoster.get());
+    t.renderComponent.set(true);
   }
 });
