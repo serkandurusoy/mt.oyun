@@ -22,6 +22,7 @@ m:lib-router-oyun
 m:lib-models
 m:lib-sinav-soru-component
 m:lib-toastr
+m:lib-fullscreen
 
 ###################################
 # consider for improvements       #

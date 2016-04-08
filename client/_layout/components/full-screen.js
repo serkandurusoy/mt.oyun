@@ -1,9 +1,9 @@
 Template.fullScreen.events({
   'click': function(e,t) {
-    if (BigScreen.enabled) {
-      BigScreen.toggle();
+    if (screenfull.enabled) {
+      screenfull.request();
     } else {
-      console.log('Bigscreen is not enabled!');
+      console.log('Fullscreen API is not enabled for this browser!');
     }
   }
 });

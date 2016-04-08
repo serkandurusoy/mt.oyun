@@ -1,34 +1,44 @@
 <template name="layout">
   {{#if deviceOK}}
+    {{>layoutBody}}
     {{#if yardimGoster}}
       {{> yardimEkrani}}
-    {{else}}
-      {{#if currentUser}}
-        {{#unless isHotReloading}}
-          <main>
-            {{> connectionBanner}}
-            {{#if $and devamEdenSinavVar sinavGoster}}
-              {{> sinavEkrani}}
-            {{else}}
-              {{#if sinavYanitGoster}}
-                {{> sinavYanitlari}}
-              {{else}}
-                {{> Template.dynamic template=main}}
-              {{/if}}
-            {{/if}}
-          </main>
-        {{else}}
-          {{> loading}}
-        {{/unless}}
-      {{else}}
-        {{#if loggingIn}}
-          {{> loading}}
-        {{else}}
-          {{> accountsTemplate}}
-        {{/if}}
-      {{/if}}
+    {{/if}}
+    {{#if fullScreenTest.enabled}}
+      {{#unless fullScreenTest.active}}
+        {{>fullScreen}}
+      {{/unless}}
     {{/if}}
   {{else}}
     {{> deviceNotOk}}
   {{/if}}
 </template>
+
+<template name="layoutBody">
+  {{#if currentUser}}
+    {{#unless isHotReloading}}
+      <main>
+        {{> connectionBanner}}
+        {{#if $and devamEdenSinavVar sinavGoster}}
+          {{> sinavEkrani}}
+        {{else}}
+          {{#if sinavYanitGoster}}
+            {{> sinavYanitlari}}
+          {{else}}
+            {{> Template.dynamic template=main}}
+          {{/if}}
+        {{/if}}
+      </main>
+    {{else}}
+      {{> loading}}
+    {{/unless}}
+  {{else}}
+    {{#if loggingIn}}
+      {{> loading}}
+    {{else}}
+      {{> accountsTemplate}}
+    {{/if}}
+  {{/if}}
+</template>
+
+

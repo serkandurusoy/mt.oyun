@@ -90,6 +90,7 @@ m:lib-collate@0.0.1
 m:lib-collections@0.0.1
 m:lib-core@0.0.1
 m:lib-enums@0.0.1
+m:lib-fullscreen@0.0.1
 m:lib-models@0.0.1
 m:lib-router-oyun@0.0.1
 m:lib-sinav-soru-component@0.0.1
