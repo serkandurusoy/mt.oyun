@@ -38,7 +38,6 @@
     {{#if sinavUyari}}
       <div class="cover">
         <div class="sinavUyari" style="padding-top: 40px; text-align: center">
-          <h1>Sınavı Bitir</h1>
           <p>Sınavı bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak sınav kapanacaktır. Bitirdiğin sınava tekrar giremezsin.</p>
           <p style="margin-top: 24px; text-align: center !important;">
             <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">sınava dön</a>
@@ -56,15 +55,12 @@
         <div class="cover superCover">
           <div class="sinavStatus" style="padding-top: 40px; text-align: center">
             {{#if $eq sinav.canliStatus 'pending'}}
-              <h1>Sınav Başlamayı Bekliyor</h1>
               <p>Bu bir canlı sınav ve öğretmen tarafından herkes için aynı anda başlatılmak üzere bekletiliyor. Ekranını kapatma ve öğretmenin talimatlarını bekle. Sınav başlayınca bu uyarı kendiliğinden kapanacak ve soruları yanıtlamaya başlayabileceksin.</p>
             {{/if}}
             {{#if $eq sinav.canliStatus 'paused'}}
-              <h1>Sınav Durduruldu</h1>
               <p>Öğretmen sınavı herkes için beklemeye aldı. Ekranını kapatma ve öğretmeninin talimatlarını bekle. Öğretmen sınavı herkes için aynı anda tekrar başlattığında bu uyarı kendiliğinden kapanacak ve sınava kaldığın yerden devam edebileceksin.</p>
             {{/if}}
             {{#if $eq sinav.canliStatus 'completed'}}
-              <h1>Sınav Bitti</h1>
               <p>Sınav öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen sınavı bitir düğmesine {{#if $eq deviceType 'desktop'}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
               <p style="margin-top: 24px; text-align: center !important;">
                 <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
