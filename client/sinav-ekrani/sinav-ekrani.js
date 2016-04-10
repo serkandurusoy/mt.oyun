@@ -211,7 +211,7 @@ Template.sinavEkrani.events({
   'click .dugmeNav.anaEkran': function(e,t) {
     e.preventDefault();
     Session.set('sinavGoster',false);
-    toastr.error('Dikkat! Sınav süresi işlemeye devam ediyor, istersen sınava tekrar dönebilirsin');
+    toastr.error('Dikkat! Sınav süresi işlemeye devam ediyor. İstersen sınava tekrar dönebilirsin.');
   },
   'click .sinavYardim': function(e,t) {
     t.sinavYardim.set(false);
@@ -231,7 +231,7 @@ Template.sinavEkrani.events({
     }
     t.sinavUyari.set(false);
     Session.set('sinavGoster',false);
-    toastr.success('Tebrikler! Sınavı başarıyla bitirdin. Sonuçları mühür bilgi ekranından görebilirsin');
+    toastr.success('Tebrikler! Sınavı başarıyla bitirdin. Sonuçları mühür bilgi ekranından görebilirsin.');
   },
   'click .soruYanitla': function(e,t) {
     var eslestirmeEksik = false, dogruYanlisSecilmemis = false, coktanTekSecilmemis = false, coktanCokSecilmemis = false, boslukDoldurulmamis = false ;
@@ -335,19 +335,19 @@ Template.sinavEkrani.events({
     }
 
     if (eslestirmeEksik) {
-      toastr.error('Soruyu yanıtlamak için eşleştirmeleri tamamlamalısın');
+      toastr.error('Soruyu yanıtlamak için eşleştirmeleri tamamlamalısın.');
     } else if (dogruYanlisSecilmemis) {
-      toastr.error('Soruyu yanıtlamak için doğru veya yanlış olarak işaretlemelisin');
+      toastr.error('Soruyu yanıtlamak için doğru veya yanlış olarak işaretlemelisin.');
     } else if (coktanTekSecilmemis) {
-      toastr.error('Soruyu yanıtlamak için bir seçenek işaretlemelisin');
+      toastr.error('Soruyu yanıtlamak için bir seçenek işaretlemelisin.');
     } else if (coktanCokSecilmemis) {
-      toastr.error('Soruyu yanıtlamak için en az bir seçenek işaretlemelisin');
+      toastr.error('Soruyu yanıtlamak için en az bir seçenek işaretlemelisin.');
     } else  if (boslukDoldurulmamis) {
-      toastr.error('Soruyu yanıtlamak için boşlukların hepsini doldurmalısın');
+      toastr.error('Soruyu yanıtlamak için boşlukların hepsini doldurmalısın.');
     } else {
       Meteor.call('soruYanitla', sinavKagidi._id,ix,yanit, function(err, res) {
         if (err) {
-          toastr.error('Soruya verdiğin yanıt kaydedilemedi, lütfen daha sonra tekrar dene.');
+          toastr.error('Soruya verdiğin yanıt kaydedilemedi. Lütfen daha sonra tekrar dene.');
         }
         if (res) {
           t.renderDate.set(new Date());
@@ -367,7 +367,7 @@ Template.sinavEkrani.events({
             Tracker.flush();
             t.seciliSoruIndex.set(ix);
             t.renderComponent.set(true);
-            toastr.error('Soruya verdiğin yanıt yanlış, düzeltip tekrar yanıtlayabilirsin.');
+            toastr.error('Soruya verdiğin yanıt yanlış. Düzeltip tekrar yanıtlayabilirsin.');
           } else {
             var newIx = ix === ixLast ? 0 : ix+1;
             if (newIx > 0) {

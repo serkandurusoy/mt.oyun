@@ -26,13 +26,13 @@ Template.resetForm.events({
     check(confirm, String);
 
     if (password!== confirm) {
-      toastr.error('Şifre ile tekrarı aynı olmalı');
+      toastr.error('Şifre ile tekrarı aynı olmalı.');
     } else {
       Session.set('accountButtonsDisabled', 'disabled');
       Meteor.call('getSifreZorlukFromToken', Session.get('resetToken'), function(error, result) {
         if (error) {
           M.L.clearSessionVariable('accountButtonsDisabled');
-          toastr.error('Geçersiz bağlantı, yeniden istek oluşturun');
+          toastr.error('Geçersiz bağlantı. Yeniden istek oluşturmalısın.');
         } else {
           var userId = result.userId;
           var sifreZorluk = result.sifreZorluk;
@@ -47,7 +47,7 @@ Template.resetForm.events({
                 M.L.clearSessionVariable('accountButtonsDisabled');
                 if (err) {
                   if (err.error && err.error === 403) {
-                    toastr.error('Geçersiz bağlantı, yeniden istek oluşturun');
+                    toastr.error('Geçersiz bağlantı. Yeniden istek oluşturmalısın.');
                   } else {
                     toastr.error(M.E.BilinmeyenHataMessage);
                   }
@@ -81,17 +81,17 @@ Template.loginForm.events({
     M.L.clearSessionVariable('resetToken');
 
     if (kullanici.length < 1) {
-      toastr.error('E-posta adresi girmelisin');
+      toastr.error('E-posta adresi girmelisin.');
     } else {
       if (!M.L.TestEmail(kullanici)) {
-        toastr.error('E-posta adresi girmelisin');
+        toastr.error('E-posta adresi girmelisin.');
       } else {
         Session.set('accountButtonsDisabled', 'disabled');
         Accounts.forgotPassword(
           {email: kullanici},
           function(err) {
             M.L.clearSessionVariable('accountButtonsDisabled');
-            toastr.success('Posta kutunu kontrol et');
+            toastr.success('Posta kutunu kontrol et.');
           }
         )
       }
@@ -108,7 +108,7 @@ Template.loginForm.events({
     M.L.clearSessionVariable('resetToken');
 
     if (!M.L.TestEmail(kullanici)) {
-      toastr.error('E-posta adresi girmelisin');
+      toastr.error('E-posta adresi girmelisin.');
     } else {
       Session.set('accountButtonsDisabled', 'disabled');
       Meteor.loginWithPassword(
@@ -128,7 +128,7 @@ Template.loginForm.events({
               })
             });
             if (err.error && err.error === 403) {
-              toastr.error('E-posta adresi veya şifre hatalı');
+              toastr.error('E-posta adresi veya şifre hatalı.');
             } else {
               toastr.error(M.E.BilinmeyenHataMessage);
             }
