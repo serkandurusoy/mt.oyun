@@ -8,7 +8,9 @@
       {{#with sinav}}
         <div class="container muhurBilgi">
 
-          {{> dugmeNav cikis=false testBitti=false anaEkran=false yardim=true ctx="muhurBilgi"}}
+          <div data-trigger="geriDon" style="text-align: left; position: absolute; height: 56px; width: 280px; top: 4px; left: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a></div>
+
+          {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="muhurBilgi"}}
 
           {{#with (foreignField 'Dersler' ders 'muhurGrubu')}}
             {{#with FS.GetFile "M.FS.Muhur" gorsel}}
@@ -21,7 +23,6 @@
           {{/with}}
 
           <div style="position: absolute; left: 168px; top: 540px; width: 200px; text-align: center; font-weight: bold; font-size: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{foreignField 'Muhurler' muhur 'isim'}}</div>
-
 
 
           <div style="position: absolute; top: 225px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{foreignField 'Dersler' ders 'isim'}}</div>
@@ -50,7 +51,6 @@
 
 
           <div style="position: absolute; top: 510px; left: 390px; width: 430px; text-align: center">
-            <a data-trigger="geriDon" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">geri dön</a>
             {{#if sinavDevamEdiyor}}
               <a data-trigger="sinavaDevam" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">devam et</a>
             {{else}}
