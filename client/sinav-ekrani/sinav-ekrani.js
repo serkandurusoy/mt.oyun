@@ -28,55 +28,59 @@ Template.sinavEkrani.onCreated(function() {
     if (sinavKagidi) {
       template.subscribe('fssorugorsel');
       template.subscribe('sinavKagidi', sinavKagidi._id, function() {
-        sinavKagidi = M.C.SinavKagitlari.findOne({
-          ogrenci: Meteor.userId(),
-          kurum: user && user.kurum,
-          sinif: user && user.sinif,
-          egitimYili: aktifEgitimYili && aktifEgitimYili.egitimYili,
-          baslamaZamani: {$lte: template.renderDate.get()},
-          bitirmeZamani: {$exists: false},
-          'yanitlar.yanitlandi': {$gte: 0},
-          ogrenciSinavaGirdi: true
-        });
-        template.sinavKagidi.set(sinavKagidi);
 
-        var sinav = M.C.Sinavlar.findOne({
-          _id: sinavKagidi.sinav,
-          iptal: false,
-          kapanisZamani: {$gt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
-        });
-        if (sinav) {
+        template.autorun(function() {
+          sinavKagidi = M.C.SinavKagitlari.findOne({
+            ogrenci: Meteor.userId(),
+            kurum: user && user.kurum,
+            sinif: user && user.sinif,
+            egitimYili: aktifEgitimYili && aktifEgitimYili.egitimYili,
+            baslamaZamani: {$lte: template.renderDate.get()},
+            bitirmeZamani: {$exists: false},
+            'yanitlar.yanitlandi': {$gte: 0},
+            ogrenciSinavaGirdi: true
+          });
+          template.sinavKagidi.set(sinavKagidi);
 
-          template.sinav.set(sinav);
+          var sinav = M.C.Sinavlar.findOne({
+            _id: sinavKagidi.sinav,
+            iptal: false,
+            kapanisZamani: {$gt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
+          });
+          if (sinav) {
 
-          if (sinav.iptal === true || (sinav.tip === 'canli' && sinav.canliStatus === 'completed')) {
-            Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
-          } else {
-            if (sinav.tip === 'canli') {
-              template.kalanSure.set('Canlı ' + sinav.sure.toString() + 'dk');
+            template.sinav.set(sinav);
+
+            if (sinav.iptal === true || (sinav.tip === 'canli' && sinav.canliStatus === 'completed')) {
+              Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
             } else {
-              var t;
-              if ( ( sinavKagidi.baslamaZamani.getTime() + sinav.sure * 60 * 1000 ) < sinav.kapanisZamani.getTime() ) {
-                t = sinavKagidi.baslamaZamani.getTime() + sinav.sure * 60 * 1000 - TimeSync.serverTime(null, 5 * 60 * 1000);
+              if (sinav.tip === 'canli') {
+                template.kalanSure.set('Canlı ' + sinav.sure.toString() + 'dk');
               } else {
-                t = sinav.kapanisZamani.getTime() - TimeSync.serverTime(null, 5 * 60 * 1000);
-              }
-              if (t) {
-                sinavSureCounterInterval = Meteor.setInterval(function() {
-                  if (t < 1000) {
-                    Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
-                  } else {
-                    t = t - 1000;
-                    template.kalanSure.set(M.L.FormatSinavSuresi(t));
-                  }
-                }, 1000);
+                var t;
+                if ( ( sinavKagidi.baslamaZamani.getTime() + sinav.sure * 60 * 1000 ) < sinav.kapanisZamani.getTime() ) {
+                  t = sinavKagidi.baslamaZamani.getTime() + sinav.sure * 60 * 1000 - TimeSync.serverTime(null, 5 * 60 * 1000);
+                } else {
+                  t = sinav.kapanisZamani.getTime() - TimeSync.serverTime(null, 5 * 60 * 1000);
+                }
+                if (t) {
+                  sinavSureCounterInterval = Meteor.setInterval(function() {
+                    if (t < 1000) {
+                      Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
+                    } else {
+                      t = t - 1000;
+                      template.kalanSure.set(M.L.FormatSinavSuresi(t));
+                    }
+                  }, 1000);
+                }
               }
             }
-          }
 
-        } else {
-          Session.set('sinavGoster',false);
-        }
+          } else {
+            Session.set('sinavGoster',false);
+          }
+        })
+
       });
     } else {
       Session.set('sinavGoster',false);
@@ -90,19 +94,13 @@ Template.sinavEkrani.onDestroyed(function() {
   Meteor.clearInterval(sinavSureCounterInterval);
 });
 
-Template.sinavEkrani.helpers({
-  sinavYardim: function() {
-    return Template.instance().sinavYardim.get();
-  },
-  sinavUyari: function() {
-    return Template.instance().sinavUyari.get();
-  },
+Template.sinavUyariModal.helpers({
   yanitlanmamisSoruAdedi: function() {
-    var sinavKagidi = Template.instance().sinavKagidi.get();
+    var sinavKagidi = Template.instance().parent().sinavKagidi.get();
     return _.countBy(sinavKagidi.yanitlar, function(yanit){return yanit.yanitlandi===0}).true;
   },
   alistirmaSinavindanHalenAlinabilecekPuan: function() {
-    var sinavKagidi = Template.instance().sinavKagidi.get();
+    var sinavKagidi = Template.instance().parent().sinavKagidi.get();
     if (sinavKagidi.tip === 'alistirma') {
       var adet = _.countBy(sinavKagidi.yanitlar, function(yanit){return yanit.dogru===false}).true;
       if (adet > 0) {
@@ -116,6 +114,15 @@ Template.sinavEkrani.helpers({
     } else {
       return false;
     }
+  }
+});
+
+Template.sinavEkrani.helpers({
+  sinavYardim: function() {
+    return Template.instance().sinavYardim.get();
+  },
+  sinavUyari: function() {
+    return Template.instance().sinavUyari.get();
   },
   sinavKagidi: function() {
     return Template.instance().sinavKagidi.get();

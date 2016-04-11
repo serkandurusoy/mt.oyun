@@ -36,15 +36,7 @@
     </div>
 
     {{#if sinavUyari}}
-      <div class="cover">
-        <div class="sinavUyari" style="padding-top: 40px; text-align: center">
-          <p>Sınavı bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak sınav kapanacaktır. Bitirdiğin sınava tekrar giremezsin.</p>
-          <p style="margin-top: 24px; text-align: center !important;">
-            <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">sınava dön</a>
-            <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
-          </p>
-        </div>
-      </div>
+      {{>sinavUyariModal}}
     {{/if}}
 
     {{#if sinavYardim}}
@@ -116,6 +108,18 @@
         {{/if}}
       </p>
       <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
+    </div>
+  </div>
+</template>
+
+<template name="sinavUyariModal">
+  <div class="cover">
+    <div class="sinavUyari" style="padding-top: 40px; text-align: center">
+      <p>Sınavı bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak sınav kapanacaktır. Bitirdiğin sınava tekrar giremezsin.</p>
+      <p style="margin-top: 24px; text-align: center !important;">
+        <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">sınava dön</a>
+        <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
+      </p>
     </div>
   </div>
 </template>
