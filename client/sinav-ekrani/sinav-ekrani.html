@@ -83,11 +83,11 @@
         Yanıtını verdiğinde <img src="/assets/_bilesen/yardim-sinav-yanitla-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Yanıtladığın soruların numaraları {{#unless $eq sinavTip 'alistirma'}}<img src="/assets/_bilesen/cevapVerildi.png" title="" alt="" class="yardimImg"> biçiminde {{/unless}}işaretlenir. {{#if $eq sinavTip 'alistirma'}}Yanlış yanıtladığın{{else}}İstediğin{{/if}} soruya geri dönüp yanıtını değiştirebilirsin. Bir soruyu tekrar geri dönmek üzere işaretlemek istersen soru kutucuğuna çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. İşareti kaldırmak için tekrar çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
       </p>
       <p>
-        Sınavı tamamladığında <img src="/assets/_bilesen/dugme-nav/sinavibitir.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Sınavı bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Sınavına <img src="/assets/_bilesen/dugme-nav/anasayfa.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama sınav süren geri saymaya devam edecektir.
+        Sınavı tamamladığında <img src="/assets/_bilesen/dugme-nav/sinavibitir.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Sınavı bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Sınavına <img src="/assets/_bilesen/dugme-nav/geri.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama sınav süren geri saymaya devam edecektir.
       </p>
       {{#if $eq sinavTip 'alistirma'}}
         <p>
-          Bu bir Alıştırma Testi; dolayısıyla, soruyu yanlış çözdüğünde <img src="/assets/_bilesen/cevapYanlis.png" title="" alt="" class="yardimImg"> doğru çözdüğünde ise <img src="/assets/_bilesen/cevapDogru.png" title="" alt="" class="yardimImg"> şeklinde işaretlenir. <strong>Dikkat!</strong> Yanlış yanıtladığın bir soruyu tekrar çözebilirsin ama alıştırma testinde her yanlış yanıtında sorudan kazanabileceğin puan azalacaktır.
+          Bu bir Alıştırma Testi; dolayısıyla, soruyu yanlış çözdüğünde <strong style="color: darkred">Y</strong> doğru çözdüğünde ise <strong style="color: gray">D</strong> şeklinde işaretlenir. <strong>Dikkat!</strong> Yanlış yanıtladığın bir soruyu tekrar çözebilirsin ama alıştırma testinde her yanlış yanıtında sorudan kazanabileceğin puan azalacaktır.
         </p>
       {{/if}}
       <p>
