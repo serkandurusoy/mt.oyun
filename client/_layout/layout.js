@@ -60,12 +60,6 @@ Template.layout.helpers({
         (window.matchMedia( '(min-device-height: 768px)' ).matches && window.matchMedia( '(min-device-width: 1024px)' ).matches) ||
         (window.matchMedia( '(min-device-width: 768px)' ).matches && window.matchMedia( '(min-device-height: 1024px)' ).matches)
       );
-  },
-  fullScreenTest: function() {
-    return {
-      enabled: screenfull.enabled,
-      active: M.L.reactiveFullScreenStatus.get()
-    }
   }
 });
 
