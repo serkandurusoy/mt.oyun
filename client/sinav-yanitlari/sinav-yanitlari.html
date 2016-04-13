@@ -6,7 +6,8 @@
   {{else}}
 
     <div class="container sinavEkrani sinavYanitlari">
-      <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a><a class="dugmeNav yardim"></a></div>
+      <div style="text-align: left; position: absolute; height: 56px; width: 280px; top: 4px; left: 4px;"><a class="dugmeNav anaEkran ekranKapat geri"></a></div>
+      <div style="text-align: right; position: absolute; height: 56px; width: 280px; top: 4px; right: 4px;"><a class="dugmeNav yardim"></a></div>
       <div style="position: absolute; top: 55px; left: 135px; width: 162px; text-align: center; font-weight: bold; font-size: 22px;">ALINAN PUAN</div>
       <div style="position: absolute; top: 103px; left: 135px; width: 162px; text-align: center; font-weight: bold; font-size: 32px;">{{alinanPuan}}</div>
       <div style="position: absolute; top: 55px; left: 727px; width: 166px; text-align: center; font-weight: bold; font-size: 22px;">SINAV SÜRESİ</div>
@@ -46,7 +47,7 @@
   <div class="cover">
     <div class="yardimEkrani">
       <p>
-        Bu ekranda doğru, yanlış, boş yanıtların soru no kutucuklarında <strong style="color: gray">D</strong>, <strong style="color: darkred">Y</strong> ve <strong style="color: goldenrod">B</strong> harfleriyle işaretlenir. Soru ekranlarında doğru yanıtları görürsün. Kendi  yanıtını görmek için <img src="/assets/_bilesen/yardim-sinav-yanitim-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Her sorudan aldığın puan sol üst köşedeki puan kutucuğunda gösterilir.
+        Bu ekranda doğru, yanlış ve boş yanıtların soru no kutucuklarında <strong style="color: gray">D</strong>, <strong style="color: darkred">Y</strong> ve <strong style="color: goldenrod">B</strong> harfleriyle işaretlenir. Soru ekranlarında doğru yanıtları görürsün. Kendi  yanıtını görmek için <img src="/assets/_bilesen/yardim-sinav-yanitim-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Her sorudan aldığın puan sol üst köşedeki alınan puan kutucuğunda gösterilir.
       </p>
       <p>
         {{#if $eq tip 'dogruYanlis'}}

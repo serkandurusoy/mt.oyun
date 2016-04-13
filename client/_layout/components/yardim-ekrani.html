@@ -28,12 +28,12 @@
           <p>Bu ekranda rütbesi <img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"> ve üzeri olan Mitolojix oyuncularının sıralamasını görebilirsin. Tüm şubelerdeki sıralamayı görmek için <img src="/assets/_bilesen/dugme-yon/asagi-sari.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Listede ilerlemek için yukarı ve aşağı düğmelerini kullan. Bir arkadaşının sırasını aramak için arama kutusuna adını yaz. Tekrar sıralamaya dönmek için <img src="/assets/_bilesen/dugme-temizle-pasif.png" title="" alt="" class="yardimImg"> düğmesine tıkla.</p>
         {{/if}}
         {{#if $eq ctx 'muhurTasi'}}
-          <p>Kazandığın mühürleri burada görebilirsin. Eğer mühür yanıp sönüyorsa, o kazanabileceğin yeni bir mühür demektir. Her mühürün altındaki çizgi başarı yüzdeni gösterir. Mühüre {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} mühür bilgilerine ulaşabilir ya da yeni bir mühür kazanmak için oyuna başlayabilirsin. Mühür gruplarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} diğer gruplara ait mühür sayfalarına geçebilirsin. Eğer bir mühür grubu yanıp sönüyorsa, o grupta kazanılacak yeni bir mühür var demektir. <strong>Dikkat!</strong> Bir mühürün sınavını tamamlamadan başka bir mühürün sınavına başlayamazsın.</p>
+          <p>Kazandığın mühürleri burada görebilirsin. Eğer mühür yanıp sönüyorsa, o kazanabileceğin yeni bir mühür demektir. Her mühürün altındaki çizgi başarı yüzdeni gösterir. Mühre {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} mühür bilgilerine ulaşabilir ya da yeni bir mühür kazanmak için oyuna başlayabilirsin. Mühür gruplarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} diğer gruplara ait mühür sayfalarına geçebilirsin. Eğer bir mühür grubu yanıp sönüyorsa, o grupta kazanılacak yeni bir mühür var demektir. <strong>Dikkat!</strong> Bir mühürün sınavını tamamlamadan başka bir mühürün sınavına başlayamazsın.</p>
         {{/if}}
         {{#if $eq ctx 'muhurBilgi'}}
-          <p>Bir mühürle ilgili tüm bilgilere bu ekrandan ulaşabilirsin. Mühüre ait sınavı buradan başlatabilir, sınav bittikten sonra yanıtlarına buradan erişebilirsin. <strong>Dikkat:</strong></p>
+          <p>Bir mühürle ilgili tüm bilgilere bu ekrandan ulaşabilirsin. Mühre ait sınavı buradan başlatabilir, sınav bittikten sonra yanıtlarına buradan erişebilirsin. <strong>Dikkat:</strong></p>
           <p>
-            &bull; Sınavı burada belirtilen kapanma tarihinden önce tamamlamalısın yoksa mühür için 0 puan alırsın.<br>
+            &bull; Sınavı burada belirtilen kapanma tarihinden önce tamamlamalısın; yoksa o mühür için sıfır puan alırsın.<br>
             &bull; Bir mühürün sınavını tamamlamadan başka bir mühürün sınavına başlayamazsın.<br>
             &bull; "Sınavı Bitir" diyerek çıktığın bir sınava tekrar giremezsin.
           </p>

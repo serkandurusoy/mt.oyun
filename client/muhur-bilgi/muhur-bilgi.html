@@ -52,10 +52,10 @@
 
           <div style="position: absolute; top: 510px; left: 390px; width: 430px; text-align: center">
             {{#if sinavDevamEdiyor}}
-              <a data-trigger="sinavaDevam" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">devam et</a>
+              <a data-trigger="sinavaDevam" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınava devam et</a>
             {{else}}
               {{#if sinavaBaslanabilir}}
-                <a data-trigger="sinavaBasla" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">başla</a>
+                <a data-trigger="sinavaBasla" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınava başla</a>
               {{/if}}
               {{#if yanitGorulebilir}}
                 <a data-trigger="sinavYanitGoster" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">yanıtlar</a>
@@ -83,7 +83,7 @@
       <p>Aynı anda tek bir sınava girebilirsin. Sınav başladıktan sonra bitirmeden başka bir sınava geçemezsin. Bitirdiğin bir sınava ise tekrar giremezsin. {{#if $eq sinav.tip 'alistirma'}} Alıştırma testinde soru puanı, soruyu doğru yanıtlayana kadar verdiğin yanıt sayısına bölünür.{{/if}}</p>
       <p style="margin-top: 24px;">
         <a class="baslamaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">vazgeç</a>
-        <a class="baslamayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınava başla</a>
+        <a class="baslamayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınava başla</a>
       </p>
     </div>
   </div>

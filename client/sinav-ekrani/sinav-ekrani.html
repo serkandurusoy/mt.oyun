@@ -55,7 +55,7 @@
             {{#if $eq sinav.canliStatus 'completed'}}
               <p>Sınav öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen sınavı bitir düğmesine {{#if $eq deviceType 'desktop'}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
               <p style="margin-top: 24px; text-align: center !important;">
-                <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
+                <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınavı bitir</a>
               </p>
           {{/if}}
           </div>
@@ -118,7 +118,7 @@
       <p>Sınavı bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak sınav kapanacaktır. Bitirdiğin sınava tekrar giremezsin.</p>
       <p style="margin-top: 24px; text-align: center !important;">
         <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">sınava dön</a>
-        <a class="kapatmayiOnayla buyukButon" style="font-weight: bold; display: inline-block;">sınavı bitir</a>
+        <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınavı bitir</a>
       </p>
     </div>
   </div>
