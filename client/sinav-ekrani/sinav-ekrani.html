@@ -53,7 +53,7 @@
               <p>Öğretmen sınavı herkes için beklemeye aldı. Ekranını kapatma ve öğretmeninin talimatlarını bekle. Öğretmen sınavı herkes için aynı anda tekrar başlattığında bu uyarı kendiliğinden kapanacak ve sınava kaldığın yerden devam edebileceksin.</p>
             {{/if}}
             {{#if $eq sinav.canliStatus 'completed'}}
-              <p>Sınav öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen sınavı bitir düğmesine {{#if $eq deviceType 'desktop'}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
+              <p>Sınav öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen sınavı bitir düğmesine {{#if desktopDevice}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
               <p style="margin-top: 24px; text-align: center !important;">
                 <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınavı bitir</a>
               </p>
@@ -69,13 +69,13 @@
   <div class="cover">
     <div class="sinavYardim">
       <p>
-        Bu ekranda mühürü kazanmak için çözmen gereken soruyu, soru puanını ve sınavı tamamlamak için kalan süreyi görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
+        Bu ekranda mühürü kazanmak için çözmen gereken soruyu, soru puanını ve sınavı tamamlamak için kalan süreyi görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
       </p>
       <p>
-        Yanıtını verdiğinde <img src="/assets/_bilesen/yardim-sinav-yanitla-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Yanıtladığın soruların numaraları {{#unless $eq sinavTip 'alistirma'}}<img src="/assets/_bilesen/cevapVerildi.png" title="" alt="" class="yardimImg"> biçiminde {{/unless}}işaretlenir. {{#if $eq sinavTip 'alistirma'}}Yanlış yanıtladığın{{else}}İstediğin{{/if}} soruya geri dönüp yanıtını değiştirebilirsin. Bir soruyu tekrar geri dönmek üzere işaretlemek istersen soru kutucuğuna çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. İşareti kaldırmak için tekrar çift {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
+        Yanıtını verdiğinde <img src="/assets/_bilesen/yardim-sinav-yanitla-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Yanıtladığın soruların numaraları {{#unless $eq sinavTip 'alistirma'}}<img src="/assets/_bilesen/cevapVerildi.png" title="" alt="" class="yardimImg"> biçiminde {{/unless}}işaretlenir. {{#if $eq sinavTip 'alistirma'}}Yanlış yanıtladığın{{else}}İstediğin{{/if}} soruya geri dönüp yanıtını değiştirebilirsin. Bir soruyu tekrar geri dönmek üzere işaretlemek istersen soru kutucuğuna çift {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. İşareti kaldırmak için tekrar çift {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.
       </p>
       <p>
-        Sınavı tamamladığında <img src="/assets/_bilesen/dugme-nav/sinavibitir.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Sınavı bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Sınavına <img src="/assets/_bilesen/dugme-nav/geri.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama sınav süren geri saymaya devam edecektir.
+        Sınavı tamamladığında <img src="/assets/_bilesen/dugme-nav/sinavibitir.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Sınavı bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Sınavına <img src="/assets/_bilesen/dugme-nav/geri.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama sınav süren geri saymaya devam edecektir.
       </p>
       {{#if $eq sinavTip 'alistirma'}}
         <p>
@@ -88,11 +88,11 @@
         {{/if}}
 
         {{#if $eq tip 'coktanTekSecmeli'}}
-          Bu soruda yalnızca bir seçenek doğrudur. Doğru yanıtı bulup {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Yanıtını değiştirmek istersen başka bir seçeneğe {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
+          Bu soruda yalnızca bir seçenek doğrudur. Doğru yanıtı bulup {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Yanıtını değiştirmek istersen başka bir seçeneğe {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.
         {{/if}}
 
         {{#if $eq tip 'coktanCokSecmeli'}}
-          Bu soruda birden fazla seçenek doğrudur. Doğru seçenekleri bulup {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Daha önce seçtiğin bir seçenekten vazgeçersen tekrar üzerine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.
+          Bu soruda birden fazla seçenek doğrudur. Doğru seçenekleri bulup {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Daha önce seçtiğin bir seçenekten vazgeçersen tekrar üzerine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.
         {{/if}}
 
         {{#if $eq tip 'siralama'}}
@@ -100,14 +100,14 @@
         {{/if}}
 
         {{#if $eq tip 'eslestirme'}}
-          Bu soruda soldaki kutucuklarla sağdakileri yönergeye uyacak şekilde üzerlerine {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} eşle. Eşlenen seçenekler arasına bir çizgi çizilecektir. Seçimini değiştirmek istersen eşlenen kutucuklardan herhangi birisine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Çizgi kaybolur ve yeniden bir eşleme yapabilirsin.
+          Bu soruda soldaki kutucuklarla sağdakileri yönergeye uyacak şekilde üzerlerine {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} eşle. Eşlenen seçenekler arasına bir çizgi çizilecektir. Seçimini değiştirmek istersen eşlenen kutucuklardan herhangi birisine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Çizgi kaybolur ve yeniden bir eşleme yapabilirsin.
         {{/if}}
 
         {{#if $eq tip 'boslukDoldurma'}}
-          Bu soruda verilen boşluklara {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
+          Bu soruda verilen boşluklara {{#if desktopDevice}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
         {{/if}}
       </p>
-      <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
+      <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.</p>
     </div>
   </div>
 </template>

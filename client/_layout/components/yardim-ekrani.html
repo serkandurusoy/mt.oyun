@@ -16,19 +16,19 @@
             <strong>Mühür Taşı: </strong>Kazanabileceğin mühürler burada.<br>
             <strong>Yazıtlar: </strong>Öğretmenin sana yardımcı olabilecek dosyaları buraya koyar.
           </p>
-          <p>Oyundan çıkmak için <img src="/assets/_bilesen/dugme-nav/cikis.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
+          <p>Oyundan çıkmak için <img src="/assets/_bilesen/dugme-nav/cikis.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.</p>
         {{/if}}
         {{#if $eq ctx 'ozTasi'}}
-          <p>Burada Mitolojix oyun bilgilerini görebilirsin. Oyunda seni temsil eden karakter resmini seçmek için sağ ve sol oklara {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Resmini istediğin zaman değiştirebilirsin. Rütbeni ve mühürleri kazanırken topladığın puanların ortalamasını Öz Taşı'nda görürsün. En düşük rütbe <img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"> en yüksek rütbe <img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"> simgesidir. Rütbeni kazandığın puanlar belirler.</p>
+          <p>Burada Mitolojix oyun bilgilerini görebilirsin. Oyunda seni temsil eden karakter resmini seçmek için sağ ve sol oklara {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Resmini istediğin zaman değiştirebilirsin. Rütbeni ve mühürleri kazanırken topladığın puanların ortalamasını Öz Taşı'nda görürsün. En düşük rütbe <img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"> en yüksek rütbe <img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"> simgesidir. Rütbeni kazandığın puanlar belirler.</p>
         {{/if}}
         {{#if $eq ctx 'yazitlar'}}
-          <p>Öğretmeninin her mühür grubu için koyduğu belgelere buradan ulaşabilirsin. Konular altında bir dosya varsa {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} açabilir, bilgisayarına indirebilirsin. Sayfada ilerlemek için <img src="/assets/_bilesen/dugme-yon/asagi-sari.png" title="" alt="" class="yardimImg"> ve <img src="/assets/_bilesen/dugme-yon/yukari-sari.png" title="" alt="" class="yardimImg"> düğmelerini kullan.</p>
+          <p>Öğretmeninin her mühür grubu için koyduğu belgelere buradan ulaşabilirsin. Konular altında bir dosya varsa {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} açabilir, bilgisayarına indirebilirsin. Sayfada ilerlemek için <img src="/assets/_bilesen/dugme-yon/asagi-sari.png" title="" alt="" class="yardimImg"> ve <img src="/assets/_bilesen/dugme-yon/yukari-sari.png" title="" alt="" class="yardimImg"> düğmelerini kullan.</p>
         {{/if}}
         {{#if $eq ctx 'boyTasi'}}
-          <p>Bu ekranda rütbesi <img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"> ve üzeri olan Mitolojix oyuncularının sıralamasını görebilirsin. Tüm şubelerdeki sıralamayı görmek için <img src="/assets/_bilesen/dugme-yon/asagi-sari.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Listede ilerlemek için yukarı ve aşağı düğmelerini kullan. Bir arkadaşının sırasını aramak için arama kutusuna adını yaz. Tekrar sıralamaya dönmek için <img src="/assets/_bilesen/dugme-temizle-pasif.png" title="" alt="" class="yardimImg"> düğmesine tıkla.</p>
+          <p>Bu ekranda rütbesi <img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"> ve üzeri olan Mitolojix oyuncularının sıralamasını görebilirsin. Tüm şubelerdeki sıralamayı görmek için <img src="/assets/_bilesen/dugme-yon/asagi-sari.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Listede ilerlemek için yukarı ve aşağı düğmelerini kullan. Bir arkadaşının sırasını aramak için arama kutusuna adını yaz. Tekrar sıralamaya dönmek için <img src="/assets/_bilesen/dugme-temizle-pasif.png" title="" alt="" class="yardimImg"> düğmesine tıkla.</p>
         {{/if}}
         {{#if $eq ctx 'muhurTasi'}}
-          <p>Kazandığın mühürleri burada görebilirsin. Eğer mühür yanıp sönüyorsa, o kazanabileceğin yeni bir mühür demektir. Her mühürün altındaki çizgi başarı yüzdeni gösterir. Mühre {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} mühür bilgilerine ulaşabilir ya da yeni bir mühür kazanmak için oyuna başlayabilirsin. Mühür gruplarına {{#if $eq deviceType 'desktop'}}tıklayarak{{else}}dokunarak{{/if}} diğer gruplara ait mühür sayfalarına geçebilirsin. Eğer bir mühür grubu yanıp sönüyorsa, o grupta kazanılacak yeni bir mühür var demektir. <strong>Dikkat!</strong> Bir mühürün sınavını tamamlamadan başka bir mühürün sınavına başlayamazsın.</p>
+          <p>Kazandığın mühürleri burada görebilirsin. Eğer mühür yanıp sönüyorsa, o kazanabileceğin yeni bir mühür demektir. Her mühürün altındaki çizgi başarı yüzdeni gösterir. Mühre {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} mühür bilgilerine ulaşabilir ya da yeni bir mühür kazanmak için oyuna başlayabilirsin. Mühür gruplarına {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} diğer gruplara ait mühür sayfalarına geçebilirsin. Eğer bir mühür grubu yanıp sönüyorsa, o grupta kazanılacak yeni bir mühür var demektir. <strong>Dikkat!</strong> Bir mühürün sınavını tamamlamadan başka bir mühürün sınavına başlayamazsın.</p>
         {{/if}}
         {{#if $eq ctx 'muhurBilgi'}}
           <p>Bir mühürle ilgili tüm bilgilere bu ekrandan ulaşabilirsin. Mühre ait sınavı buradan başlatabilir, sınav bittikten sonra yanıtlarına buradan erişebilirsin. <strong>Dikkat:</strong></p>
@@ -38,7 +38,7 @@
             &bull; "Sınavı Bitir" diyerek çıktığın bir sınava tekrar giremezsin.
           </p>
         {{/if}}
-        <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu yardım penceresini kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
+        <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu yardım penceresini kapatmak için lütfen buraya {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.</p>
       </div>
     </div>
   {{/if}}

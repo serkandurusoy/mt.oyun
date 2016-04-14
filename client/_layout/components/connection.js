@@ -26,7 +26,7 @@ Meteor.startup(function(){
 			return 'Sunucu ile bağlantı koptu.';
 		},
 		'tryReconnectText': function(event, template){
-			return 'Tekrar bağlanmayı denemek için buraya ' + (Darwin.device.type === 'desktop' ? 'tıklayın': 'dokunun') + '.';
+			return 'Tekrar bağlanmayı denemek için buraya ' + ((bowser.mobile || bowser.tablet) ? 'dokunun': 'tıklayın') + '.';
 		},
 		'reconnectBeforeCountdownText': function(event, template){
 			return 'Bağlantıyı tekrar denemek için kalan süre ';

@@ -47,7 +47,7 @@
   <div class="cover">
     <div class="yardimEkrani">
       <p>
-        Bu ekranda doğru, yanlış ve boş yanıtların soru no kutucuklarında <strong style="color: gray">D</strong>, <strong style="color: darkred">Y</strong> ve <strong style="color: goldenrod">B</strong> harfleriyle işaretlenir. Soru ekranlarında doğru yanıtları görürsün. Kendi  yanıtını görmek için <img src="/assets/_bilesen/yardim-sinav-yanitim-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}. Her sorudan aldığın puan sol üst köşedeki alınan puan kutucuğunda gösterilir.
+        Bu ekranda doğru, yanlış ve boş yanıtların soru no kutucuklarında <strong style="color: gray">D</strong>, <strong style="color: darkred">Y</strong> ve <strong style="color: goldenrod">B</strong> harfleriyle işaretlenir. Soru ekranlarında doğru yanıtları görürsün. Kendi  yanıtını görmek için <img src="/assets/_bilesen/yardim-sinav-yanitim-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Her sorudan aldığın puan sol üst köşedeki alınan puan kutucuğunda gösterilir.
       </p>
       <p>
         {{#if $eq tip 'dogruYanlis'}}
@@ -71,10 +71,10 @@
         {{/if}}
 
         {{#if $eq tip 'boslukDoldurma'}}
-          Bu soruda verilen boşluklara {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
+          Bu soruda verilen boşluklara {{#if desktopDevice}}tıkla{{else}}dokun{{/if}} ve doğru ifadeleri yaz.
         {{/if}}
       </p>
-      <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if $eq deviceType 'desktop'}}tıkla{{else}}dokun{{/if}}.</p>
+      <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.</p>
     </div>
   </div>
 </template>
