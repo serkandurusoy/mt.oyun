@@ -32,7 +32,7 @@ Template.resetForm.events({
       Meteor.call('getSifreZorlukFromToken', Session.get('resetToken'), function(error, result) {
         if (error) {
           M.L.clearSessionVariable('accountButtonsDisabled');
-          toastr.error('Geçersiz bağlantı. Yeniden istek oluşturmalısın.');
+          Blaze.renderWithData(Template.coverModalPrompt, {message: 'Geçersiz bağlantı. Yeniden istek oluşturmalısın.'}, document.body);
         } else {
           var userId = result.userId;
           var sifreZorluk = result.sifreZorluk;
@@ -47,9 +47,9 @@ Template.resetForm.events({
                 M.L.clearSessionVariable('accountButtonsDisabled');
                 if (err) {
                   if (err.error && err.error === 403) {
-                    toastr.error('Geçersiz bağlantı. Yeniden istek oluşturmalısın.');
+                    Blaze.renderWithData(Template.coverModalPrompt, {message: 'Geçersiz bağlantı. Yeniden istek oluşturmalısın.'}, document.body);
                   } else {
-                    toastr.error(M.E.BilinmeyenHataMessage);
+                    Blaze.renderWithData(Template.coverModalPrompt, {message: M.E.BilinmeyenHataMessage}, document.body);
                   }
                 } else {
                   M.L.clearSessionVariable('resetToken');
@@ -91,7 +91,7 @@ Template.loginForm.events({
           {email: kullanici},
           function(err) {
             M.L.clearSessionVariable('accountButtonsDisabled');
-            toastr.success('Posta kutunu kontrol et.');
+            Blaze.renderWithData(Template.coverModalPrompt, {message: 'Lütfen e-posta kutunu kontrol et.<br/>Yeni bir şifre tanımlayabilmen için gerekli adımı içeren bir mesaj birkaç dakika içinde e-posta adresine iletilecek.'}, document.body);
           }
         )
       }
@@ -130,7 +130,7 @@ Template.loginForm.events({
             if (err.error && err.error === 403) {
               toastr.error('E-posta adresi veya şifre hatalı.');
             } else {
-              toastr.error(M.E.BilinmeyenHataMessage);
+              Blaze.renderWithData(Template.coverModalPrompt, {message: M.E.BilinmeyenHataMessage}, document.body);
             }
           } else {
             Meteor.logoutOtherClients();
