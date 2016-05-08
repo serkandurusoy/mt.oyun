@@ -218,7 +218,7 @@ Template.sinavEkrani.events({
   'click .dugmeNav.anaEkran': function(e,t) {
     e.preventDefault();
     Session.set('sinavGoster',false);
-    toastr.error('Dikkat! Sınav süresi işlemeye devam ediyor. İstersen sınava tekrar dönebilirsin.');
+    Blaze.renderWithData(Template.coverModalPrompt, {message: '<strong>Dikkat!</strong> Sınavın <strong>süresi işlemeye devam ediyor</strong>! Sınav ekranından şimdi çıkıyorsun ama süre bitmeden önce tekrar geri dönebilirsin.'}, document.body);
   },
   'click .sinavYardim': function(e,t) {
     t.sinavYardim.set(false);
