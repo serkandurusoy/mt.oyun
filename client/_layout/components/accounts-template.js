@@ -32,7 +32,7 @@ Template.resetForm.events({
       Meteor.call('getSifreZorlukFromToken', Session.get('resetToken'), function(error, result) {
         if (error) {
           M.L.clearSessionVariable('accountButtonsDisabled');
-          Blaze.renderWithData(Template.coverModalPrompt, {message: 'Geçersiz bağlantı. Yeniden istek oluşturmalısın.'}, document.body);
+          Blaze.renderWithData(Template.coverModalPromptPersistent, {message: 'Geçersiz bağlantı. Yeniden istek oluşturmalı ve en son gelen e-posta mesajındaki bağlantıya tıklamalısın.'}, document.body);
         } else {
           var userId = result.userId;
           var sifreZorluk = result.sifreZorluk;
@@ -47,9 +47,9 @@ Template.resetForm.events({
                 M.L.clearSessionVariable('accountButtonsDisabled');
                 if (err) {
                   if (err.error && err.error === 403) {
-                    Blaze.renderWithData(Template.coverModalPrompt, {message: 'Geçersiz bağlantı. Yeniden istek oluşturmalısın.'}, document.body);
+                    Blaze.renderWithData(Template.coverModalPromptPersistent, {message: 'Geçersiz bağlantı. Yeniden istek oluşturmalı ve en son gelen e-posta mesajındaki bağlantıya tıklamalısın.'}, document.body);
                   } else {
-                    Blaze.renderWithData(Template.coverModalPrompt, {message: M.E.BilinmeyenHataMessage}, document.body);
+                    Blaze.renderWithData(Template.coverModalPromptPersistent, {message: M.E.BilinmeyenHataMessage}, document.body);
                   }
                 } else {
                   M.L.clearSessionVariable('resetToken');
@@ -91,7 +91,7 @@ Template.loginForm.events({
           {email: kullanici},
           function(err) {
             M.L.clearSessionVariable('accountButtonsDisabled');
-            Blaze.renderWithData(Template.coverModalPrompt, {message: 'Lütfen e-posta kutunu kontrol et.<br/>Yeni bir şifre tanımlayabilmen için gerekli adımı içeren bir mesaj birkaç dakika içinde e-posta adresine iletilecek.'}, document.body);
+            Blaze.renderWithData(Template.coverModalPromptPersistent, {message: '<span style="font-size: 16px;">Lütfen <strong>' + kullanici + '</strong> adresine ait e-posta kutunu kontrol et. Yeni bir şifre tanımlayabilmen için gerekli adımı içeren bir mesaj birkaç dakika içinde e-posta adresine iletilecek. Eğer birden fazla talep yaptıysan ya da e-posta kutunda bu konuda birden fazla mesaj görürsen, <strong>en son gelen mesajı</strong> dikkate almalısın.</span>'}, document.body);
           }
         )
       }
@@ -130,7 +130,7 @@ Template.loginForm.events({
             if (err.error && err.error === 403) {
               toastr.error('E-posta adresi veya şifre hatalı.');
             } else {
-              Blaze.renderWithData(Template.coverModalPrompt, {message: M.E.BilinmeyenHataMessage}, document.body);
+              Blaze.renderWithData(Template.coverModalPromptPersistent, {message: M.E.BilinmeyenHataMessage}, document.body);
             }
           } else {
             Meteor.logoutOtherClients();

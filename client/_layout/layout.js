@@ -60,6 +60,9 @@ Template.layout.helpers({
         (window.matchMedia( '(min-device-height: 768px)' ).matches && window.matchMedia( '(min-device-width: 1024px)' ).matches) ||
         (window.matchMedia( '(min-device-width: 768px)' ).matches && window.matchMedia( '(min-device-height: 1024px)' ).matches)
       );
+  },
+  notSafari: function() {
+    return !bowser.safari;
   }
 });
 

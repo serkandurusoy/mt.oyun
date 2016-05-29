@@ -4,7 +4,7 @@
     {{#if yardimGoster}}
       {{> yardimEkrani}}
     {{/if}}
-    {{#if $and (desktopDevice) (fullScreenTest.enabled)}}
+    {{#if $and (desktopDevice) ($and (notSafari) (fullScreenTest.enabled))}}
       {{#unless fullScreenTest.active}}
         {{>fullScreen}}
       {{/unless}}
