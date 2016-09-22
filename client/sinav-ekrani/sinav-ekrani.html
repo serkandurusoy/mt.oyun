@@ -47,15 +47,15 @@
         <div class="cover superCover">
           <div class="sinavStatus" style="padding-top: 40px; text-align: center">
             {{#if $eq sinav.canliStatus 'pending'}}
-              <p>Bu bir canlı sınav ve öğretmen tarafından herkes için aynı anda başlatılmak üzere bekletiliyor. Ekranını kapatma ve öğretmenin talimatlarını bekle. Sınav başlayınca bu uyarı kendiliğinden kapanacak ve soruları yanıtlamaya başlayabileceksin.</p>
+              <p>Bu bir canlı test ve öğretmen tarafından herkes için aynı anda başlatılmak üzere bekletiliyor. Ekranını kapatma ve öğretmenin talimatlarını bekle. Test başlayınca bu uyarı kendiliğinden kapanacak ve soruları yanıtlamaya başlayabileceksin.</p>
             {{/if}}
             {{#if $eq sinav.canliStatus 'paused'}}
-              <p>Öğretmen sınavı herkes için beklemeye aldı. Ekranını kapatma ve öğretmeninin talimatlarını bekle. Öğretmen sınavı herkes için aynı anda tekrar başlattığında bu uyarı kendiliğinden kapanacak ve sınava kaldığın yerden devam edebileceksin.</p>
+              <p>Öğretmen testi herkes için beklemeye aldı. Ekranını kapatma ve öğretmeninin talimatlarını bekle. Öğretmen testi herkes için aynı anda tekrar başlattığında bu uyarı kendiliğinden kapanacak ve teste kaldığın yerden devam edebileceksin.</p>
             {{/if}}
             {{#if $eq sinav.canliStatus 'completed'}}
-              <p>Sınav öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen sınavı bitir düğmesine {{#if desktopDevice}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
+              <p>Test öğretmen tarafından bitirildi. Bu ekran 1 dakika içinde kendiliğinden kapanacak. Şimdi çıkmak istersen testi bitir düğmesine {{#if desktopDevice}}tıklayabilirsin{{else}}dokunabilirsin{{/if}}.</p>
               <p style="margin-top: 24px; text-align: center !important;">
-                <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınavı bitir</a>
+                <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">testi bitir</a>
               </p>
           {{/if}}
           </div>
@@ -69,13 +69,13 @@
   <div class="cover">
     <div class="sinavYardim">
       <p>
-        Bu ekranda mühürü kazanmak için çözmen gereken soruyu, soru puanını ve sınavı tamamlamak için kalan süreyi görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
+        Bu ekranda mühürü kazanmak için çözmen gereken soruyu, soru puanını ve testi tamamlamak için kalan süreyi görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
       </p>
       <p>
         Yanıtını verdiğinde <img src="/assets/_bilesen/yardim-sinav-yanitla-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Yanıtladığın soruların numaraları {{#unless $eq sinavTip 'alistirma'}}<img src="/assets/_bilesen/cevapVerildi.png" title="" alt="" class="yardimImg"> biçiminde {{/unless}}işaretlenir. {{#if $eq sinavTip 'alistirma'}}Yanlış yanıtladığın{{else}}İstediğin{{/if}} soruya geri dönüp yanıtını değiştirebilirsin. Bir soruyu tekrar geri dönmek üzere işaretlemek istersen soru kutucuğuna çift {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. İşareti kaldırmak için tekrar çift {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.
       </p>
       <p>
-        Sınavı tamamladığında <img src="/assets/_bilesen/dugme-nav/sinavibitir.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Sınavı bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Sınavına <img src="/assets/_bilesen/dugme-nav/geri.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama sınav süren geri saymaya devam edecektir.
+        Testi tamamladığında <img src="/assets/_bilesen/dugme-nav/sinavibitir.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Testi bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Testine <img src="/assets/_bilesen/dugme-nav/geri.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama test süren geri saymaya devam edecektir.
       </p>
       {{#if $eq sinavTip 'alistirma'}}
         <p>
@@ -115,10 +115,10 @@
 <template name="sinavUyariModal">
   <div class="cover">
     <div class="sinavUyari" style="padding-top: 40px; text-align: center">
-      <p>Sınavı bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak sınav kapanacaktır. Bitirdiğin sınava tekrar giremezsin.</p>
+      <p>Testi bitirmek istediğine emin misin? {{#if alistirmaSinavindanHalenAlinabilecekPuan}}Henüz doğru yanıtlamadığın {{alistirmaSinavindanHalenAlinabilecekPuan.adet}} soru var. Bu soruların doğru yanıtlarını vererek {{alistirmaSinavindanHalenAlinabilecekPuan.puan}} puan daha kazanabilirsin. {{else}}{{#if yanitlanmamisSoruAdedi}}Henüz yanıtlamadığın {{yanitlanmamisSoruAdedi}} soru var. {{/if}}{{/if}}Bitirmeyi onaylarsan doğru yanıtların üzerinden puanın hesaplanarak test kapanacaktır. Bitirdiğin teste tekrar giremezsin.</p>
       <p style="margin-top: 24px; text-align: center !important;">
-        <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">sınava dön</a>
-        <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınavı bitir</a>
+        <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">teste dön</a>
+        <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">testi bitir</a>
       </p>
     </div>
   </div>
