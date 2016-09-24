@@ -52,10 +52,10 @@
 
           <div style="position: absolute; top: 510px; left: 390px; width: 430px; text-align: center">
             {{#if sinavDevamEdiyor}}
-              <a data-trigger="sinavaDevam" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınava devam et</a>
+              <a data-trigger="sinavaDevam" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">teste devam et</a>
             {{else}}
               {{#if sinavaBaslanabilir}}
-                <a data-trigger="sinavaBasla" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınava başla</a>
+                <a data-trigger="sinavaBasla" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">teste başla</a>
               {{/if}}
               {{#if yanitGorulebilir}}
                 <a data-trigger="sinavYanitGoster" class="anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">yanıtlar</a>
@@ -64,11 +64,11 @@
           </div>
 
           {{#if baskaSinavDevamEdiyor}}
-            <div style="position: absolute; top: 565px; left: 420px; width: 370px; text-align: center; font-size: 12px; font-style: italic">Bu sınavın yanıtlarını görebilmek için önce {{baskaSinavDevamEdiyor}} mühürünün devam eden sınavını tamamlamalısın.</div>
+            <div style="position: absolute; top: 565px; left: 420px; width: 370px; text-align: center; font-size: 12px; font-style: italic">Bu testin yanıtlarını görebilmek için önce {{baskaSinavDevamEdiyor}} mühürünün devam eden testini tamamlamalısın.</div>
           {{/if}}
 
           {{#if sinavAlinmamisAmaBaskaSinavDevamEdiyor}}
-            <div style="position: absolute; top: 565px; left: 420px; width: 370px; text-align: center; font-size: 12px; font-style: italic">Bu sınava başlayabilmek için önce {{sinavAlinmamisAmaBaskaSinavDevamEdiyor}} mühürünün devam eden sınavını tamamlamalısın.</div>
+            <div style="position: absolute; top: 565px; left: 420px; width: 370px; text-align: center; font-size: 12px; font-style: italic">Bu teste başlayabilmek için önce {{sinavAlinmamisAmaBaskaSinavDevamEdiyor}} mühürünün devam eden testini tamamlamalısın.</div>
           {{/if}}
 
         </div>
@@ -80,10 +80,10 @@
 <template name="sinavaBasla">
   <div class="cover">
     <div class="sinavaBasla" style="padding-top: 40px">
-      <p>Aynı anda tek bir sınava girebilirsin. Sınav başladıktan sonra bitirmeden başka bir sınava geçemezsin. Bitirdiğin bir sınava ise tekrar giremezsin. {{#if $eq sinav.tip 'alistirma'}} Alıştırma testinde soru puanı, soruyu doğru yanıtlayana kadar verdiğin yanıt sayısına bölünür.{{/if}}</p>
+      <p>Aynı anda tek bir teste girebilirsin. Test başladıktan sonra bitirmeden başka bir teste geçemezsin. Bitirdiğin bir teste ise tekrar giremezsin. {{#if $eq sinav.tip 'alistirma'}} Alıştırma testinde soru puanı, soruyu doğru yanıtlayana kadar verdiğin yanıt sayısına bölünür.{{/if}}</p>
       <p style="margin-top: 24px;">
         <a class="baslamaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">vazgeç</a>
-        <a class="baslamayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">sınava başla</a>
+        <a class="baslamayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">teste başla</a>
       </p>
     </div>
   </div>

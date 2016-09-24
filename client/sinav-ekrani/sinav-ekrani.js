@@ -218,7 +218,7 @@ Template.sinavEkrani.events({
   'click .dugmeNav.anaEkran': function(e,t) {
     e.preventDefault();
     Session.set('sinavGoster',false);
-    Blaze.renderWithData(Template.coverModalPrompt, {message: '<strong>Dikkat!</strong> Sınavın <strong>süresi işlemeye devam ediyor</strong>! Sınav ekranından şimdi çıkıyorsun ama süre bitmeden önce tekrar geri dönebilirsin.'}, document.body);
+    Blaze.renderWithData(Template.coverModalPrompt, {message: '<strong>Dikkat!</strong> Testin <strong>süresi işlemeye devam ediyor</strong>! Test ekranından şimdi çıkıyorsun ama süre bitmeden önce tekrar geri dönebilirsin.'}, document.body);
   },
   'click .sinavYardim': function(e,t) {
     t.sinavYardim.set(false);
@@ -238,7 +238,7 @@ Template.sinavEkrani.events({
     }
     t.sinavUyari.set(false);
     Session.set('sinavGoster',false);
-    toastr.success('Tebrikler! Sınavı başarıyla bitirdin. Sonuçları mühür bilgi ekranından görebilirsin.');
+    toastr.success('Tebrikler! Testi başarıyla bitirdin. Sonuçları mühür bilgi ekranından görebilirsin.');
   },
   'click .soruYanitla': function(e,t) {
     var eslestirmeEksik = false, dogruYanlisSecilmemis = false, coktanTekSecilmemis = false, coktanCokSecilmemis = false, boslukDoldurulmamis = false ;
@@ -393,7 +393,7 @@ Template.sinavEkrani.events({
               Tracker.flush();
               t.seciliSoruIndex.set(ix);
               t.renderComponent.set(true);
-              toastr.success('Soruya verdiğin yanıt kaydedildi ve bu sınavın son sorusuydu.');
+              toastr.success('Soruya verdiğin yanıt kaydedildi ve bu testin son sorusuydu.');
             }
           }
         }
