@@ -5,6 +5,9 @@
         {{#if $eq ctx 'login'}}
           <p>Giriş için Mitolojix’ten hesap etkinleştirme mesajını aldığın e-posta adresini kullan. Şifren, TC kimlik numaranın son 6 hanesidir.</p>
         {{/if}}
+        {{#if $eq ctx 'resetPassword'}}
+          <p>Mitolojix oyunu için kendine bir şifre belirle ve iki kere yazarak tamam düğmesine tıkla. Merak etme... şifreni bilmiyorsan oyun giriş ekranında "şifremi bilmiyorum"a tıklayarak yeni bir şifre tanımlayabilirsin.</p>
+        {{/if}}
         {{#if $eq ctx 'anaEkran'}}
           <p>Bu ekranda seçtiğin karakter resmini ve rütbeni görüyorsun. Buradan şu bölümlere ulaşabilirsin:</p>
           <p>
