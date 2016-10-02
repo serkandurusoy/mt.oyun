@@ -50,6 +50,9 @@ Template.layout.onRendered(function() {
 });
 
 Template.layout.helpers({
+  env: function() {
+    return Meteor.settings.public.ENV === 'PRODUCTION' ? false : Meteor.settings.public.ENV
+  },
   yardimGoster: function() {
     return Session.get('yardimGoster');
   },

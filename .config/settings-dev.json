@@ -1,5 +1,6 @@
 {
   "public": {
+    "ENV": "LOCALHOST",
     "APP": "OYUN",
     "URL": {
       "OYUN": "http://localhost:4000",
