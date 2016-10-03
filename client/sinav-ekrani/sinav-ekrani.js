@@ -9,6 +9,7 @@ Template.sinavEkrani.onCreated(function() {
   template.renderComponent = new ReactiveVar(true);
   template.seciliSoruIndex = new ReactiveVar(0);
   template.kalanSure = new ReactiveVar('');
+  template.kalanSureBitiyor = new ReactiveVar(false);
   template.sinavKagidi = new ReactiveVar(null);
   template.sinav = new ReactiveVar(null);
 
@@ -42,7 +43,7 @@ Template.sinavEkrani.onCreated(function() {
           });
           template.sinavKagidi.set(sinavKagidi);
 
-          var sinav = M.C.Sinavlar.findOne({
+          var sinav = sinavKagidi && M.C.Sinavlar.findOne({
             _id: sinavKagidi.sinav,
             iptal: false,
             kapanisZamani: {$gt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
@@ -66,8 +67,20 @@ Template.sinavEkrani.onCreated(function() {
                 if (t) {
                   sinavSureCounterInterval = Meteor.setInterval(function() {
                     if (t < 1000) {
-                      Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
+                      if (sinavKagidi) {
+                        Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
+                      }
+                      Meteor.clearInterval(sinavSureCounterInterval);
                     } else {
+                      if (t > 3 * 60 * 1000 - 1000 && t <= 3 * 60 * 1000) {
+                        toastr.error('Son 3 dakika!');
+                      } else if (t > 2 * 60 * 1000 - 1000 && t <= 2 * 60 * 1000) {
+                        toastr.error('Son 2 dakika!');
+                      } else if (t > 60 * 1000 - 1000 && t <= 60 * 1000) {
+                        toastr.error('Son 1 dakika!');
+                      } else if (t > 30 * 1000 - 1000 && t <= 30 * 1000) {
+                        template.kalanSureBitiyor.set(true);
+                      }
                       t = t - 1000;
                       template.kalanSure.set(M.L.FormatSinavSuresi(t));
                     }

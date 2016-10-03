@@ -41,7 +41,7 @@
 
           <hr style="position: absolute; top: 392px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
 
-          <div style="position: absolute; top: 400px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Kapanış: {{moFormat kapanisZamani 'DD MMMM YYYY HH:mm'}}</div>
+          <div style="position: absolute; top: 400px; left: 390px; width: 430px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{#if $eq kapanisZamaniFormat 'sinavKapandi'}}Sınav Kapandı{{else}}{{#if $eq kapanisZamaniFormat 'sinavYaklasti'}}Kapanış: {{liveTime kapanisZamani}}{{else}}Kapanış: {{moFormat kapanisZamani kapanisZamaniFormat}}{{/if}}{{/if}}</div>
 
           <hr style="position: absolute; top: 436px; left: 390px; width: 430px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
 

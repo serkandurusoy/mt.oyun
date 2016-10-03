@@ -24,6 +24,24 @@ Template.muhurBilgi.helpers({
       acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
     });
   },
+  kapanisZamaniFormat: function() {
+    var sinav = M.C.Sinavlar.findOne({
+      _id: FlowRouter.getParam('_id'),
+      aktif: true,
+      iptal: false,
+      kilitli: true,
+      muhur: {$exists: true},
+      egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
+      acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
+    });
+    if (moment().isAfter(sinav.kapanisZamani)) {
+      return 'sinavKapandi'
+    } else if (moment().add(24, 'hours').isAfter(sinav.kapanisZamani)) {
+      return 'sinavYaklasti';
+    } else {
+      return 'DD MMMM YYYY HH:mm';
+    }
+  },
   yanitGorulebilir: function() {
     var devamEdenSinavVar = Session.get('devamEdenSinavVar');
     var sinavId = FlowRouter.getParam('_id');

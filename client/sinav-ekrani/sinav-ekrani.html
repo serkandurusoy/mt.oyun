@@ -11,7 +11,7 @@
         <div style="position: absolute; top: 55px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 22px;">SORU PUANI</div>
         <div style="position: absolute; top: 103px; left: 145px; width: 142px; text-align: center; font-weight: bold; font-size: 32px;">{{soruPuani}}</div>
         <div style="position: absolute; top: 55px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: 22px;">{{#if $eq sinav.tip 'canli'}}SÜRE{{else}}KALAN SÜRE{{/if}}</div>
-        <div style="position: absolute; top: {{#if $eq sinav.tip 'canli'}}112{{else}}103{{/if}}px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: {{#if $eq sinav.tip 'canli'}}20{{else}}32{{/if}}px; word-spacing: -2px">{{kalanSure}}</div>
+        <div class="{{#if instance.kalanSureBitiyor.get}}kalanSureBitiyor{{/if}}" style="position: absolute; top: {{#if $eq sinav.tip 'canli'}}112{{else}}103{{/if}}px; left: 737px; width: 146px; text-align: center; font-weight: bold; font-size: {{#if $eq sinav.tip 'canli'}}20{{else}}32{{/if}}px; word-spacing: -2px">{{kalanSure}}</div>
 
         {{#with FS.GetFile "M.FS.Muhur" (foreignField 'Muhurler' sinav.muhur 'gorsel')}}
           <img style="position: absolute; left: 425px; top: 0px" alt="" src="{{url auth=false}}"/>
