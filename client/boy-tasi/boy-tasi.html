@@ -6,13 +6,11 @@
 
       {{> dugmeNav cikis=false testBitti=false anaEkran=true yardim=true ctx="boyTasi"}}
 
-      <div style="position: absolute; top: 717px; left: 55px; width: 180px; height: 25px; font-weight: bold;">{{filtre}}</div>
-      <a class="asagi filtrele" style="top: 714px; left: 250px;"></a>
+      <div style="position: absolute; top: 717px; left: 55px; width: 180px; height: 25px; font-weight: bold;">{{filtreSube}}</div>
+      <a class="asagi filtreleSube" style="top: 714px; left: 250px;"></a>
 
-      <form name="filtreForm" autocomplete="off">
-        <input type="text" id="ara" name="ara" style="position: absolute; top: 717px; left: 314px; width: 210px; height: 25px;" maxlength="128"/>
-      </form>
-      <span class="temizle" style="top: 711px; left: 544px;"></span>
+      <div style="position: absolute; top: 716px; left: 314px; width: 210px; height: 25px; font-weight: bold;"><span class="rutbeFilter">{{#if $eq instance.filtreRutbe.get.min -1}}Tüm rütbeler{{else}}{{> rutbe instance.filtreRutbe.get.min}}{{/if}}</span></div>
+      <a class="asagi filtreleRutbe" style="top: 714px; left: 542px;"></a>
 
       <a class="yukari yukariya" style="top: 694px; left: 646px;"></a>
       <a class="asagi asagiya" style="top: 734px; left: 646px;"></a>
@@ -20,7 +18,7 @@
       <div class="boyTasiWrapper" style="position: absolute; top: 13px; left: 0; width: 670px; height: 648px; overflow: hidden;">
         {{#each sinifArkadaslari}}
           <div id="{{this._id}}" style="position: relative; width: 670px; height: 216px; {{#if sakla this._id}}display: none; visibility: hidden{{/if}}">
-            {{> boySirasi user=this sira=(plusOne @index) filtre=(instance.filtre.get)}}
+            {{> boySirasi user=this sira=(plusOne @index) filtreSube=(instance.filtreSube.get)}}
           </div>
         {{/each}}
       </div>
@@ -33,9 +31,7 @@
 
   {{> karakter user=user style="position: absolute; top: 0; left: 90px; width: 200px; height: 200px"}}
 
-  <div style="position: absolute; top: 92px; left: 12px; width: 56px; font-weight: bold; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{sira}}</div>
-
-  <div style="position: absolute; top: 40px; left: 320px; width: 350px; font-weight: bold; font-size: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{user.name}} {{user.lastName}} {{#if $eq filtre 'sinif'}} ({{user.sube}}){{/if}}</div>
+  <div style="position: absolute; top: 40px; left: 320px; width: 350px; font-weight: bold; font-size: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{user.name}} {{user.lastName}} {{#if $eq filtreSube 'sinif'}} ({{user.sube}}){{/if}}</div>
 
   <div style="position: absolute; top: 90px; left: 320px; width: 230px; font-weight: bold; font-size: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{> rutbe user.puan}}</div>
 

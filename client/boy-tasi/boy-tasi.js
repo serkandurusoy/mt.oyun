@@ -1,7 +1,7 @@
 Template.boyTasi.onCreated(function() {
   var template = this;
-  template.filtre = new ReactiveVar('sube');
-  template.ara = new ReactiveVar('');
+  template.filtreSube = new ReactiveVar('sube');
+  template.filtreRutbe = new ReactiveVar({min: -1});
   template.autorun(function() {
     var userId = Meteor.userId();
     if (userId) {
@@ -22,12 +22,12 @@ Template.boyTasi.onCreated(function() {
 });
 
 Template.boyTasi.helpers({
-  filtre: function() {
-    var filtre = Template.instance().filtre.get();
+  filtreSube: function() {
+    var filtreSube = Template.instance().filtreSube.get();
     var user = Meteor.user();
     if (user) {
       var sinif = _.findWhere(M.E.SinifObjects, {name: user.sinif}).kisa;
-      if (filtre === 'sube') {
+      if (filtreSube === 'sube') {
         return sinif + ' ' + user.sube;
       } else {
         return sinif;
@@ -42,12 +42,11 @@ Template.boyTasi.helpers({
   },
   sakla: function(userId) {
     var user = Meteor.user();
-    var filtre = Template.instance().filtre.get();
-    var ara = Template.instance().ara.get();
+    var filtreSube = Template.instance().filtreSube.get();
+    var filtreRutbe = Template.instance().filtreRutbe.get();
     var saklanacaklar = [];
-    var searchArray = [];
 
-    if (filtre === 'sube') {
+    if (filtreSube === 'sube') {
       M.C.Users.find({
         $or: [
           {sinif: {$ne: user.sinif}},
@@ -58,23 +57,15 @@ Template.boyTasi.helpers({
       })
     }
 
-    if (ara !== '') {
-      searchArray = _.flatten(_.map(M.L.LatinizeLower(M.L.Trim(ara)).split(' '), function(text) {
-        var regexp = new RegExp(text.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"),"i");
-        return [{ 'searchSource.name': regexp },{ 'searchSource.lastName': regexp }];
-      }));
-
+    if (filtreRutbe.min > -1) {
       M.C.Users.find({
-        _id: {$nin: M.C.Users.find({
-            $or: searchArray
-          }).map(function(u) {
-            return u._id;
-          })
-        }
+        $or: [
+          {puan: {$lt: filtreRutbe.min}},
+          {puan: {$gte: filtreRutbe.max}}
+        ]
       }).forEach(function(u) {
         saklanacaklar.push(u._id);
       })
-
     }
 
     return _.contains(saklanacaklar, userId);
@@ -83,13 +74,13 @@ Template.boyTasi.helpers({
 });
 
 Template.boyTasi.events({
-  'click .filtrele': function(e,t) {
+  'click .filtreleSube': function(e,t) {
     e.preventDefault();
-    var filtre = t.filtre.get();
-    if (filtre === 'sinif') {
-      t.filtre.set('sube');
+    var filtreSube = t.filtreSube.get();
+    if (filtreSube === 'sinif') {
+      t.filtreSube.set('sube');
     } else {
-      t.filtre.set('sinif');
+      t.filtreSube.set('sinif');
     }
     Tracker.afterFlush(function() {
       var $container = $('.boyTasiWrapper');
@@ -104,28 +95,27 @@ Template.boyTasi.events({
       }
     })
   },
-  'submit form, blur #ara, input #ara': function(e,t) {
+  'click .filtreleRutbe': function(e,t) {
     e.preventDefault();
-    var ara = M.L.Trim(t.$('[name="ara"]').val());
-    check(ara, String);
-    t.ara.set(ara);
-    Tracker.afterFlush(function() {
-      var $container = $('.boyTasiWrapper');
-      var $userCard = $('#'+Meteor.userId());
-      $container.animate({
-        scrollTop: 0
-      }, 0);
-      if (!!$userCard.length && parseInt($userCard.position().top) > 216) {
-        $container.animate({
-          scrollTop: parseInt($userCard.position().top) - 216
-        }, 0);
-      }
-    })
-  },
-  'click .temizle': function(e,t) {
-    e.preventDefault();
-    t.$('[name="ara"]').val('');
-    t.ara.set('');
+    var filtreRutbe = t.filtreRutbe.get();
+
+    var rutbeArray = [
+      {min: -1},
+      {min: 0, max: 50},
+      {min: 50, max: 70},
+      {min: 70, max: 74},
+      {min: 74, max: 78},
+      {min: 78, max: 82},
+      {min: 82, max: 86},
+      {min: 86, max: 90},
+      {min: 90, max: 95},
+      {min: 95, max: 100}
+    ];
+
+    var startAt = rutbeArray.findIndex(function(rutbe) {return rutbe.min === filtreRutbe.min});
+
+    t.filtreRutbe.set(M.L.cyclicIterator(rutbeArray, startAt).getNext());
+
     Tracker.afterFlush(function() {
       var $container = $('.boyTasiWrapper');
       var $userCard = $('#'+Meteor.userId());
