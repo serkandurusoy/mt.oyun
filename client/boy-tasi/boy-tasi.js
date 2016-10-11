@@ -101,15 +101,15 @@ Template.boyTasi.events({
 
     var rutbeArray = [
       {min: -1},
-      {min: 0, max: 50},
-      {min: 50, max: 70},
+      //{min: 0, max: 50},
+      //{min: 50, max: 70},
       {min: 70, max: 74},
       {min: 74, max: 78},
       {min: 78, max: 82},
       {min: 82, max: 86},
       {min: 86, max: 90},
       {min: 90, max: 95},
-      {min: 95, max: 100}
+      {min: 95, max: 101}
     ];
 
     var startAt = rutbeArray.findIndex(function(rutbe) {return rutbe.min === filtreRutbe.min});

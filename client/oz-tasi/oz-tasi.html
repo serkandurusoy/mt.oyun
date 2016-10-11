@@ -30,9 +30,13 @@
 
       <div style="position: absolute; top: 351px; left: 490px; width: 340px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Ortalama mühür puanı: {{#with currentUser.puan}}{{this}}{{else}}0{{/with}}</div>
 
-      <hr style="position: absolute; top: 387px;left: 490px; width: 340px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+      {{#if $lt currentUser.puan 100}}
 
-      <div style="position: absolute; top: 395px; left: 490px; width: 340px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Bir üst rütbe puanı: {{birUstRutbePuani}}</div>
+        <hr style="position: absolute; top: 387px;left: 490px; width: 340px; border-width: 3px 0 2px 0; border-color: rgba(87,73,43,0.3) transparent rgba(156,133,67,0.2) transparent;">
+
+        <div style="position: absolute; top: 395px; left: 490px; width: 340px; font-size: 20px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Bir üst rütbe puanı: {{birUstRutbePuani}}</div>
+
+      {{/if}}
 
       {{#with FS.GetFile "M.FS.Muhur" sonMuhur}}
         <img style="position: absolute; top: 430px; left: 570px;" alt="" src="{{url auth=false}}"/>
