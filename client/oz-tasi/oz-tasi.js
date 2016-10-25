@@ -1,11 +1,9 @@
 Template.ozTasi.onCreated(function() {
   if (M.C.Karakterler.find().count() > 0) {
-    var karakterArray = [];
-    Tracker.nonreactive(function() {
+    let karakterArray = [];
+    Tracker.nonreactive(() => {
       karakterArray = M.C.Karakterler.find({id_: {$ne: Meteor.user().karakter}, cinsiyet: Meteor.user().cinsiyet }, {reactive: false})
-        .map(function(karakter) {
-          return karakter._id;
-        });
+        .map(karakter => karakter._id);
       if (Meteor.user().karakter && Meteor.user().karakter !== 'default') {
         karakterArray.unshift(Meteor.user().karakter);
       }
@@ -15,22 +13,22 @@ Template.ozTasi.onCreated(function() {
 });
 
 Template.ozTasi.events({
-  'click .sol': function(e,t) {
+  'click .sol'(e,t) {
     e.preventDefault();
     Meteor.call('setKarakter', t.karakterIterator.getNext());
   },
-  'click .sag': function(e,t) {
+  'click .sag'(e,t) {
     e.preventDefault();
     Meteor.call('setKarakter', t.karakterIterator.getPrevious());
   }
 });
 
 Template.ozTasi.helpers({
-  sonMuhur: function() {
+  sonMuhur() {
     return ReactiveMethod.call('sonMuhur');
   },
-  birUstRutbePuani: function() {
-    var userPuan = Meteor.user() && Meteor.user().puan ? Meteor.user().puan : 0;
+  birUstRutbePuani() {
+    const userPuan = Meteor.user() && Meteor.user().puan ? Meteor.user().puan : 0;
 
     if (userPuan >= 95) {
       return 100;
