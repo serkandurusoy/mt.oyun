@@ -1,17 +1,16 @@
 Template.sinavYanitlari.onCreated(function() {
-  var template = this;
 
-  template.sinavYardim = new ReactiveVar(false);
-  template.renderComponent = new ReactiveVar(true);
-  template.seciliSoruIndex = new ReactiveVar(0);
-  template.sinav = new ReactiveVar(null);
-  template.sinavKagidi = new ReactiveVar(null);
-  template.ogrenciYanitiGoster = new ReactiveVar(false);
+  this.sinavYardim = new ReactiveVar(false);
+  this.renderComponent = new ReactiveVar(true);
+  this.seciliSoruIndex = new ReactiveVar(0);
+  this.sinav = new ReactiveVar(null);
+  this.sinavKagidi = new ReactiveVar(null);
+  this.ogrenciYanitiGoster = new ReactiveVar(false);
 
-  template.autorun(function() {
-    template.subscribe('fssorugorsel');
-    template.subscribe('sinavYanitlari', Session.get('sinavYanitGoster'), moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate(), function() {
-      template.sinav.set(M.C.Sinavlar.findOne({
+  this.autorun(() => {
+    this.subscribe('fssorugorsel');
+    this.subscribe('sinavYanitlari', Session.get('sinavYanitGoster'), moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate(), () => {
+      this.sinav.set(M.C.Sinavlar.findOne({
         _id: Session.get('sinavYanitGoster'),
         aktif: true,
         iptal: false,
@@ -20,7 +19,7 @@ Template.sinavYanitlari.onCreated(function() {
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
       }));
-      template.sinavKagidi.set(M.C.SinavKagitlari.findOne({
+      this.sinavKagidi.set(M.C.SinavKagitlari.findOne({
         sinav: Session.get('sinavYanitGoster'),
         ogrenci: Meteor.userId(),
         ogrenciSinavaGirdi: true,
@@ -32,45 +31,45 @@ Template.sinavYanitlari.onCreated(function() {
 });
 
 Template.sinavYanitlari.helpers({
-  formatliSinavSuresi: function(t) {
+  formatliSinavSuresi(t) {
     return M.L.FormatSinavSuresi(t*60*1000);
   },
-  sinavYardim: function() {
+  sinavYardim() {
     return Template.instance().sinavYardim.get();
   },
-  sinav: function() {
+  sinav() {
     return Template.instance().sinav.get();
   },
-  sinavKagidi: function() {
+  sinavKagidi() {
     return Template.instance().sinavKagidi.get();
   },
-  ogrenciYanitiGorulebilir: function() {
-    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
-    var sinav = Template.instance().sinav.get();
-    var sinavKagidi = Template.instance().sinavKagidi.get();
-    var verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
+  ogrenciYanitiGorulebilir() {
+    const seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    const sinav = Template.instance().sinav.get();
+    const sinavKagidi = Template.instance().sinavKagidi.get();
+    const verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
     return verilenYanit && verilenYanit.yanitlandi > 0 && verilenYanit.dogru === false;
   },
-  ogrenciYanitiGoster: function() {
+  ogrenciYanitiGoster() {
     return Template.instance().ogrenciYanitiGoster.get();
   },
-  renderComponent: function() {
+  renderComponent() {
     return Template.instance().renderComponent.get();
   },
-  seciliSoruIndex: function() {
+  seciliSoruIndex() {
     return Template.instance().seciliSoruIndex.get();
   },
-  alinanPuan: function() {
-    var alinanPuan;
+  alinanPuan() {
+    let alinanPuan;
 
-    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    const seciliSoruIndex = Template.instance().seciliSoruIndex.get();
 
-    var sinav = Template.instance().sinav.get();
-    var sinavKagidi = sinav && Template.instance().sinavKagidi.get();
+    const sinav = Template.instance().sinav.get();
+    const sinavKagidi = sinav && Template.instance().sinavKagidi.get();
 
-    var soruPuani = sinav && sinav.sorular[seciliSoruIndex].puan;
+    const soruPuani = sinav && sinav.sorular[seciliSoruIndex].puan;
 
-    var verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
+    const verilenYanit = sinavKagidi && _.findWhere(sinavKagidi.yanitlar, {soruId: sinav.sorular[seciliSoruIndex].soruId});
 
     if (verilenYanit) {
       if (verilenYanit.dogru === false) {
@@ -88,17 +87,17 @@ Template.sinavYanitlari.helpers({
 
     return alinanPuan.toString() + "/" + soruPuani.toString() ;
   },
-  seciliSoru: function() {
-    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
-    var sinav = Template.instance().sinav.get();
+  seciliSoru() {
+    const seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    const sinav = Template.instance().sinav.get();
     return sinav && M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
   },
-  soruKomponent: function() {
-    var seciliSoruIndex = Template.instance().seciliSoruIndex.get();
-    var sinav = Template.instance().sinav.get();
-    var seciliSoru = sinav && M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
+  soruKomponent() {
+    const seciliSoruIndex = Template.instance().seciliSoruIndex.get();
+    const sinav = Template.instance().sinav.get();
+    const seciliSoru = sinav && M.C.Sorular.findOne({_id: sinav.sorular[seciliSoruIndex].soruId});
 
-    var ogrenciYanitiGoster = Template.instance().ogrenciYanitiGoster.get();
+    const ogrenciYanitiGoster = Template.instance().ogrenciYanitiGoster.get();
     if (ogrenciYanitiGoster) {
       return M.L.komponentSec(seciliSoru,true)
     } else {
@@ -108,19 +107,19 @@ Template.sinavYanitlari.helpers({
 });
 
 Template.sinavYanitlari.events({
-  'click .dugmeNav.yardim': function(e,t) {
+  'click .dugmeNav.yardim'(e,t) {
     e.preventDefault();
     t.sinavYardim.set(true);
   },
-  'click .dugmeNav.anaEkran': function(e,t) {
+  'click .dugmeNav.anaEkran'(e,t) {
     e.preventDefault();
     Session.set('sinavYanitGoster',false);
   },
-  'click .yardimEkrani': function(e,t) {
+  'click .yardimEkrani'(e,t) {
     e.preventDefault();
     t.sinavYardim.set(false);
   },
-  'click [data-trigger="yanitToggle"]': function(e,t) {
+  'click [data-trigger="yanitToggle"]'(e,t) {
     e.preventDefault();
     t.renderComponent.set(false);
     Tracker.flush();
