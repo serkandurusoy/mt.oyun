@@ -1,19 +1,18 @@
 Template.muhurBilgi.onCreated(function() {
-  var template = this;
 
-  template.autorun(function() {
-    var devamEdenSinavVar = Session.get('devamEdenSinavVar');
-    var sinavId = FlowRouter.getParam('_id');
+  this.autorun(() =>{
+    const devamEdenSinavVar = Session.get('devamEdenSinavVar');
+    const sinavId = FlowRouter.getParam('_id');
 
     if (devamEdenSinavVar !== sinavId) {
-      template.subscribe('sinav', sinavId, moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate());
+      this.subscribe('sinav', sinavId, moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate());
     }
   })
 
 });
 
 Template.muhurBilgi.helpers({
-  sinav: function() {
+  sinav() {
     return M.C.Sinavlar.findOne({
       _id: FlowRouter.getParam('_id'),
       aktif: true,
@@ -24,8 +23,8 @@ Template.muhurBilgi.helpers({
       acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
     });
   },
-  kapanisZamaniFormat: function() {
-    var sinav = M.C.Sinavlar.findOne({
+  kapanisZamaniFormat() {
+    const sinav = M.C.Sinavlar.findOne({
       _id: FlowRouter.getParam('_id'),
       aktif: true,
       iptal: false,
@@ -42,10 +41,10 @@ Template.muhurBilgi.helpers({
       return 'DD MMMM YYYY HH:mm';
     }
   },
-  yanitGorulebilir: function() {
-    var devamEdenSinavVar = Session.get('devamEdenSinavVar');
-    var sinavId = FlowRouter.getParam('_id');
-    var user = Meteor.user();
+  yanitGorulebilir() {
+    const devamEdenSinavVar = Session.get('devamEdenSinavVar');
+    const sinavId = FlowRouter.getParam('_id');
+    const user = Meteor.user();
 
     if (devamEdenSinavVar) {
       return false;
@@ -55,7 +54,7 @@ Template.muhurBilgi.helpers({
       return false;
     }
 
-    var sinav = M.C.Sinavlar.findOne({
+    const sinav = M.C.Sinavlar.findOne({
       _id: sinavId,
       aktif: true,
       iptal: false,
@@ -69,10 +68,17 @@ Template.muhurBilgi.helpers({
       return false;
     }
 
-    var buSinavAlinmis = user && M.C.SinavKagitlari.findOne({
-        ogrenci: user._id,
-        kurum: user.kurum,
-        sinif: user.sinif,
+
+    const {
+      _id: ogrenci,
+      kurum,
+      sinif,
+    } = user;
+
+    const buSinavAlinmis = user && M.C.SinavKagitlari.findOne({
+        ogrenci,
+        kurum,
+        sinif,
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         sinav: sinavId,
         bitirmeZamani: {$exists: true},
@@ -94,10 +100,10 @@ Template.muhurBilgi.helpers({
     }
 
   },
-  sinavaBaslanabilir: function() {
-    var devamEdenSinavVar = Session.get('devamEdenSinavVar');
-    var sinavId = FlowRouter.getParam('_id');
-    var user = Meteor.user();
+  sinavaBaslanabilir() {
+    const devamEdenSinavVar = Session.get('devamEdenSinavVar');
+    const sinavId = FlowRouter.getParam('_id');
+    const user = Meteor.user();
 
     if (devamEdenSinavVar) {
       return false;
@@ -107,7 +113,7 @@ Template.muhurBilgi.helpers({
       return false;
     }
 
-    var sinav = M.C.Sinavlar.findOne({
+    const sinav = M.C.Sinavlar.findOne({
       $and: [
         {
           _id: sinavId,
@@ -138,10 +144,16 @@ Template.muhurBilgi.helpers({
       return false;
     }
 
-    var buSinavAlinmis = user && M.C.SinavKagitlari.findOne({
-        ogrenci: user._id,
-        kurum: user.kurum,
-        sinif: user.sinif,
+    const {
+      _id: ogrenci,
+      kurum,
+      sinif,
+    } = user;
+
+    const buSinavAlinmis = user && M.C.SinavKagitlari.findOne({
+        ogrenci,
+        kurum,
+        sinif,
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         sinav: sinavId
       });
@@ -153,29 +165,35 @@ Template.muhurBilgi.helpers({
     return true;
 
   },
-  sinavDevamEdiyor: function() {
-    var devamEdenSinavVar = Session.get('devamEdenSinavVar');
-    var sinavId = FlowRouter.getParam('_id');
+  sinavDevamEdiyor() {
+    const devamEdenSinavVar = Session.get('devamEdenSinavVar');
+    const sinavId = FlowRouter.getParam('_id');
     return devamEdenSinavVar === sinavId;
   },
-  baskaSinavDevamEdiyor: function() {
-    var devamEdenSinavVar = Session.get('devamEdenSinavVar');
-    var sinavId = FlowRouter.getParam('_id');
+  baskaSinavDevamEdiyor() {
+    const devamEdenSinavVar = Session.get('devamEdenSinavVar');
+    const sinavId = FlowRouter.getParam('_id');
     return devamEdenSinavVar && devamEdenSinavVar !== sinavId && M.C.Muhurler.findOne({_id: M.C.Sinavlar.findOne({_id: devamEdenSinavVar}).muhur}).isim;
   },
-  sinavAlinmamisAmaBaskaSinavDevamEdiyor: function() {
-    var devamEdenSinavVar = Session.get('devamEdenSinavVar');
-    var sinavId = FlowRouter.getParam('_id');
-    var user = Meteor.user();
+  sinavAlinmamisAmaBaskaSinavDevamEdiyor() {
+    const devamEdenSinavVar = Session.get('devamEdenSinavVar');
+    const sinavId = FlowRouter.getParam('_id');
+    const user = Meteor.user();
 
     if (!user) {
       return false;
     }
 
-    var buSinavAlinmis = user && M.C.SinavKagitlari.findOne({
-        ogrenci: user._id,
-        kurum: user.kurum,
-        sinif: user.sinif,
+    const {
+      _id: ogrenci,
+      kurum,
+      sinif,
+    } = user;
+
+    const buSinavAlinmis = user && M.C.SinavKagitlari.findOne({
+        ogrenci,
+        kurum,
+        sinif,
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         sinav: sinavId
       });
@@ -185,7 +203,7 @@ Template.muhurBilgi.helpers({
     }
 
     if (devamEdenSinavVar) {
-      var sinav = M.C.Sinavlar.findOne({
+      const sinav = M.C.Sinavlar.findOne({
         $and: [
           {
             _id: sinavId,
@@ -232,32 +250,31 @@ Template.muhurBilgi.helpers({
 });
 
 Template.muhurBilgi.events({
-  'click [data-trigger="geriDon"]': function(e,t) {
+  'click [data-trigger="geriDon"]'(e,t) {
     Session.set('detayindanDonulenSinavId', FlowRouter.getParam('_id'));
     FlowRouter.go('muhurTasi');
   },
-  'click [data-trigger="sinavaBasla"]': function(e,t) {
+  'click [data-trigger="sinavaBasla"]'(e,t) {
     BlazeLayout.render('layout', { main: 'sinavaBasla' });
   },
-  'click [data-trigger="sinavaDevam"]': function(e,t) {
+  'click [data-trigger="sinavaDevam"]'(e,t) {
     Session.set('sinavGoster', true);
   },
-  'click [data-trigger="sinavYanitGoster"]': function(e,t) {
+  'click [data-trigger="sinavYanitGoster"]'(e,t) {
     Session.set('sinavYanitGoster', FlowRouter.getParam('_id'));
   }
 });
 
 Template.sinavaBasla.onCreated(function() {
-  var template = this;
-  template.autorun(function() {
-    var sinavId = FlowRouter.getParam('_id');
-    template.subscribe('sinav', sinavId, moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate());
+  this.autorun(() => {
+    const sinavId = FlowRouter.getParam('_id');
+    this.subscribe('sinav', sinavId, moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate());
   })
 
 });
 
 Template.sinavaBasla.helpers({
-  sinav: function() {
+  sinav() {
     return M.C.Sinavlar.findOne({
       $and: [
         {
@@ -288,14 +305,14 @@ Template.sinavaBasla.helpers({
 });
 
 Template.sinavaBasla.events({
-  'click .baslamaktanVazgec': function() {
+  'click .baslamaktanVazgec'() {
     BlazeLayout.render('layout', { main: 'muhurBilgi' });
   },
-  'click .baslamayiOnayla': function() {
+  'click .baslamayiOnayla'() {
     BlazeLayout.render('layout', { main: 'muhurBilgi' });
-    var sinavId = FlowRouter.getParam('_id');
+    const sinavId = FlowRouter.getParam('_id');
     if (sinavId) {
-      Meteor.call('sinavaBasla', {sinavId: sinavId}, function(err,res) {
+      Meteor.call('sinavaBasla', {sinavId}, (err,res) => {
         if (res) {
           Session.set('sinavGoster',true);
         }
