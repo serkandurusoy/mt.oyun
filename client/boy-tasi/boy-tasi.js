@@ -1,18 +1,17 @@
 Template.boyTasi.onCreated(function() {
-  var template = this;
-  template.filtreSube = new ReactiveVar('sube');
-  template.filtreRutbe = new ReactiveVar({min: -1});
-  template.autorun(function() {
-    var userId = Meteor.userId();
+  this.filtreSube = new ReactiveVar('sube');
+  this.filtreRutbe = new ReactiveVar({min: -1});
+  this.autorun(() => {
+    const userId = Meteor.userId();
     if (userId) {
-      template.subscribe('sinifArkadaslarim', function() {
-        Tracker.afterFlush(function() {
-          var scrollPos = 0;
-          var $userCard = $('#'+userId);
+      this.subscribe('sinifArkadaslarim', () => {
+        Tracker.afterFlush(() => {
+          let scrollPos = 0;
+          const $userCard = $('#'+userId);
           if (!!$userCard.length) {
             scrollPos = parseInt($userCard.position().top) - 216;
           }
-          template.$('.boyTasiWrapper').animate({
+          this.$('.boyTasiWrapper').animate({
             scrollTop: scrollPos
           }, 0);
         })
@@ -22,11 +21,11 @@ Template.boyTasi.onCreated(function() {
 });
 
 Template.boyTasi.helpers({
-  filtreSube: function() {
-    var filtreSube = Template.instance().filtreSube.get();
-    var user = Meteor.user();
+  filtreSube() {
+    const filtreSube = Template.instance().filtreSube.get();
+    const user = Meteor.user();
     if (user) {
-      var sinif = _.findWhere(M.E.SinifObjects, {name: user.sinif}).kisa;
+      const sinif = _.findWhere(M.E.SinifObjects, {name: user.sinif}).kisa;
       if (filtreSube === 'sube') {
         return sinif + ' ' + user.sube;
       } else {
@@ -35,16 +34,16 @@ Template.boyTasi.helpers({
     }
     return false;
   },
-  sinifArkadaslari: function() {
-    var user = Meteor.user();
-    var sinifArkadaslariCursor =  user && M.C.Users.find({sinif: user.sinif, puan: {$gte: 70}}, {sort: {puan: -1, dogumTarihi: -1, nameCollate: 1, lastNameCollate: 1, cinsiyet: -1}});
+  sinifArkadaslari() {
+    const user = Meteor.user();
+    const sinifArkadaslariCursor =  user && M.C.Users.find({sinif: user.sinif, puan: {$gte: 70}}, {sort: {puan: -1, dogumTarihi: -1, nameCollate: 1, lastNameCollate: 1, cinsiyet: -1}});
     return sinifArkadaslariCursor && sinifArkadaslariCursor.count() && sinifArkadaslariCursor;
   },
-  sakla: function(userId) {
-    var user = Meteor.user();
-    var filtreSube = Template.instance().filtreSube.get();
-    var filtreRutbe = Template.instance().filtreRutbe.get();
-    var saklanacaklar = [];
+  sakla(userId) {
+    const user = Meteor.user();
+    const filtreSube = Template.instance().filtreSube.get();
+    const filtreRutbe = Template.instance().filtreRutbe.get();
+    let saklanacaklar = [];
 
     if (filtreSube === 'sube') {
       M.C.Users.find({
@@ -52,7 +51,7 @@ Template.boyTasi.helpers({
           {sinif: {$ne: user.sinif}},
           {sube: {$ne: user.sube}}
         ]
-      }).forEach(function(u) {
+      }).forEach(u => {
         saklanacaklar.push(u._id);
       })
     }
@@ -63,7 +62,7 @@ Template.boyTasi.helpers({
           {puan: {$lt: filtreRutbe.min}},
           {puan: {$gte: filtreRutbe.max}}
         ]
-      }).forEach(function(u) {
+      }).forEach(u => {
         saklanacaklar.push(u._id);
       })
     }
@@ -74,17 +73,17 @@ Template.boyTasi.helpers({
 });
 
 Template.boyTasi.events({
-  'click .filtreleSube': function(e,t) {
+  'click .filtreleSube'(e,t) {
     e.preventDefault();
-    var filtreSube = t.filtreSube.get();
+    const filtreSube = t.filtreSube.get();
     if (filtreSube === 'sinif') {
       t.filtreSube.set('sube');
     } else {
       t.filtreSube.set('sinif');
     }
-    Tracker.afterFlush(function() {
-      var $container = $('.boyTasiWrapper');
-      var $userCard = $('#'+Meteor.userId());
+    Tracker.afterFlush(() => {
+      const $container = $('.boyTasiWrapper');
+      const $userCard = $('#'+Meteor.userId());
       $container.animate({
         scrollTop: 0
       }, 0);
@@ -95,11 +94,11 @@ Template.boyTasi.events({
       }
     })
   },
-  'click .filtreleRutbe': function(e,t) {
+  'click .filtreleRutbe'(e,t) {
     e.preventDefault();
-    var filtreRutbe = t.filtreRutbe.get();
+    const filtreRutbe = t.filtreRutbe.get();
 
-    var rutbeArray = [
+    const rutbeArray = [
       {min: -1},
       //{min: 0, max: 50},
       //{min: 50, max: 70},
@@ -112,13 +111,13 @@ Template.boyTasi.events({
       {min: 95, max: 101}
     ];
 
-    var startAt = rutbeArray.findIndex(function(rutbe) {return rutbe.min === filtreRutbe.min});
+    const startAt = rutbeArray.findIndex(rutbe => rutbe.min === filtreRutbe.min);
 
     t.filtreRutbe.set(M.L.cyclicIterator(rutbeArray, startAt).getNext());
 
-    Tracker.afterFlush(function() {
-      var $container = $('.boyTasiWrapper');
-      var $userCard = $('#'+Meteor.userId());
+    Tracker.afterFlush(() => {
+      const $container = $('.boyTasiWrapper');
+      const $userCard = $('#'+Meteor.userId());
       $container.animate({
         scrollTop: 0
       }, 0);
@@ -129,12 +128,12 @@ Template.boyTasi.events({
       }
     })
   },
-  'click .yukariya': function(e,t) {
+  'click .yukariya'(e,t) {
     t.$('.boyTasiWrapper').animate({
       scrollTop: '-=216'
     }, 0);
   },
-  'click .asagiya': function(e,t) {
+  'click .asagiya'(e,t) {
     t.$('.boyTasiWrapper').animate({
       scrollTop: '+=216'
     }, 0);
