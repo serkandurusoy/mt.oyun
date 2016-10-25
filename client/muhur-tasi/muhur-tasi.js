@@ -1,20 +1,19 @@
 Template.muhurTasi.onCreated(function() {
-  var template = this;
-  var scrollToSinav = function(sinavId) {
+  const scrollToSinav = sinavId => {
     if (!!sinavId) {
-      Meteor.defer(function() {
-        var $muhur = $('#'+sinavId);
+      Meteor.defer(() => {
+        const $muhur = $('#'+sinavId);
         if (!!$muhur.length) {
           $('.muhurlerWrapper').animate({
             scrollTop: parseInt($muhur.position().top)
-          }, 500, function() {
-            var shakeImg = function() {
-              var $muhurImg = $('#'+sinavId+' > img');
-              var interval = 100;
-              var distance = 10;
-              var times = 4;
+          }, 500, () => {
+            const shakeImg = () => {
+              let $muhurImg = $('#'+sinavId+' > img');
+              const interval = 100;
+              const distance = 10;
+              const times = 4;
               $muhurImg.css('position','relative');
-              for(var iter=0;iter<(times+1);iter++){
+              for(let iter=0;iter<(times+1);iter++){
                 $muhurImg.animate({
                   left:((iter%2==0 ? distance : distance*-1))
                 },interval);
@@ -28,43 +27,49 @@ Template.muhurTasi.onCreated(function() {
     }
   };
 
-  template.aktifDers = new ReactiveVar();
+  this.aktifDers = new ReactiveVar();
 
-  template.subscribe('mufredatlar');
+  this.subscribe('mufredatlar');
 
-  template.autorun(function() {
-    template.subscribe('sinavlar', moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate(), function() {
-      Tracker.afterFlush(function() {
-        var user = Meteor.user();
-        var devamEdenSinavId = Session.get('devamEdenSinavVar');
-        var detayindanDonulenSinavId = Session.get('detayindanDonulenSinavId');
+  this.autorun(() => {
+    this.subscribe('sinavlar', moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate(), () => {
+      Tracker.afterFlush(() => {
+        const user = Meteor.user();
+        const devamEdenSinavId = Session.get('devamEdenSinavVar');
+        const detayindanDonulenSinavId = Session.get('detayindanDonulenSinavId');
         if (detayindanDonulenSinavId) {
-          var detayindanDonulenSinavinDersiId = M.C.Sinavlar.findOne({_id: detayindanDonulenSinavId}).ders;
-          template.aktifDers.set(detayindanDonulenSinavinDersiId);
+          const detayindanDonulenSinavinDersiId = M.C.Sinavlar.findOne({_id: detayindanDonulenSinavId}).ders;
+          this.aktifDers.set(detayindanDonulenSinavinDersiId);
           scrollToSinav(detayindanDonulenSinavId);
           M.L.clearSessionVariable('detayindanDonulenSinavId');
         } else {
           if (devamEdenSinavId) {
-            template.aktifDers.set(M.C.Sinavlar.findOne({_id: devamEdenSinavId}).ders);
+            this.aktifDers.set(M.C.Sinavlar.findOne({_id: devamEdenSinavId}).ders);
             scrollToSinav(devamEdenSinavId);
           } else {
-            var girilenSinavlar = M.C.SinavKagitlari.find({
-              ogrenci: user._id,
-              kurum: user.kurum,
-              sinif: user.sinif,
+            const {
+              _id: ogrenci,
+              kurum,
+              sinif,
+              sube: subeler,
+            } = user;
+            const girilenSinavlar = M.C.SinavKagitlari.find({
+              ogrenci,
+              kurum,
+              sinif,
               egitimYili: M.C.AktifEgitimYili.findOne().egitimYili
-            }, {fields: {sinav: 1}}).map(function(sinavKagidi) {return sinavKagidi.sinav});
-            var sonSinav = M.C.Sinavlar.findOne({
+            }, {fields: {sinav: 1}}).map(sinavKagidi => sinavKagidi.sinav);
+            const sonSinav = M.C.Sinavlar.findOne({
               $and: [
                 {
                   _id: {$nin: girilenSinavlar},
-                  kurum: user.kurum,
+                  kurum,
                   taslak: false,
                   aktif: true,
                   iptal: false,
                   muhur: {$exists: true},
-                  sinif: user.sinif,
-                  subeler: user.sube,
+                  sinif,
+                  subeler,
                   egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
                   acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
                 },
@@ -84,16 +89,16 @@ Template.muhurTasi.onCreated(function() {
               ]
             }, {sort: {acilisZamani: -1}});
             if (sonSinav) {
-              template.aktifDers.set(sonSinav.ders);
+              this.aktifDers.set(sonSinav.ders);
               scrollToSinav(sonSinav._id);
             } else {
-              var sonGirilenSinavinKagidi = M.C.SinavKagitlari.findOne({ogrenciSinavaGirdi: true}, {sort: {bitirmeZamani: -1}});
+              const sonGirilenSinavinKagidi = M.C.SinavKagitlari.findOne({ogrenciSinavaGirdi: true}, {sort: {bitirmeZamani: -1}});
               if (sonGirilenSinavinKagidi) {
-                template.aktifDers.set(M.C.Sinavlar.findOne({_id: sonGirilenSinavinKagidi.sinav}).ders);
+                this.aktifDers.set(M.C.Sinavlar.findOne({_id: sonGirilenSinavinKagidi.sinav}).ders);
                 scrollToSinav(sonGirilenSinavinKagidi.sinav);
               } else {
-                var ilkDers = M.C.Dersler.findOne({}, {sort: {createdAt: 1}});
-                template.aktifDers.set(ilkDers._id);
+                const ilkDers = M.C.Dersler.findOne({}, {sort: {createdAt: 1}});
+                this.aktifDers.set(ilkDers._id);
               }
             }
           }
@@ -105,26 +110,31 @@ Template.muhurTasi.onCreated(function() {
 });
 
 Template.muhurTasi.helpers({
-  dersler: function() {
-    var derslerCursor = M.C.Dersler.find({}, {sort: {createdAt: 1}});
+  dersler() {
+    const derslerCursor = M.C.Dersler.find({}, {sort: {createdAt: 1}});
     return derslerCursor.count() && derslerCursor;
   },
-  dersKaydirGerekli: function() {
+  dersKaydirGerekli() {
     return M.C.Dersler.find().count() > 6;
   },
-  sinavlar: function() {
-    var aktifDers = Template.instance().aktifDers.get();
-    var user = Meteor.user();
+  sinavlar() {
+    const aktifDers = Template.instance().aktifDers.get();
+    const user = Meteor.user();
     if (aktifDers && user) {
-      var sinavlarCursor = M.C.Sinavlar.find({
-        kurum: user.kurum,
+      const {
+        kurum,
+        sinif,
+        sube: subeler,
+      } = user;
+      const sinavlarCursor = M.C.Sinavlar.find({
+        kurum,
         taslak: false,
         aktif: true,
         iptal: false,
         ders: aktifDers,
         muhur: {$exists: true},
-        sinif: user.sinif,
-        subeler: user.sube,
+        sinif,
+        subeler,
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
       }, {sort: {acilisZamani: 1}});
@@ -133,26 +143,32 @@ Template.muhurTasi.helpers({
       return false;
     }
   },
-  icindeGirilebilirSinavVar: function(dersId) {
-    var user = Meteor.user();
-    var girilenSinavlar = M.C.SinavKagitlari.find({
-      ogrenci: user._id,
-      kurum: user.kurum,
-      sinif: user.sinif,
+  icindeGirilebilirSinavVar(dersId) {
+    const user = Meteor.user();
+    const {
+      _id: ogrenci,
+      kurum,
+      sinif,
+      sube: subeler,
+    } = user;
+    const girilenSinavlar = M.C.SinavKagitlari.find({
+      ogrenci,
+      kurum,
+      sinif,
       egitimYili: M.C.AktifEgitimYili.findOne().egitimYili
-    }, {fields: {sinav: 1}}).map(function(sinavKagidi) {return sinavKagidi.sinav});
+    }, {fields: {sinav: 1}}).map(sinavKagidi => sinavKagidi.sinav);
     return M.C.Sinavlar.find({
       $and: [
         {
           ders: dersId,
           _id: {$nin: girilenSinavlar},
-          kurum: user.kurum,
+          kurum,
           taslak: false,
           aktif: true,
           iptal: false,
           muhur: {$exists: true},
-          sinif: user.sinif,
-          subeler: user.sube,
+          sinif,
+          subeler,
           egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
           acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
         },
@@ -172,19 +188,24 @@ Template.muhurTasi.helpers({
       ]
     }).count();
   },
-  muhurKaydirGerekli: function() {
-    var aktifDers = Template.instance().aktifDers.get();
-    var user = Meteor.user();
+  muhurKaydirGerekli() {
+    const aktifDers = Template.instance().aktifDers.get();
+    const user = Meteor.user();
     if (aktifDers && user) {
+      const {
+        kurum,
+        sinif,
+        sube: subeler,
+      } = user;
       return M.C.Sinavlar.find({
-        kurum: user.kurum,
+        kurum,
         taslak: false,
         aktif: true,
         iptal: false,
         ders: aktifDers,
         muhur: {$exists: true},
-        sinif: user.sinif,
-        subeler: user.sube,
+        sinif,
+        subeler,
         egitimYili: M.C.AktifEgitimYili.findOne().egitimYili,
         acilisZamani: {$lt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
       }).count() > 8;
@@ -192,37 +213,37 @@ Template.muhurTasi.helpers({
       return false;
     }
   },
-  barOranli: function(puan) {
+  barOranli(puan) {
     return math.chain(puan).divide(100).multiply(152).round().done()
   }
 });
 
 Template.muhurTasi.events({
-  'click .muhurGrup': function(e,t) {
+  'click .muhurGrup'(e,t) {
     t.aktifDers.set(this._id);
   },
-  'click .sol': function(e,t) {
+  'click .sol'(e,t) {
     t.$('.muhurGruplariWrapper').animate({
       scrollLeft: '-=128'
     }, 300);
   },
-  'click .sag': function(e,t) {
+  'click .sag'(e,t) {
     t.$('.muhurGruplariWrapper').animate({
       scrollLeft: '+=128'
     }, 300);
   },
-  'click .yukari': function(e,t) {
+  'click .yukari'(e,t) {
     t.$('.muhurlerWrapper').animate({
       scrollTop: '-=240'
     }, 300);
   },
-  'click .asagi': function(e,t) {
+  'click .asagi'(e,t) {
     t.$('.muhurlerWrapper').animate({
       scrollTop: '+=240'
     }, 300);
   },
-  'click [data-trigger="muhurDetay"]': function(e,t) {
-    var data = Blaze.getData(e.currentTarget);
+  'click [data-trigger="muhurDetay"]'(e,t) {
+    const data = Blaze.getData(e.currentTarget);
     if (data) {
       FlowRouter.go('muhurBilgi', {_id: data._id});
     }
