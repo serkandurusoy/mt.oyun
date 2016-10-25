@@ -1,5 +1,5 @@
 Template.coverModalPrompt.events({
-  'click': function(e,t) {
+  'click'(e,t) {
     e.preventDefault();
     Blaze.remove(Blaze.currentView);
   }

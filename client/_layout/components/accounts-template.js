@@ -1,27 +1,27 @@
 Template.accountsTemplate.helpers({
-  resetFlow: function() {
+  resetFlow() {
     return Session.get('resetToken');
   }
 });
 
 Template.resetForm.helpers({
-  accountButtonsDisabled: function() {
+  accountButtonsDisabled() {
     return Session.get('accountButtonsDisabled');
   }
 });
 
 Template.resetForm.events({
-  'click [data-trigger="cancel"]' : function(e,t) {
+  'click [data-trigger="cancel"]'(e,t) {
     e.preventDefault();
     M.L.clearSessionVariable('resetToken');
     if (M.L.VerificationDoneCallback) {
       M.L.VerificationDoneCallback();
     }
   },
-  'submit form': function(e,t) {
+  'submit form'(e,t) {
     e.preventDefault();
-    var password = M.L.Trim(t.$('[name="password"]').val());
-    var confirm = M.L.Trim(t.$('[name="confirm"]').val());
+    const password = M.L.Trim(t.$('[name="password"]').val());
+    const confirm = M.L.Trim(t.$('[name="confirm"]').val());
     check(password, String);
     check(confirm, String);
 
@@ -29,13 +29,15 @@ Template.resetForm.events({
       toastr.error('Şifre ile tekrarı aynı olmalı.');
     } else {
       Session.set('accountButtonsDisabled', 'disabled');
-      Meteor.call('getSifreZorlukFromToken', Session.get('resetToken'), function(error, result) {
+      Meteor.call('getSifreZorlukFromToken', Session.get('resetToken'), (error, result) => {
         if (error) {
           M.L.clearSessionVariable('accountButtonsDisabled');
           Blaze.renderWithData(Template.coverModalPromptPersistent, {message: 'Geçersiz bağlantı. Yeniden istek oluşturmalı ve en son gelen e-posta mesajındaki bağlantıya tıklamalısın.'}, document.body);
         } else {
-          var userId = result.userId;
-          var sifreZorluk = result.sifreZorluk;
+          const {
+            userId,
+            sifreZorluk,
+          } = result;
           if ( !M.L.validatePasswordStrength(userId, password, sifreZorluk) ) {
             M.L.clearSessionVariable('accountButtonsDisabled');
             toastr.error(_.findWhere(M.E.SifreObjects, {name: sifreZorluk}).detail);
@@ -43,7 +45,7 @@ Template.resetForm.events({
             Accounts.resetPassword(
               Session.get('resetToken'),
               password,
-              function(err) {
+              (err) => {
                 M.L.clearSessionVariable('accountButtonsDisabled');
                 if (err) {
                   if (err.error && err.error === 403) {
@@ -68,15 +70,15 @@ Template.resetForm.events({
 });
 
 Template.loginForm.helpers({
-  accountButtonsDisabled: function() {
+  accountButtonsDisabled() {
     return Session.get('accountButtonsDisabled');
   }
 });
 
 Template.loginForm.events({
-  'click [data-trigger="forgotPassword"]' : function(e,t) {
+  'click [data-trigger="forgotPassword"]'(e,t) {
     e.preventDefault();
-    var kullanici = M.L.LatinizeLower(M.L.Trim(t.$('[name="kullanici"]').val()));
+    const kullanici = M.L.LatinizeLower(M.L.Trim(t.$('[name="kullanici"]').val()));
     check(kullanici, String);
     M.L.clearSessionVariable('resetToken');
 
@@ -89,7 +91,7 @@ Template.loginForm.events({
         Session.set('accountButtonsDisabled', 'disabled');
         Accounts.forgotPassword(
           {email: kullanici},
-          function(err) {
+          (err) => {
             M.L.clearSessionVariable('accountButtonsDisabled');
             Blaze.renderWithData(Template.coverModalPromptPersistent, {message: '<span style="font-size: 16px;">Lütfen <strong>' + kullanici + '</strong> adresine ait e-posta kutunu kontrol et. Yeni bir şifre tanımlayabilmen için gerekli adımı içeren bir mesaj birkaç dakika içinde e-posta adresine iletilecek. Eğer birden fazla talep yaptıysan ya da e-posta kutunda bu konuda birden fazla mesaj görürsen, <strong>en son gelen mesajı</strong> dikkate almalısın.</span>'}, document.body);
           }
@@ -98,10 +100,10 @@ Template.loginForm.events({
     }
 
   },
-  'submit form': function(e,t) {
+  'submit form'(e,t) {
     e.preventDefault();
-    var kullanici = M.L.LatinizeLower(M.L.Trim(t.$('[name="kullanici"]').val()));
-    var password = M.L.Trim(t.$('[name="password"]').val());
+    const kullanici = M.L.LatinizeLower(M.L.Trim(t.$('[name="kullanici"]').val()));
+    const password = M.L.Trim(t.$('[name="password"]').val());
     check(kullanici, String);
     check(password, String);
 
@@ -114,13 +116,13 @@ Template.loginForm.events({
       Meteor.loginWithPassword(
         {email: kullanici},
         password,
-        function (err) {
+        (err) => {
           M.L.clearSessionVariable('accountButtonsDisabled');
           if (err) {
-            Tracker.afterFlush(function() {
-              Meteor.defer(function() {
-                var $kullanici = $('[name="kullanici"]');
-                var $password = $('[name="password"]');
+            Tracker.afterFlush(() => {
+              Meteor.defer(() => {
+                let $kullanici = $('[name="kullanici"]');
+                let $password = $('[name="password"]');
                 if (!!$kullanici.length && !!$password.length ) {
                   $kullanici.val(kullanici);
                   $password.val(password);

@@ -1,37 +1,37 @@
-Meteor.startup(function(){
+Meteor.startup(() => {
 	Template.connectionBanner.events({
-		'click .connectionBanner': function(event, template){
+		'click .connectionBanner'(event, template){
 			event.preventDefault();
 			Meteor.reconnect();
 		}
 	});
 
 	Template.connectionBanner.helpers({
-		'wasConnected': function(event, template){
+		'wasConnected'(event, template){
 			return Session.equals('MeteorConnection-wasConnected', true);
 		},
-		'isDisconnected': function(event, template){
+		'isDisconnected'(event, template){
 			return Session.equals('MeteorConnection-isConnected', false);
 		},
-		'retryTimeSeconds': function(event, template){
+		'retryTimeSeconds'(event, template){
 			return Session.get('MeteorConnection-retryTimeSeconds');
 		},
-		'failedReason': function(event, template){
+		'failedReason'(event, template){
 			return Session.get('MeteorConnection-failedReason');
 		},
-		'connectionLostTitle': function(event, template){
+		'connectionLostTitle'(event, template){
 			return 'Bağlantı Sorunu';
 		},
-		'connectionLostText': function(event, template){
+		'connectionLostText'(event, template){
 			return 'Sunucu ile bağlantı koptu.';
 		},
-		'tryReconnectText': function(event, template){
+		'tryReconnectText'(event, template){
 			return 'Tekrar bağlanmayı denemek için buraya ' + ((bowser.mobile || bowser.tablet) ? 'dokunun': 'tıklayın') + '.';
 		},
-		'reconnectBeforeCountdownText': function(event, template){
+		'reconnectBeforeCountdownText'(event, template){
 			return 'Bağlantıyı tekrar denemek için kalan süre ';
 		},
-		'reconnectAfterCountdownText': function(event, template){
+		'reconnectAfterCountdownText'(event, template){
 			return ' saniye.';
 		}
 	});
@@ -40,10 +40,10 @@ Meteor.startup(function(){
 	Session.setDefault('MeteorConnection-wasConnected', false);
 	Session.setDefault('MeteorConnection-retryTimeSeconds', 0);
 	Session.setDefault('MeteorConnection-failedReason', null);
-	var connectionRetryUpdateInterval;
+	let connectionRetryUpdateInterval;
 
-	Tracker.autorun(function(){
-		var isConnected = Meteor.status().connected;
+	Tracker.autorun(() => {
+		const isConnected = Meteor.status().connected;
 		if(isConnected){
 			Session.set('MeteorConnection-wasConnected', true);
 			Meteor.clearInterval(connectionRetryUpdateInterval);
@@ -53,8 +53,8 @@ Meteor.startup(function(){
 		}else{
 			if(Session.equals('MeteorConnection-wasConnected', true)){
 				if(!connectionRetryUpdateInterval)
-					connectionRetryUpdateInterval = Meteor.setInterval(function(){
-						var retryIn = Math.round((Meteor.status().retryTime - (new Date()).getTime())/1000);
+					connectionRetryUpdateInterval = Meteor.setInterval(() => {
+						let retryIn = Math.round((Meteor.status().retryTime - (new Date()).getTime())/1000);
 						if(isNaN(retryIn))
 							retryIn = 0;
 						Session.set('MeteorConnection-retryTimeSeconds', retryIn);

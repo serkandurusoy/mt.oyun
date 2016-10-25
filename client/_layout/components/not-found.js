@@ -1,5 +1,5 @@
 Template.notFound.events({
-  'click': function() {
+  'click'() {
     FlowRouter.go('anaEkran');
   }
 });

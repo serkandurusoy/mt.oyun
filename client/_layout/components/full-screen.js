@@ -1,5 +1,5 @@
 Template.fullScreen.events({
-  'click': function(e,t) {
+  'click'(e,t) {
     if (screenfull.enabled) {
       screenfull.request();
     } else {

@@ -1,11 +1,11 @@
 Template.yardimEkrani.helpers({
-  ctx: function() {
+  ctx() {
     return Session.get('yardimCtx');
   }
 });
 
 Template.yardimEkrani.events({
-  'click': function() {
+  'click'() {
     M.L.clearSessionVariable('yardimCtx');
     M.L.clearSessionVariable('yardimGoster');
   }
