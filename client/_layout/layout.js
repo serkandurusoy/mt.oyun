@@ -4,7 +4,7 @@ import { Session } from 'meteor/session';
 import { $ } from 'meteor/jquery';
 
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
-import { Reload } from 'meteor/aldeed:reload-extras';
+import { Reload } from 'meteor/reload';
 import { bowser } from 'meteor/flowkey:bowser';
 
 import { M } from 'meteor/m:lib-core';
