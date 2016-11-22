@@ -1,3 +1,16 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
+import { $ } from 'meteor/jquery';
+
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+import { Reload } from 'meteor/aldeed:reload-extras';
+import { bowser } from 'meteor/flowkey:bowser';
+
+import { M } from 'meteor/m:lib-core';
+
+import './layout.html';
+
 BlazeLayout.setRoot('body');
 
 Reload.delay = 4000;

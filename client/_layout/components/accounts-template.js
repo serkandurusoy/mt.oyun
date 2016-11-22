@@ -1,3 +1,19 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
+import { check } from 'meteor/check';
+import { Blaze } from 'meteor/blaze';
+import { Accounts } from 'meteor/accounts-base';
+import { Tracker } from 'meteor/tracker';
+import { $ } from 'meteor/jquery';
+import { _ } from 'meteor/underscore';
+
+import { FlowRouter } from 'meteor/kadira:flow-router';
+
+import { M } from 'meteor/m:lib-core';
+
+import './accounts-template.html';
+
 Template.accountsTemplate.helpers({
   resetFlow() {
     return Session.get('resetToken');
