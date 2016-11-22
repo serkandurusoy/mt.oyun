@@ -1,3 +1,17 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Tracker } from 'meteor/tracker';
+import { _ } from 'meteor/underscore';
+
+import { moment } from 'meteor/momentjs:moment';
+import { TimeSync } from 'meteor/mizzao:timesync';
+
+import { M } from 'meteor/m:lib-core';
+
+import './sinav-yanitlari.html';
+
 Template.sinavYanitlari.onCreated(function() {
 
   this.sinavYardim = new ReactiveVar(false);

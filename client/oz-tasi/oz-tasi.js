@@ -1,3 +1,11 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { Tracker } from 'meteor/tracker';
+
+import { M } from 'meteor/m:lib-core';
+
+import './oz-tasi.html';
+
 Template.ozTasi.onCreated(function() {
   if (M.C.Karakterler.find().count() > 0) {
     let karakterArray = [];

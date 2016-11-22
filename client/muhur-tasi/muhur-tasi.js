@@ -1,3 +1,18 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { Tracker } from 'meteor/tracker';
+import { Session } from 'meteor/session';
+import { Blaze } from 'meteor/blaze';
+import { $ } from 'meteor/jquery';
+
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import { moment } from 'meteor/momentjs:moment';
+import { TimeSync } from 'meteor/mizzao:timesync';
+
+import { M } from 'meteor/m:lib-core';
+
+import './muhur-tasi.html';
+
 Template.muhurTasi.onCreated(function() {
   const scrollToSinav = sinavId => {
     if (!!sinavId) {

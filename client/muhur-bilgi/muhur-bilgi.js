@@ -1,3 +1,17 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
+import { _ } from 'meteor/underscore';
+
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import { moment } from 'meteor/momentjs:moment';
+import { TimeSync } from 'meteor/mizzao:timesync';
+
+import { M } from 'meteor/m:lib-core'
+
+import './muhur-bilgi.html';
+
 Template.muhurBilgi.onCreated(function() {
 
   this.autorun(() =>{

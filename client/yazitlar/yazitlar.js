@@ -1,3 +1,16 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { Tracker } from 'meteor/tracker';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Blaze } from 'meteor/blaze';
+import { $ } from 'meteor/jquery';
+
+import { PDFJS } from 'meteor/pascoual:pdfjs';
+
+import { M } from 'meteor/m:lib-core';
+
+import './yazitlar.html';
+
 Template.yazitlar.onCreated(function() {
 
   this.aktifDers = new ReactiveVar();

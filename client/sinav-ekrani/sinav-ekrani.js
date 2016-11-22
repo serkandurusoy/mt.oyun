@@ -1,3 +1,18 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Session } from 'meteor/session';
+import { Blaze } from 'meteor/blaze';
+import { Tracker } from 'meteor/tracker';
+import { _ } from 'meteor/underscore';
+
+import { moment } from 'meteor/momentjs:moment';
+import { TimeSync } from 'meteor/mizzao:timesync';
+
+import { M } from 'meteor/m:lib-core';
+
+import './sinav-ekrani.html';
+
 let sinavSureCounterInterval;
 
 Template.sinavEkrani.onCreated(function() {

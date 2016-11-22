@@ -1,3 +1,14 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Tracker } from 'meteor/tracker';
+import { $ } from 'meteor/jquery';
+import { _ } from 'meteor/underscore';
+
+import { M } from 'meteor/m:lib-core';
+
+import './boy-tasi.html';
+
 Template.boyTasi.onCreated(function() {
   this.filtreSube = new ReactiveVar('sube');
   this.filtreRutbe = new ReactiveVar({min: -1});
