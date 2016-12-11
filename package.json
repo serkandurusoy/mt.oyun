@@ -4,10 +4,8 @@
   "description": "Mitolojix oyun arayuzu",
   "main": "main.js",
   "scripts": {
-    "run": "MONGO_URL=mongodb://localhost:27017/mitolojixdev MONGO_OPLOG_URL=mongodb://localhost:27017/local meteor run --settings .config/settings-dev.json --port 4000",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "meteor build ../builds/oyun/",
-    "update": "meteor update"
+    "start": "MONGO_URL=mongodb://localhost:27017/mitolojixdev MONGO_OPLOG_URL=mongodb://localhost:27017/local meteor run --settings .config/settings-dev.json --port 4000",
+    "build": "meteor build ../builds/oyun/"
   },
   "repository": {
     "type": "git",
@@ -19,5 +17,10 @@
     "url": "https://github.com/mitolojix/issues/issues"
   },
   "homepage": "https://oyun.mitolojix.com",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "babel-runtime": "^6.18.0",
+    "bcrypt": "^1.0.1",
+    "meteor-node-stubs": "~0.2.3"
+  }
 }

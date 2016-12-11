@@ -1,4 +1,31 @@
 ###################################
+# meteor                          #
+###################################
+meteor-base
+mobile-experience
+jquery
+underscore
+check
+random
+mongo
+reactive-var
+reactive-dict
+tracker
+session
+blaze@=2.1.9 # 2.2.0 breaks autoform completely
+blaze-html-templates
+email
+ejson
+accounts-base
+accounts-password
+fastclick
+standard-minifier-css
+standard-minifier-js
+es5-shim
+ecmascript
+shell-server
+
+###################################
 # core                            #
 ###################################
 m:lib-core
@@ -7,6 +34,12 @@ m:lib-core
 # device-detection                #
 ###################################
 flowkey:bowser
+
+
+###################################
+# module system hack              #
+###################################
+aldeed:autoform # so that we can reuse the common code that imports from autoform
 
 ###################################
 # mitolojix-packages              #

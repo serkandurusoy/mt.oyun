@@ -11,6 +11,8 @@ import { M } from 'meteor/m:lib-core';
 
 import './layout.html';
 
+window.M = M;
+
 BlazeLayout.setRoot('body');
 
 Reload.delay = 4000;
