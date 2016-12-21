@@ -352,7 +352,7 @@ Template.sinavEkrani.events({
     }
 
     if (tip === 'boslukDoldurma') {
-      const bosBirakilanAdet = t.$('input[type="text"]').filter(() => {
+      const bosBirakilanAdet = t.$('input[type="text"]').filter(function() {
         return M.L.Trim($(this).val()).length === 0
       }).length;
       if (bosBirakilanAdet === 0) {
