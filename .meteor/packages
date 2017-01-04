@@ -12,13 +12,12 @@ reactive-var
 reactive-dict
 tracker
 session
-blaze@=2.1.9 # 2.2.0 breaks autoform completely
+blaze
 blaze-html-templates
 email
 ejson
 accounts-base
 accounts-password
-fastclick
 standard-minifier-css
 standard-minifier-js
 es5-shim

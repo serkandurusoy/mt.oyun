@@ -67,7 +67,11 @@ Template.sinavEkrani.onCreated(function() {
             this.sinav.set(sinav);
 
             if (sinav.iptal === true || (sinav.tip === 'canli' && sinav.canliStatus === 'completed')) {
-              Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
+              Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id}, (error, result) => {
+                if (error && error.error === '403' ) {
+                  Meteor.clearInterval(sinavSureCounterInterval);
+                }
+              });
             } else {
               if (sinav.tip === 'canli') {
                 this.kalanSure.set('Canlı ' + sinav.sure.toString() + 'dk');
@@ -82,7 +86,11 @@ Template.sinavEkrani.onCreated(function() {
                   sinavSureCounterInterval = Meteor.setInterval(() => {
                     if (t < 1000) {
                       if (sinavKagidi) {
-                        Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
+                        Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id}, (error, result) => {
+                          if (error && error.error === '403' ) {
+                            Meteor.clearInterval(sinavSureCounterInterval);
+                          }
+                        });
                       }
                       Meteor.clearInterval(sinavSureCounterInterval);
                     } else {
@@ -117,7 +125,7 @@ Template.sinavEkrani.onCreated(function() {
 
 });
 
-Template.sinavEkrani.onDestroyed(() => {
+Template.sinavEkrani.onDestroyed(function() {
   Meteor.clearInterval(sinavSureCounterInterval);
 });
 
@@ -261,7 +269,11 @@ Template.sinavEkrani.events({
     e.preventDefault();
     const sinavKagidi = t.sinavKagidi.get();
     if (sinavKagidi) {
-      Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id});
+      Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id}, (error, result) => {
+        if (error && error.error === '403' ) {
+          Meteor.clearInterval(sinavSureCounterInterval);
+        }
+      });
     }
     t.sinavUyari.set(false);
     Session.set('sinavGoster',false);

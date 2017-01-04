@@ -56,7 +56,7 @@ Template.layout.onCreated(function() {
 
 });
 
-Template.layout.onRendered(() => {
+Template.layout.onRendered(function() {
   if (Reload.didHotReload) {
     if (Meteor.userId()) {
       toastr.success('Mitolojix uygulamasının güncel sürümüne başarıyla yükseltildiniz.', null, {onHidden: () => Reload.didHotReload = false});
@@ -84,23 +84,23 @@ Template.layout.helpers({
   }
 });
 
-Template.registerHelper('isHotReloading', () => {
+Template.registerHelper('isHotReloading', function() {
   return Reload.isHotReloading;
 });
 
-Template.registerHelper('sinavGoster', () => {
+Template.registerHelper('sinavGoster', function() {
   return Session.get('sinavGoster');
 });
 
-Template.registerHelper('sinavYanitGoster', () => {
+Template.registerHelper('sinavYanitGoster', function() {
   return Session.get('sinavYanitGoster');
 });
 
-Template.registerHelper('devamEdenSinavVar', () => {
+Template.registerHelper('devamEdenSinavVar', function() {
   return Session.get('devamEdenSinavVar');
 });
 
-Template.body.onRendered(() => {
+Template.body.onRendered(function() {
 //  prevent rubber band overscroll behavior on mobile browsers
 //  allows native default behavior for elements inside body, but not
 //  for the scrolling the page itself
