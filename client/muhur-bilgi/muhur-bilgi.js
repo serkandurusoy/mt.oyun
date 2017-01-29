@@ -49,8 +49,6 @@ Template.muhurBilgi.helpers({
     });
     if (moment().isAfter(sinav.kapanisZamani)) {
       return 'sinavKapandi'
-    } else if (moment().add(24, 'hours').isAfter(sinav.kapanisZamani)) {
-      return 'sinavYaklasti';
     } else {
       return 'DD MMMM YYYY HH:mm';
     }
