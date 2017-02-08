@@ -19,6 +19,7 @@ Template.sinavEkrani.onCreated(function() {
 
   this.renderDate = new ReactiveVar(new Date());
   this.sinavUyari = new ReactiveVar(false);
+  this.sinavEkraniCikisUyari = new ReactiveVar(false);
   this.sinavYardim = new ReactiveVar(false);
   this.renderComponent = new ReactiveVar(true);
   this.seciliSoruIndex = new ReactiveVar(0);
@@ -159,6 +160,9 @@ Template.sinavEkrani.helpers({
   sinavUyari() {
     return Template.instance().sinavUyari.get();
   },
+  sinavEkraniCikisUyari() {
+    return Template.instance().sinavEkraniCikisUyari.get();
+  },
   sinavKagidi() {
     return Template.instance().sinavKagidi.get();
   },
@@ -252,8 +256,15 @@ Template.sinavEkrani.events({
   },
   'click .dugmeNav.anaEkran'(e,t) {
     e.preventDefault();
+    t.sinavEkraniCikisUyari.set(true);
+  },
+  'click .ekrandanCikmaktanVazgec'(e,t){
+    t.sinavEkraniCikisUyari.set(false);
+  },
+  'click .ekrandanCikmayiOnayla'(e,t){
+    e.preventDefault();
+    t.sinavEkraniCikisUyari.set(false);
     Session.set('sinavGoster',false);
-    Blaze.renderWithData(Template.coverModalPrompt, {message: '<strong>Dikkat!</strong> Testin <strong>süresi işlemeye devam ediyor</strong>! Test ekranından şimdi çıkıyorsun ama süre bitmeden önce tekrar geri dönebilirsin.'}, document.body);
   },
   'click .sinavYardim'(e,t) {
     t.sinavYardim.set(false);

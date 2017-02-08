@@ -35,6 +35,10 @@
 
     </div>
 
+    {{#if sinavEkraniCikisUyari}}
+      {{> sinavEkraniCikisModal}}
+    {{/if}}
+
     {{#if sinavUyari}}
       {{>sinavUyariModal}}
     {{/if}}
@@ -119,6 +123,24 @@
       <p style="margin-top: 24px; text-align: center !important;">
         <a class="kapatmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">teste dön</a>
         <a class="kapatmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">testi bitir</a>
+      </p>
+    </div>
+  </div>
+</template>
+
+
+<template name="sinavEkraniCikisModal">
+  <div class="cover">
+    <div class="sinavEkraniCikisUyari" style="padding-top: 40px; text-align: center">
+      <p>
+        <strong style="font-size: 110%;">Dikkat!
+        Testin süresi işlemeye devam ediyor</strong>!
+        Test ekranından şimdi çıkıyorsun ama süre bitmeden önce tekrar geri dönmelisin. Süre dolduğunda test kapanır ve artık devam edemezsin.
+      </p>
+      <p>Test ekranından çıkmak istediğine emin misin ?</p>
+      <p style="margin-top: 24px; text-align: center !important;">
+        <a class="ekrandanCikmaktanVazgec" style="font-weight: bold; display: inline-block; width: 100px; text-align: center">Hayır</a>
+        <a class="ekrandanCikmayiOnayla anaDugme" style="position: relative; display: inline-block; padding-top: 11px;">Evet</a>
       </p>
     </div>
   </div>
