@@ -97,7 +97,6 @@ Template.loginForm.events({
     const kullanici = M.L.LatinizeLower(M.L.Trim(t.$('[name="kullanici"]').val()));
     check(kullanici, String);
     M.L.clearSessionVariable('resetToken');
-
     if (kullanici.length < 1) {
       toastr.error('E-posta adresi girmelisin.');
     } else {
@@ -105,13 +104,10 @@ Template.loginForm.events({
         toastr.error('E-posta adresi girmelisin.');
       } else {
         Session.set('accountButtonsDisabled', 'disabled');
-        Accounts.forgotPassword(
-          {email: kullanici},
-          (err) => {
-            M.L.clearSessionVariable('accountButtonsDisabled');
-            Blaze.renderWithData(Template.coverModalPromptPersistent, {message: '<span style="font-size: 16px;">Lütfen <strong>' + kullanici + '</strong> adresine ait e-posta kutunu kontrol et. Yeni bir şifre tanımlayabilmen için gerekli adımı içeren bir mesaj birkaç dakika içinde e-posta adresine iletilecek. Eğer birden fazla talep yaptıysan ya da e-posta kutunda bu konuda birden fazla mesaj görürsen, <strong>en son gelen mesajı</strong> dikkate almalısın.</span>'}, document.body);
-          }
-        )
+        Meteor.call('accountForgotPassword',kullanici, (err) => {
+          M.L.clearSessionVariable('accountButtonsDisabled');
+          Blaze.renderWithData(Template.coverModalPromptPersistent, {message: '<span style="font-size: 16px;">Lütfen <strong>' + kullanici + '</strong> adresine ait e-posta kutunu kontrol et. Yeni bir şifre tanımlayabilmen için gerekli adımı içeren bir mesaj birkaç dakika içinde e-posta adresine iletilecek. Eğer birden fazla talep yaptıysan ya da e-posta kutunda bu konuda birden fazla mesaj görürsen, <strong>en son gelen mesajı</strong> dikkate almalısın.</span>'}, document.body);
+        })
       }
     }
 
