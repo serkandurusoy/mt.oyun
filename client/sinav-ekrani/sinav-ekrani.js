@@ -13,9 +13,9 @@ import { M } from 'meteor/m:lib-core';
 
 import './sinav-ekrani.html';
 
-let sinavSureCounterInterval;
 
 Template.sinavEkrani.onCreated(function() {
+  sinavSureCounterIntervals = []
 
   this.renderDate = new ReactiveVar(new Date());
   this.sinavUyari = new ReactiveVar(false);
@@ -27,6 +27,8 @@ Template.sinavEkrani.onCreated(function() {
   this.kalanSureBitiyor = new ReactiveVar(false);
   this.sinavKagidi = new ReactiveVar(null);
   this.sinav = new ReactiveVar(null);
+  this.sinavSureCounterInterval = null
+  this.sinavSureCounterIntervals = []
 
   this.autorun(() => {
     const aktifEgitimYili = M.C.AktifEgitimYili.findOne();
@@ -59,10 +61,10 @@ Template.sinavEkrani.onCreated(function() {
           this.sinavKagidi.set(sinavKagidi);
 
           const sinav = sinavKagidi && M.C.Sinavlar.findOne({
-            _id: sinavKagidi.sinav,
-            iptal: false,
-            kapanisZamani: {$gt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
-          });
+              _id: sinavKagidi.sinav,
+              iptal: false,
+              kapanisZamani: {$gt: moment(TimeSync.serverTime(null, 5 * 60 * 1000)).toDate()}
+            });
           if (sinav) {
 
             this.sinav.set(sinav);
@@ -70,7 +72,7 @@ Template.sinavEkrani.onCreated(function() {
             if (sinav.iptal === true || (sinav.tip === 'canli' && sinav.canliStatus === 'completed')) {
               Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id}, (error, result) => {
                 if (error && error.error === '403' ) {
-                  Meteor.clearInterval(sinavSureCounterInterval);
+                  this.sinavSureCounterInterval.forEach(sinavSureCounterInterval => Meteor.clearInterval(sinavSureCounterInterval));
                 }
               });
             } else {
@@ -84,16 +86,20 @@ Template.sinavEkrani.onCreated(function() {
                   t = sinav.kapanisZamani.getTime() - TimeSync.serverTime(null, 5 * 60 * 1000);
                 }
                 if (t) {
-                  sinavSureCounterInterval = Meteor.setInterval(() => {
+                  this.sinavSureCounterInterval = Meteor.setInterval(() => {
+                    if(!this.sinavSureCounterIntervals.includes(this.sinavSureCounterInterval)) {
+                      this.sinavSureCounterIntervals.push(this.sinavSureCounterInterval)
+                    }
+
                     if (t < 1000) {
                       if (sinavKagidi) {
                         Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id}, (error, result) => {
                           if (error && error.error === '403' ) {
-                            Meteor.clearInterval(sinavSureCounterInterval);
+                            this.sinavSureCounterIntervals.forEach(sinavSureCounterInterval => Meteor.clearInterval(sinavSureCounterInterval));
                           }
                         });
                       }
-                      Meteor.clearInterval(sinavSureCounterInterval);
+                      this.sinavSureCounterIntervals.forEach(sinavSureCounterInterval => Meteor.clearInterval(sinavSureCounterInterval));
                     } else {
                       if (t > 3 * 60 * 1000 - 1000 && t <= 3 * 60 * 1000) {
                         toastr.error('Son 3 dakika!');
@@ -127,7 +133,7 @@ Template.sinavEkrani.onCreated(function() {
 });
 
 Template.sinavEkrani.onDestroyed(function() {
-  Meteor.clearInterval(sinavSureCounterInterval);
+  this.sinavSureCounterIntervals.forEach(sinavSureCounterInterval => Meteor.clearInterval(sinavSureCounterInterval));
 });
 
 Template.sinavUyariModal.helpers({
@@ -282,7 +288,7 @@ Template.sinavEkrani.events({
     if (sinavKagidi) {
       Meteor.call('sinaviBitir', {sinavKagidiId: sinavKagidi._id}, (error, result) => {
         if (error && error.error === '403' ) {
-          Meteor.clearInterval(sinavSureCounterInterval);
+          this.sinavSureCounterIntervals.forEach(sinavSureCounterInterval => Meteor.clearInterval(sinavSureCounterInterval));
         }
       });
     }
