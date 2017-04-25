@@ -72,15 +72,7 @@
 <template name="sinavEkraniYardim">
   <div class="cover">
     <div class="sinavYardim">
-      <p>
-        Bu ekranda mühürü kazanmak için çözmen gereken soruyu, soru puanını ve testi tamamlamak için kalan süreyi görüyorsun. Soru seçimini soru numarası kutucuklarına {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} yapabilirsin.
-      </p>
-      <p>
-        Yanıtını verdiğinde <img src="/assets/_bilesen/yardim-sinav-yanitla-buton.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Yanıtladığın soruların numaraları {{#unless $eq sinavTip 'alistirma'}}<img src="/assets/_bilesen/cevapVerildi.png" title="" alt="" class="yardimImg"> biçiminde {{/unless}}işaretlenir. {{#if $eq sinavTip 'alistirma'}}Yanlış yanıtladığın{{else}}İstediğin{{/if}} soruya geri dönüp yanıtını değiştirebilirsin. Bir soruyu tekrar geri dönmek üzere işaretlemek istersen soru kutucuğuna çift {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. İşareti kaldırmak için tekrar çift {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.
-      </p>
-      <p>
-        Testi tamamladığında <img src="/assets/_bilesen/dugme-nav/testibitir.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. <strong>Dikkat!</strong> Testi bu düğme ile bitirdikten sonra tekrar geri dönemezsin. Teste <img src="/assets/_bilesen/dugme-nav/geri.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} ara verebilirsin ama test süren geri saymaya devam edecektir.
-      </p>
+      <img src="/assets/yardim-ekranlari/yardimEkrani-sinavYardim.jpg" alt="">
       {{#if $eq sinavTip 'alistirma'}}
         <p>
           Bu bir Alıştırma Testi; dolayısıyla, soruyu yanlış çözdüğünde <strong style="color: darkred">Y</strong> doğru çözdüğünde ise <strong style="color: gray">D</strong> şeklinde işaretlenir. <strong>Dikkat!</strong> Yanlış yanıtladığın bir soruyu tekrar çözebilirsin ama alıştırma testinde her yanlış yanıtında sorudan kazanabileceğin puan azalacaktır.

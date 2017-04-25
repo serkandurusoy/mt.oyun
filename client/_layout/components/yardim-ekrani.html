@@ -3,42 +3,29 @@
     <div class="cover">
       <div class="yardimEkrani">
         {{#if $eq ctx 'login'}}
-          <p>Giriş için Mitolojix'ten hesap etkinleştirme mesajını aldığın e-posta adresini kullan. Şifren TC kimlik numaranın son 6 hanesidir.</p>
+          <img src="/assets/yardim-ekranlari/yardimEkrani-login.jpg" alt="">
         {{/if}}
         {{#if $eq ctx 'resetPassword'}}
           <p>Mitolojix oyunu için kendine bir şifre belirle ve iki kere yazarak tamam düğmesine tıkla. Merak etme... şifreni bilmiyorsan oyun giriş ekranında "şifremi bilmiyorum"a tıklayarak yeni bir şifre tanımlayabilirsin.</p>
         {{/if}}
         {{#if $eq ctx 'anaEkran'}}
-          <p>Bu ekranda seçtiğin karakter resmini ve rütbeni görüyorsun. Buradan şu bölümlere ulaşabilirsin:</p>
-          <p>
-            <strong>Boy Taşı: </strong>Arkadaşlarının ve kendi rütbeni burada görebilirsin.<br>
-            <strong>Öz Taşı: </strong>Karakterinin resmini burada seçebilirsin.<br>
-            <strong>Mühür Taşı: </strong>Kazanabileceğin mühürler burada.<br>
-            <strong>Yazıtlar: </strong>Öğretmenin sana yardımcı olabilecek dosyaları buraya koyar.
-          </p>
-          <p>Oyundan çıkmak için <img src="/assets/_bilesen/dugme-nav/cikis.png" title="" alt="" class="yardimImg"> düğmesine {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.</p>
+          <img src="/assets/yardim-ekranlari/yardimEkrani-anaEkran.jpg">
         {{/if}}
         {{#if $eq ctx 'ozTasi'}}
-          <p>Burada Mitolojix bilgilerini görebilirsin. Oyunda seni temsil eden karakter resmini seçmek için sağ ve sol oklara {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}. Resmini istediğin zaman değiştirebilirsin. Rütbeni ve mühürleri kazanırken topladığın puanların ortalamasını Öz Taşı'nda görürsün. En düşük rütbe <img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"> en yüksek rütbe <img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-ay.png" title="" alt="" class="yardimImg"> simgesidir. Rütbeni kazandığın puanlar belirler.</p>
+          <img src="/assets/yardim-ekranlari/yardimEkrani-ozTasi.jpg">
         {{/if}}
         {{#if $eq ctx 'yazitlar'}}
-          <p>Öğretmeninin her mühür grubu için koyduğu belgelere buradan ulaşabilirsin. Konular altında bir dosya varsa {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} açabilir, bilgisayarına indirebilirsin. Sayfada ilerlemek için <img src="/assets/_bilesen/dugme-yon/asagi-sari.png" title="" alt="" class="yardimImg"> ve <img src="/assets/_bilesen/dugme-yon/yukari-sari.png" title="" alt="" class="yardimImg"> düğmelerini kullan.</p>
+          <img src="/assets/yardim-ekranlari/yardimEkrani-yazitlar.jpg">
         {{/if}}
         {{#if $eq ctx 'boyTasi'}}
-          <p>Bu ekranda rütbesi <img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"><img src="/assets/ana-ekran/rutbe-yildiz.png" title="" alt="" class="yardimImg"> ve üzeri olan arkadaşlarının sıralamasını görebilirsin. Değişik şube ve rütbe sıralamaları için arama kutucuklarını kullanabilirsin. Listede ilerlemek için yukarı/aşağı düğmelerini kullan. Tekrar şube sıralamasına dönmek için <img src="/assets/_bilesen/dugme-temizle-pasif.png" title="" alt="" class="yardimImg"> düğmesine tıkla.</p>
+          <img src="/assets/yardim-ekranlari/yardimEkrani-boyTasi.jpg">
         {{/if}}
         {{#if $eq ctx 'muhurTasi'}}
-          <p>Kazandığın mühürleri burada görebilirsin. Eğer mühür yanıp sönüyorsa, o kazanabileceğin yeni bir mühür demektir. Her mühürün altındaki çizgi test başarı yüzdeni gösterir. Mühüre {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} mühür bilgilerine ulaşabilir ya da yeni bir mühür kazanmak için teste başlayabilirsin. Mühür gruplarına {{#if desktopDevice}}tıklayarak{{else}}dokunarak{{/if}} diğer gruplara ait mühür sayfalarına geçebilirsin. Eğer bir mühür grubu yanıp sönüyorsa, o grupta kazanılacak yeni bir mühür var demektir. <strong>Dikkat!</strong> Bir mühürün testini tamamlamadan başka bir mühürün testine başlayamazsın.</p>
+          <img src="/assets/yardim-ekranlari/yardimEkrani-muhurTasi.jpg">
         {{/if}}
         {{#if $eq ctx 'muhurBilgi'}}
-          <p>Bir mühürle ilgili tüm bilgilere bu ekrandan ulaşabilirsin. Mühre ait testi buradan başlatabilir, test bittikten sonra yanıtlarına buradan erişebilirsin. <strong>Dikkat:</strong></p>
-          <p>
-            &bull; Testi burada belirtilen kapanma tarihinden önce tamamlamalısın; yoksa o mühür için sıfır puan alırsın.<br>
-            &bull; Bir mühürün testini tamamlamadan başka bir mühürün testine başlayamazsın.<br>
-            &bull; "Testi Bitir" diyerek çıktığın bir teste tekrar giremezsin.
-          </p>
+          <img src="/assets/yardim-ekranlari/yardimEkrani-muhurBilgi.jpg">
         {{/if}}
-        <p style="margin-top: 4px; font-size: 80%; font-style: italic">Bu pencereyi kapatmak için lütfen buraya {{#if desktopDevice}}tıkla{{else}}dokun{{/if}}.</p>
       </div>
     </div>
   {{/if}}
