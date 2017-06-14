@@ -8,7 +8,7 @@ import { Tracker } from 'meteor/tracker';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
 
-import { FlowRouter } from 'meteor/kadira:flow-router';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import { M } from 'meteor/m:lib-core';
 
