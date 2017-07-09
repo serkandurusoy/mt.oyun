@@ -1,11 +1,11 @@
 {
   "name": "mitolojix-oyun",
-  "version": "1.0.0",
+  "version": "1.6.0",
   "description": "Mitolojix oyun arayuzu",
   "main": "main.js",
   "scripts": {
     "start": "MONGO_URL=mongodb://localhost:27017/mitolojixdev MONGO_OPLOG_URL=mongodb://localhost:27017/local meteor run --settings .config/settings-dev.json --port 4000",
-    "build": "meteor build ../builds/oyun/"
+    "build": "meteor build --directory ../builds/oyun/"
   },
   "repository": {
     "type": "git",
