@@ -56,9 +56,9 @@ input[type="text"], input[type="password"] {
   padding-top: 4px;
   width: 85px;
   height: 46px;
-  background: transparent url('/assets/_bilesen/dugme-dikdortgen-sari.png') left top no-repeat;
+  background: transparent url('/assets/bilesen/dugme-dikdortgen-sari.png') left top no-repeat;
   &:hover, &:active, &:focus {
-    background: transparent url('/assets/_bilesen/dugme-dikdortgen-kirmizi.png') left top no-repeat;
+    background: transparent url('/assets/bilesen/dugme-dikdortgen-kirmizi.png') left top no-repeat;
     color: #ffffff;
   }
 }
@@ -70,7 +70,7 @@ input[type="text"], input[type="password"] {
   padding-top: 4px;
   width: 167px;
   height: 46px;
-  background: transparent url('/assets/_bilesen/uyari-ekrani-dugme-zemini.png') left top no-repeat;
+  background: transparent url('/assets/bilesen/uyari-ekrani-dugme-zemini.png') left top no-repeat;
   &:hover, &:active, &:focus {
     color: #382c1c;
   }
@@ -81,9 +81,9 @@ input[type="text"], input[type="password"] {
   position: absolute;
   width: 34px;
   height: 34px;
-  background: transparent url('/assets/_bilesen/dugme-yon/sola-sari.png') left top no-repeat;
+  background: transparent url('/assets/bilesen/dugme-yon/sola-sari.png') left top no-repeat;
   &:hover, &:active, &:focus {
-    background: transparent url('/assets/_bilesen/dugme-yon/sola-kirmizi.png') left top no-repeat;
+    background: transparent url('/assets/bilesen/dugme-yon/sola-kirmizi.png') left top no-repeat;
   }
 }
 
@@ -92,9 +92,9 @@ input[type="text"], input[type="password"] {
   position: absolute;
   width: 34px;
   height: 34px;
-  background: transparent url('/assets/_bilesen/dugme-yon/saga-sari.png') left top no-repeat;
+  background: transparent url('/assets/bilesen/dugme-yon/saga-sari.png') left top no-repeat;
   &:hover, &:active, &:focus {
-    background: transparent url('/assets/_bilesen/dugme-yon/saga-kirmizi.png') left top no-repeat;
+    background: transparent url('/assets/bilesen/dugme-yon/saga-kirmizi.png') left top no-repeat;
   }
 }
 
@@ -103,9 +103,9 @@ input[type="text"], input[type="password"] {
   position: absolute;
   width: 34px;
   height: 34px;
-  background: transparent url('/assets/_bilesen/dugme-yon/yukari-sari.png') left top no-repeat;
+  background: transparent url('/assets/bilesen/dugme-yon/yukari-sari.png') left top no-repeat;
   &:hover, &:active, &:focus {
-    background: transparent url('/assets/_bilesen/dugme-yon/yukari-kirmizi.png') left top no-repeat;
+    background: transparent url('/assets/bilesen/dugme-yon/yukari-kirmizi.png') left top no-repeat;
   }
 }
 
@@ -114,15 +114,15 @@ input[type="text"], input[type="password"] {
   position: absolute;
   width: 34px;
   height: 34px;
-  background: transparent url('/assets/_bilesen/dugme-yon/asagi-sari.png') left top no-repeat;
+  background: transparent url('/assets/bilesen/dugme-yon/asagi-sari.png') left top no-repeat;
   &:hover, &:active, &:focus {
-    background: transparent url('/assets/_bilesen/dugme-yon/asagi-kirmizi.png') left 4px no-repeat;
+    background: transparent url('/assets/bilesen/dugme-yon/asagi-kirmizi.png') left 4px no-repeat;
   }
 }
 
 .container {
   position: fixed;
-  height: 768px;
+  height: 800px;
   width: 1024px;
   overflow: hidden;
   //margin: auto;
@@ -157,7 +157,7 @@ input[type="text"], input[type="password"] {
 }
 
 .loading {
-  position: fixed;
+  position: absolute;
   height: 260px;
   width: 260px;
   overflow: hidden;
@@ -166,13 +166,13 @@ input[type="text"], input[type="password"] {
 }
 
 .notFound,.connectionBanner, .yetkiYok, .deviceNotOk, .fullScreen, .sinavaBasla, .sinavEkraniCikisUyari, .sinavUyari, .sinavStatus, .coverModalPrompt {
-  position: fixed;
+  position: absolute;
   height: 270px;
   width: 612px;
   overflow: hidden;
   margin: auto;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: transparent url("/assets/_bilesen/uyari-ekrani.png") left top no-repeat;
+  background: transparent url("/assets/bilesen/uyari-ekrani.png") left top no-repeat;
   padding: 80px 60px 0 60px;
   text-align: center;
 }
@@ -183,24 +183,38 @@ input[type="text"], input[type="password"] {
 }
 
 
-.yardimEkrani, .sinavYardim {
+.yardimEkrani, sinavYardim {
   position: fixed;
   overflow: hidden;
   margin: auto;
   top: 0; left: 0; bottom: 0; right: 0;
-  padding: 40px;
   text-align: justify;
 }
 
 .yardimEkrani {
-  height: 848px;
-  width: 1104px;
+  position: fixed;
+  height: 800px;
+  width: 1024px;
+  overflow: hidden;
+  //margin: auto;
+  //top: 0; left: 0; bottom: 0; right: 0;
+  top: 50%;
+  left: 50%;
+  margin: -384px 0 0 -512px;
 }
 
 .sinavYardim {
-  height: 850px;
-  width: 1100px;
+  position: fixed;
+  height: 800px;
+  width: 1024px;
+  overflow: hidden;
+  //margin: auto;
+  //top: 0; left: 0; bottom: 0; right: 0;
+  top: 50%;
+  left: 50%;
+  margin: -384px 0 0 -512px;
 }
+
 
 .giris {
   background: transparent url("/assets/giris/_main.jpg") no-repeat left top;
@@ -245,9 +259,9 @@ input[type="text"], input[type="password"] {
   overflow: visible;
   margin: 0 13px;
   border: 0;
-  background: url("/assets/_bilesen/dugme-jenerik/pasif-orta.png") 12px 0 repeat ;
+  background: url("/assets/bilesen/dugme-jenerik/pasif-orta.png") 12px 0 repeat ;
   &:hover {
-    background-image: url("/assets/_bilesen/dugme-jenerik/aktif-orta.png");
+    background-image: url("/assets/bilesen/dugme-jenerik/aktif-orta.png");
   }
 }
 
@@ -261,22 +275,22 @@ input[type="text"], input[type="password"] {
 
 .anaDugme::before {
   left: -12px;
-  background: url("/assets/_bilesen/dugme-jenerik/pasif-sol.png") 0 0 no-repeat;
+  background: url("/assets/bilesen/dugme-jenerik/pasif-sol.png") 0 0 no-repeat;
 }
 
 .anaDugme:hover::before {
   left: -12px;
-  background: url("/assets/_bilesen/dugme-jenerik/aktif-sol.png") 0 0 no-repeat;
+  background: url("/assets/bilesen/dugme-jenerik/aktif-sol.png") 0 0 no-repeat;
 }
 
 .anaDugme::after {
   right: -12px;
-  background:url("/assets/_bilesen/dugme-jenerik/pasif-sag.png") 100% 0 no-repeat;
+  background:url("/assets/bilesen/dugme-jenerik/pasif-sag.png") 100% 0 no-repeat;
 }
 
 .anaDugme:hover::after {
   right: -12px;
-  background:url("/assets/_bilesen/dugme-jenerik/aktif-sag.png") 100% 0 no-repeat;
+  background:url("/assets/bilesen/dugme-jenerik/aktif-sag.png") 100% 0 no-repeat;
 }
 
 .yardimImg {
