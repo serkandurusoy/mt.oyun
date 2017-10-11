@@ -72,14 +72,12 @@ Template.layout.helpers({
     return Session.get('yardimGoster');
   },
   deviceOK() {
-    console.log(`heigth ${window.screen.height}`);
-    console.log(`width ${window.screen.width}`);
-    return bowser.tablet || (bowser.a || (
+    return (bowser.tablet || bowser.a) && (
         (window.screen.height >= 768 && window.screen.width >= 1024) ||
         (window.screen.width >= 768 && window.screen.height >= 1024) ||
         (window.matchMedia( '(min-device-height: 768px)' ).matches && window.matchMedia( '(min-device-width: 1024px)' ).matches) ||
         (window.matchMedia( '(min-device-width: 768px)' ).matches && window.matchMedia( '(min-device-height: 1024px)' ).matches)
-      ));
+      );
   },
   notSafari() {
     return !bowser.safari;
