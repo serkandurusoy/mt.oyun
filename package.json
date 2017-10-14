@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "MONGO_URL=mongodb://localhost:27017/mitolojixdev MONGO_OPLOG_URL=mongodb://localhost:27017/local meteor run --settings .config/settings-dev.json --port 4000",
-    "build": "meteor build --directory ../builds/oyun/ --server https://test-v16.mitolojix.com",
+    "build": "meteor build --directory ../builds/oyun/ --server-only",
+    "build-full": "meteor build --directory ../builds/oyun/ --server https://test-v16.mitolojix.com",
     "run-android": "MONGO_URL=mongodb://localhost:27017/mitolojixdev MONGO_OPLOG_URL=mongodb://localhost:27017/local meteor run android-device --settings .config/settings-dev.json --port 4000"
   },
   "repository": {
