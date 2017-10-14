@@ -72,7 +72,7 @@ Template.layout.helpers({
     return Session.get('yardimGoster');
   },
   deviceOK() {
-    return bowser.a && (
+    return (bowser.tablet || bowser.a) && (
         (window.screen.height >= 768 && window.screen.width >= 1024) ||
         (window.screen.width >= 768 && window.screen.height >= 1024) ||
         (window.matchMedia( '(min-device-height: 768px)' ).matches && window.matchMedia( '(min-device-width: 1024px)' ).matches) ||
