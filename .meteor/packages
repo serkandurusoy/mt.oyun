@@ -62,4 +62,5 @@ m:lib-fullscreen
 # meteorhacks:subs-manager        # TODO: maybe later for fine grained performance
 dynamic-import@0.5.0
 
+ostrio:flow-router-extra@3.6.0
 coffeescript@2.3.1_2! # note the !
